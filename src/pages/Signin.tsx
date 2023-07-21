@@ -52,7 +52,7 @@ function Signin() {
             >지하그라운드</Text>
             <Text
               style={{ fontFamily: 'Font-Title-Light' }}
-            >오 늘 도 생 존</Text>
+            >오 늘 도 출 근</Text>
           </Flex>
           <Flex
             direction='column'

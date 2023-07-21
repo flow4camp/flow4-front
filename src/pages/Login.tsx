@@ -1,5 +1,5 @@
 import React, {  ChangeEvent } from "react";
-import { Box, Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
+import { Box, Center, Image, Text, Input, Button, Flex, Divider } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
@@ -47,7 +47,7 @@ function Login() {
             >지하그라운드</Text>
             <Text
               style={{ fontFamily: 'Font-Title-Light' }}
-            >오 늘 도 생 존</Text>
+            >오 늘 도 출 근</Text>
           </Flex>
           <Flex
             direction='column'
@@ -58,7 +58,7 @@ function Login() {
             <Text 
               marginBottom={3} 
               style={{ fontFamily: 'Font-Content' }}
-            >계정에 로그인하세요</Text>
+              >계정에 로그인하세요</Text>
             <Center>
               <Input
                 variant="outline"
