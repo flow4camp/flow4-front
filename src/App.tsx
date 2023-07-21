@@ -7,14 +7,16 @@ import MyPage from "./pages/MyPage";
 import Battle from "./pages/Battle";
 import Login from "./pages/Login";
 import Signin from "./pages/Signin";
+import NavBar from "./components/NavBar";
 
 import "./App.css";
 
 function App() {
   return (
     <ChakraProvider>
-      <BrowserRouter>
-        <div className="App">
+      <div className="App">
+        <NavBar />
+        {/* <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
@@ -23,8 +25,8 @@ function App() {
             <Route path="/store" element={<Store />} />
             <Route path="/mypage" element={<MyPage />} />
           </Routes>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter> */}
+      </div>
     </ChakraProvider>
   );
 }
