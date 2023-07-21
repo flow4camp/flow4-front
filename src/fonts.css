@@ -11,3 +11,14 @@
   src: url('../public/fonts/한국기계연구원_Light.ttf') format('truetype');
 }
   
+/* 본문 폰트 - 중간 */
+@font-face {
+  font-family: 'Font-Content';
+  src: url('../public/fonts/NEXON\ Lv2\ Gothic\ Medium.ttf') format('truetype');
+}
+
+/* 본문 폰트 - 중간 */
+@font-face {
+  font-family: 'Font-Content-Light';
+  src: url('../public/fonts/NEXON\ Lv2\ Gothic\ Light.ttf') format('truetype');
+}

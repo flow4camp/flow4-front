@@ -55,7 +55,10 @@ function Login() {
             p={5}
             gap={2}
           >
-            <Text marginBottom={3} >계정에 로그인하세요</Text>
+            <Text 
+              marginBottom={3} 
+              style={{ fontFamily: 'Font-Content' }}
+            >계정에 로그인하세요</Text>
             <Center>
               <Input
                 variant="outline"
@@ -77,7 +80,10 @@ function Login() {
               />
             </Center>
           </Flex>
-          <Text fontSize="md">
+          <Text 
+            fontSize="md"
+            style={{ fontFamily: 'Font-Content' }}
+          >
             계정이 없으신가요?{' '}
             <Link to="/signin">
               <Text as="u">Sign Up</Text>
@@ -92,6 +98,7 @@ function Login() {
             <Center>
               <Button
                 w='220px'
+                style={{ fontFamily: 'Font-Content-Light' }}
               >
                 로그인
               </Button>
@@ -99,6 +106,7 @@ function Login() {
             <Center>
               <Button
                 w='220px'
+                style={{ fontFamily: 'Font-Content-Light' }}
               >
                 카카오 계정으로 로그인
               </Button>
