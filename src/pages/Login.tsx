@@ -39,7 +39,7 @@ function Login() {
           align='center'
           justify='center'
           // bg='blue'
-          gap={5}
+          gap={3}
         >
           <Flex
             direction='column'
@@ -85,7 +85,7 @@ function Login() {
           </Flex>
           <Text fontSize="md">
             계정이 없으신가요?{' '}
-            <Link to="/signUp">
+            <Link to="/signin">
               <Text as="u">Sign Up</Text>
             </Link>
           </Text>
