@@ -21,33 +21,25 @@ function Login() {
     <Center
       w='100%'
       h='100vh'
-      alignContent="center"
-      // bg='blue'
-      // position='relative'
+      alignContent="center" 
     >
       <Center
         w='70%'
         h="100vh"
-        // bg='tomato'
         alignContent='center'
-        // direction='column'
-        // align='center'
-        // justify='center'
       >
         <Flex
           direction='column'
           align='center'
           justify='center'
-          // bg='blue'
-          gap={3}
+          gap={2}
         >
           <Flex
             direction='column'
             align='center'
             justify='center'
-            // bg='green'
           >
-            <Image src='/logo192.png' w='50px' h='50px' />
+            <Image src='/logo_x0.5.png' w='50px' h='50px' m={3} />
             <Text
               fontSize='3xl'
               fontWeight='bold'
@@ -60,9 +52,8 @@ function Login() {
           <Flex
             direction='column'
             align='center'
-            // bg='yellow'
             p={5}
-            gap={3}
+            gap={2}
           >
             <Text marginBottom={3} >계정에 로그인하세요</Text>
             <Center>
@@ -96,18 +87,18 @@ function Login() {
             direction='column'
             align='center'
             p={3}
-            gap={3}
+            gap={2}
           >
             <Center>
               <Button
-                w='200px'
+                w='220px'
               >
                 로그인
               </Button>
             </Center>
             <Center>
               <Button
-                w='200px'
+                w='220px'
               >
                 카카오 계정으로 로그인
               </Button>
