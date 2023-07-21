@@ -4,6 +4,9 @@ import Home from "../pages/Home";
 import Store from "../pages/Store";
 import MyPage from "../pages/MyPage";
 import Battle from "../pages/Battle";
+import Login from "../pages/Login";
+import { Sign } from "crypto";
+import Signin from "../pages/Signin";
 
 function NavBar() {
   const [activeTab, setActiveTab] = useState("/home");
@@ -30,6 +33,8 @@ function NavBar() {
     <BrowserRouter>
       <div style={styles.tabContent}>
         <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/home" element={<Home />} />
           <Route path="/battle" element={<Battle />} />
           <Route path="/store" element={<Store />} />
