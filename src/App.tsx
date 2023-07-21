@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import MyPage from "./pages/MyPage";
@@ -13,7 +12,6 @@ import "./App.css";
 
 function App() {
   return (
-    <ChakraProvider>
       <div className="App">
         <NavBar />
         {/* <BrowserRouter>
@@ -27,7 +25,6 @@ function App() {
           </Routes>
         </BrowserRouter> */}
       </div>
-    </ChakraProvider>
   );
 }
 
