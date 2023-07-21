@@ -44,7 +44,7 @@ function Signin() {
           align='center'
           justify='center'
           // bg='blue'
-          gap={5}
+          gap={3}
         >
           <Flex
             direction='column'
@@ -56,8 +56,11 @@ function Signin() {
             <Text
               fontSize='3xl'
               fontWeight='bold'
+              style={{ fontFamily: 'Font-Title' }}
             >지하그라운드</Text>
-            <Text>오 늘 도 생 존</Text>
+            <Text
+              style={{ fontFamily: 'Font-Title-Light' }}
+            >오 늘 도 생 존</Text>
           </Flex>
           <Flex
             direction='column'

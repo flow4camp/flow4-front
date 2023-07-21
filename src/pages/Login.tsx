@@ -51,8 +51,11 @@ function Login() {
             <Text
               fontSize='3xl'
               fontWeight='bold'
+              style={{ fontFamily: 'Font-Title' }}
             >지하그라운드</Text>
-            <Text>오 늘 도 생 존</Text>
+            <Text
+              style={{ fontFamily: 'Font-Title-Light' }}
+            >오 늘 도 생 존</Text>
           </Flex>
           <Flex
             direction='column'

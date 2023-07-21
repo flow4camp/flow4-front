@@ -1,0 +1,13 @@
+
+/* 제목 폰트 */
+@font-face {
+    font-family: 'Font-Title';
+    src: url('../public/fonts/한국기계연구원_bold.ttf') format('truetype');
+  }
+
+/* 제목 폰트 - 얇게 */
+@font-face {
+  font-family: 'Font-Title-Light';
+  src: url('../public/fonts/한국기계연구원_Light.ttf') format('truetype');
+}
+  
