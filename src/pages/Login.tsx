@@ -2,9 +2,12 @@ import React, {  ChangeEvent } from "react";
 import { Box, Center, Image, Text, Input, Button, Flex, Divider } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useTheme } from '@chakra-ui/react';
 import axios from 'axios';
 
 function Login() {
+
+  const theme = useTheme();
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
