@@ -1,6 +1,5 @@
-// NavBar.tsx
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 function NavBar() {
   const [activeTab, setActiveTab] = useState("/home");
@@ -22,6 +21,13 @@ function NavBar() {
       nonActive: "/icons/user.svg",
     },
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Update the activeTab state whenever the location (route) changes
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
 
   return (
     <div style={styles.container}>
