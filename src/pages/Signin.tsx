@@ -1,8 +1,8 @@
 import React, {  ChangeEvent } from "react";
-import { Box, Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
+import { Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 function Signin() {
 
@@ -44,7 +44,7 @@ function Signin() {
             align='center'
             justify='center'
           >
-            <Image src='/logo_x0.5.png' w='50px' h='50px' m={3} />
+            <Image src='/logo_x0.5.png' w='60px' h='60px' m={3} />
             <Text
               fontSize='3xl'
               fontWeight='bold'
