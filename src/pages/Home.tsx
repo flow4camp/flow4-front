@@ -24,7 +24,7 @@ function Home() {
         </div>
         <div style={styles.userinfoText}>
           <div style={styles.userName}>{nickName}</div>
-          <div>
+          <div style={{ fontFamily: "Font-Title-Light" }}>
             전적 {winNum}승 {looseNum}패
           </div>
         </div>
@@ -60,6 +60,7 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
     height: "100vh",
   },
   userinfoContainer: {
@@ -70,6 +71,7 @@ const styles: Styles = {
     justifyContent: "center",
     alignItems: "center",
     height: "30%",
+    width: "90%",
   },
   userinfoText: { flex: 1 },
   userinfoChar: {},
@@ -77,19 +79,22 @@ const styles: Styles = {
     borderTop: "1px solid #ccc",
     marginTop: "13%",
     flex: 1,
+    width: "80%",
   },
   questType: {
     marginTop: "4%",
     fontSize: "23px",
-    fontWeight: "500",
+    fontFamily: "Font-Content",
   },
   userName: {
     fontSize: "40px",
     fontWeight: "600",
+    fontFamily: "Font-Title",
   },
   quest: {
     borderBottom: "0.5px solid #ccc",
     paddingBottom: "7%",
+    fontFamily: "Font-Content-Light",
   },
 };
 
