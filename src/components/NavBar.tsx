@@ -1,6 +1,8 @@
 // NavBar.tsx
 import React, { useState } from "react";
+
 import { NavLink } from "react-router-dom";
+
 
 function NavBar() {
   const [activeTab, setActiveTab] = useState("/home");
@@ -24,6 +26,7 @@ function NavBar() {
   };
 
   return (
+
     <div style={styles.container}>
       <div style={styles.tabContainer}>
         <NavLink
@@ -86,6 +89,7 @@ function NavBar() {
             alt="My Page"
           />
         </NavLink>
+
       </div>
     </div>
   );
