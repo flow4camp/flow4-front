@@ -49,7 +49,7 @@ function NavBar() {
                   ? tabIcons["/home"].active
                   : tabIcons["/home"].nonActive
               }
-              style={{ width: "30px" }}
+              style={{ width: "25px" }}
               alt="Home"
             />
           </Link>
@@ -64,7 +64,7 @@ function NavBar() {
                   ? tabIcons["/battle"].active
                   : tabIcons["/battle"].nonActive
               }
-              style={{ width: "30px" }}
+              style={{ width: "25px" }}
               alt="Battle"
             />
           </Link>
@@ -79,7 +79,7 @@ function NavBar() {
                   ? tabIcons["/store"].active
                   : tabIcons["/store"].nonActive
               }
-              style={{ width: "30px" }}
+              style={{ width: "25px" }}
               alt="Store"
             />
           </Link>
@@ -94,7 +94,7 @@ function NavBar() {
                   ? tabIcons["/mypage"].active
                   : tabIcons["/mypage"].nonActive
               }
-              style={{ width: "30px" }}
+              style={{ width: "25px" }}
               alt="My Page"
             />
           </Link>
@@ -119,7 +119,7 @@ const styles: Styles = {
   tabContainer: {
     display: "flex",
     justifyContent: "space-around",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "white",
     padding: "16px",
   },
   tabItem: {
