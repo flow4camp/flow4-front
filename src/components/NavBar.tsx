@@ -1,12 +1,8 @@
+// NavBar.tsx
 import React, { useState } from "react";
-import { BrowserRouter, Router, Routes, Route, Link } from "react-router-dom";
-import Home from "../pages/Home";
-import Store from "../pages/Store";
-import MyPage from "../pages/MyPage";
-import Battle from "../pages/Battle";
-import Login from "../pages/Login";
-import { Sign } from "crypto";
-import Signin from "../pages/Signin";
+
+import { NavLink } from "react-router-dom";
+
 
 function NavBar() {
   const [activeTab, setActiveTab] = useState("/home");
@@ -30,89 +26,79 @@ function NavBar() {
   };
 
   return (
-    <BrowserRouter>
-      <div style={styles.tabContent}>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/battle" element={<Battle />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/mypage" element={<MyPage />} />
-        </Routes>
+
+    <div style={styles.container}>
+      <div style={styles.tabContainer}>
+        <NavLink
+          to="/home"
+          style={styles.tabItem}
+          onClick={() => setActiveTab("/home")}
+        >
+          <img
+            src={
+              activeTab === "/home"
+                ? tabIcons["/home"].active
+                : tabIcons["/home"].nonActive
+            }
+            style={{ width: "25px" }}
+            alt="Home"
+          />
+        </NavLink>
+        <NavLink
+          to="/battle"
+          style={styles.tabItem}
+          onClick={() => setActiveTab("/battle")}
+        >
+          <img
+            src={
+              activeTab === "/battle"
+                ? tabIcons["/battle"].active
+                : tabIcons["/battle"].nonActive
+            }
+            style={{ width: "25px" }}
+            alt="Battle"
+          />
+        </NavLink>
+        <NavLink
+          to="/store"
+          style={styles.tabItem}
+          onClick={() => setActiveTab("/store")}
+        >
+          <img
+            src={
+              activeTab === "/store"
+                ? tabIcons["/store"].active
+                : tabIcons["/store"].nonActive
+            }
+            style={{ width: "25px" }}
+            alt="Store"
+          />
+        </NavLink>
+        <NavLink
+          to="/mypage"
+          style={styles.tabItem}
+          onClick={() => setActiveTab("/mypage")}
+        >
+          <img
+            src={
+              activeTab === "/mypage"
+                ? tabIcons["/mypage"].active
+                : tabIcons["/mypage"].nonActive
+            }
+            style={{ width: "25px" }}
+            alt="My Page"
+          />
+        </NavLink>
+
       </div>
-      <div style={styles.container}>
-        <div style={styles.tabContainer}>
-          <Link
-            to="/home"
-            style={styles.tabItem}
-            onClick={() => setActiveTab("/home")}
-          >
-            <img
-              src={
-                activeTab === "/home"
-                  ? tabIcons["/home"].active
-                  : tabIcons["/home"].nonActive
-              }
-              style={{ width: "30px" }}
-              alt="Home"
-            />
-          </Link>
-          <Link
-            to="/battle"
-            style={styles.tabItem}
-            onClick={() => setActiveTab("/battle")}
-          >
-            <img
-              src={
-                activeTab === "/battle"
-                  ? tabIcons["/battle"].active
-                  : tabIcons["/battle"].nonActive
-              }
-              style={{ width: "30px" }}
-              alt="Battle"
-            />
-          </Link>
-          <Link
-            to="/store"
-            style={styles.tabItem}
-            onClick={() => setActiveTab("/store")}
-          >
-            <img
-              src={
-                activeTab === "/store"
-                  ? tabIcons["/store"].active
-                  : tabIcons["/store"].nonActive
-              }
-              style={{ width: "30px" }}
-              alt="Store"
-            />
-          </Link>
-          <Link
-            to="/mypage"
-            style={styles.tabItem}
-            onClick={() => setActiveTab("/mypage")}
-          >
-            <img
-              src={
-                activeTab === "/mypage"
-                  ? tabIcons["/mypage"].active
-                  : tabIcons["/mypage"].nonActive
-              }
-              style={{ width: "30px" }}
-              alt="My Page"
-            />
-          </Link>
-        </div>
-      </div>
-    </BrowserRouter>
+    </div>
   );
 }
+
 interface Styles {
   container: React.CSSProperties;
   tabContainer: React.CSSProperties;
   tabItem: React.CSSProperties;
-  tabContent: React.CSSProperties;
 }
 
 const styles: Styles = {
@@ -124,7 +110,7 @@ const styles: Styles = {
   tabContainer: {
     display: "flex",
     justifyContent: "space-around",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "white",
     padding: "16px",
   },
   tabItem: {
@@ -133,10 +119,6 @@ const styles: Styles = {
     padding: "8px 16px",
     borderRadius: "8px",
     fontWeight: "bold",
-  },
-  tabContent: {
-    marginTop: "16px",
-    padding: "16px",
   },
 };
 

@@ -1,6 +1,7 @@
+// Home.tsx
 import React, { useState } from "react";
-import { Link, Routes, Route } from "react-router-dom";
-import EditCharacter from "./EditCharacter";
+import { NavLink } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 function Home() {
   const nickName = "user1";
@@ -17,9 +18,9 @@ function Home() {
     <div style={styles.container}>
       <div style={styles.userinfoContainer}>
         <div style={styles.userinfoChar}>
-          <Link to="/edit-character">
-            <img src="/images/test_img.gif" />
-          </Link>
+          <NavLink to="/edit-character">
+            <img src="/images/test_img.gif" alt="Edit Character" />
+          </NavLink>
         </div>
         <div style={styles.userinfoText}>
           <div style={styles.userName}>{nickName}</div>
@@ -38,9 +39,7 @@ function Home() {
         <div style={styles.questType}>특별 퀘스트</div>
         <div style={styles.quest}>{specialQuest}</div>
       </div>
-      <Routes>
-        <Route path="/edit-character" element={<EditCharacter />} />
-      </Routes>
+      <NavBar />
     </div>
   );
 }
@@ -72,7 +71,6 @@ const styles: Styles = {
     alignItems: "center",
     height: "30%",
   },
-  // 좌측 이미지 크기 제외한 나머지 크기 차지
   userinfoText: { flex: 1 },
   userinfoChar: {},
   questContainer: {

@@ -1,24 +1,23 @@
-
 /* 제목 폰트 */
 @font-face {
-    font-family: 'Font-Title';
-    src: url('../public/fonts/한국기계연구원_bold.ttf') format('truetype');
-  }
+  font-family: "Font-Title";
+  src: url("../public/fonts/title_bold.ttf") format("truetype");
+}
 
 /* 제목 폰트 - 얇게 */
 @font-face {
-  font-family: 'Font-Title-Light';
-  src: url('../public/fonts/한국기계연구원_Light.ttf') format('truetype');
-}
-  
-/* 본문 폰트 - 중간 */
-@font-face {
-  font-family: 'Font-Content';
-  src: url('../public/fonts/NEXON\ Lv2\ Gothic\ Medium.ttf') format('truetype');
+  font-family: "Font-Title-Light";
+  src: url("../public/fonts/title_light.ttf") format("truetype");
 }
 
 /* 본문 폰트 - 중간 */
 @font-face {
-  font-family: 'Font-Content-Light';
-  src: url('../public/fonts/NEXON\ Lv2\ Gothic\ Light.ttf') format('truetype');
+  font-family: "Font-Content";
+  src: url("../public/fonts/NEXON\ Lv2\ Gothic\ Medium.ttf") format("truetype");
+}
+
+/* 본문 폰트 - 중간 */
+@font-face {
+  font-family: "Font-Content-Light";
+  src: url("../public/fonts/NEXON\ Lv2\ Gothic\ Light.ttf") format("truetype");
 }

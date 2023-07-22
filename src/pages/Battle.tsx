@@ -1,5 +1,11 @@
+import NavBar from "../components/NavBar";
+
 function Battle() {
-  return <div>배틀!!</div>;
+  return (
+    <div>
+      <NavBar />
+    </div>
+  );
 }
 
 export default Battle;
