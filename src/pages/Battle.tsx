@@ -1,14 +1,14 @@
 import NavBar from "../components/NavBar";
 import { Center, Image, Text, Box, Spacer, Flex } from '@chakra-ui/react';
+import Layout from '../components/layout';
 
 
 function Battle() {
   return (
+    <Layout>
     <Flex
       direction='column'
-      h='100vh'
     >
-      <NavBar />
       <Flex
         direction='column'
         w='100%'
@@ -18,7 +18,7 @@ function Battle() {
         <Box
           w='100%'
         >
-          <Text 
+          <Text
             w='fit-content'
             p={3}
             m={2}
@@ -82,7 +82,8 @@ function Battle() {
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+      </Flex>
+      </Layout>
   );
 }
 

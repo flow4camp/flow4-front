@@ -1,11 +1,11 @@
 import NavBar from "../components/NavBar";
+import Layout from '../components/layout';
 
 function MyPage() {
   return (
-    <div>
+    <Layout>
       my page
-      <NavBar />
-    </div>
+    </Layout>
   );
 }
 

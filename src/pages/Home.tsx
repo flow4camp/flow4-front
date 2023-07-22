@@ -2,6 +2,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Layout from '../components/layout';
 
 function Home() {
   const nickName = "user1";
@@ -15,6 +16,7 @@ function Home() {
   const specialQuest = "특별 퀘스트";
 
   return (
+    <Layout>
     <div style={styles.container}>
       <div style={styles.userinfoContainer}>
         <div style={styles.userinfoChar}>
@@ -39,8 +41,8 @@ function Home() {
         <div style={styles.questType}>특별 퀘스트</div>
         <div style={styles.quest}>{specialQuest}</div>
       </div>
-      <NavBar />
-    </div>
+      </div>
+      </Layout>
   );
 }
 
@@ -60,7 +62,6 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    height: "100vh",
   },
   userinfoContainer: {
     marginTop: "5%",

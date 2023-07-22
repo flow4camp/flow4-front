@@ -103,8 +103,6 @@ interface Styles {
 
 const styles: Styles = {
   container: {
-    position: "fixed",
-    bottom: "0",
     width: "100%",
   },
   tabContainer: {

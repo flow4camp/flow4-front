@@ -1,11 +1,11 @@
 import NavBar from "../components/NavBar";
+import Layout from '../components/layout';
 
 function Store() {
   return (
-    <div>
-      스토어
-      <NavBar />
-    </div>
+    <Layout>
+        <h1>Store</h1>
+    </Layout>
   );
 }
 
