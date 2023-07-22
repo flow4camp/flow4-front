@@ -6,7 +6,6 @@ import MyPage from "./pages/MyPage";
 import Battle from "./pages/Battle";
 import Login from "./pages/Login";
 import Signin from "./pages/Signin";
-import NavBar from "./components/NavBar";
 import EditCharacter from "./pages/EditCharacter";
 
 import "./App.css";

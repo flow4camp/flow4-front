@@ -1,13 +1,12 @@
-import React, {  ChangeEvent } from "react";
-import { Box, Center, Image, Text, Input, Button, Flex, Divider } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import React, { ChangeEvent } from "react";
+import { Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useTheme } from '@chakra-ui/react';
-import axios from 'axios';
+// import axios from 'axios';
 
 function Login() {
 
-  const theme = useTheme();
+  const navigate = useNavigate();
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
@@ -42,7 +41,7 @@ function Login() {
             align='center'
             justify='center'
           >
-            <Image src='/logo_x0.5.png' w='50px' h='50px' m={3} />
+            <Image src='/logo_x0.5.png' w='60px' h='60px' m={3} />
             <Text
               fontSize='3xl'
               fontWeight='bold'
@@ -102,6 +101,7 @@ function Login() {
               <Button
                 w='220px'
                 style={{ fontFamily: 'Font-Content-Light' }}
+                onClick={()=>(navigate('/home'))}       // for now!
               >
                 로그인
               </Button>
