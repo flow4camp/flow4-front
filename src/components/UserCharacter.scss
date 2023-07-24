@@ -1,0 +1,26 @@
+
+.character-container {
+
+    width: 180px;
+    height: 220px;
+
+    animation: motion 1.2s linear 0s infinite alternate;
+
+    &.edit {
+
+        width: 220px;
+        height: 268px;
+
+        animation: none;
+    }
+
+}
+
+@keyframes motion {
+    0% {
+        margin-top: 0px;
+    }
+    100% {
+        margin-top: 12px;
+    }
+}

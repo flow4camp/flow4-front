@@ -48,34 +48,34 @@ const Store = () => {
           {<div>
             <div style={styles.tabContainer}>
               <button
-                style={selectedItem === "clothes" ? styles.activeTab : styles.tab}
-                onClick={() => handleItemTabChange("clothes")}
+                style={selectedItem === "hat" ? styles.activeTab : styles.tab}
+                onClick={() => handleItemTabChange("hat")}
               >
-                <img src="/icons/clothes.png" style={{ width: "30px" }} />
+                <img src="/icons/hat.png" style={{ width: "30px" }} alt='hats' />
               </button>
               <button
                 style={selectedItem === "eyeglasses" ? styles.activeTab : styles.tab}
                 onClick={() => handleItemTabChange("eyeglasses")}
               >
-                <img src="/icons/eyeglasses.png" style={{ width: "30px" }} />
-              </button>
-              <button
-                style={selectedItem === "hat" ? styles.activeTab : styles.tab}
-                onClick={() => handleItemTabChange("hat")}
-              >
-                <img src="/icons/hat.png" style={{ width: "30px" }} />
-              </button>
-              <button
-                style={selectedItem === "shoes" ? styles.activeTab : styles.tab}
-                onClick={() => handleItemTabChange("shoes")}
-              >
-                <img src="/icons/shoes.png" style={{ width: "30px" }} />
+                <img src="/icons/glasses.png" style={{ width: "30px" }} alt='accessories' />
               </button>
               <button
                 style={selectedItem === "ghost" ? styles.activeTab : styles.tab}
                 onClick={() => handleItemTabChange("ghost")}
               >
-                <img src="/icons/ghost.png" style={{ width: "30px" }} />
+                <img src="/icons/face_smile.png" style={{ width: "30px" }} alt='faces' />
+              </button>
+              <button
+                style={selectedItem === "clothes" ? styles.activeTab : styles.tab}
+                onClick={() => handleItemTabChange("clothes")}
+              >
+                <img src="/icons/clothes.png" style={{ width: "30px" }} alt='clothes' />
+              </button>
+              <button
+                style={selectedItem === "shoes" ? styles.activeTab : styles.tab}
+                onClick={() => handleItemTabChange("shoes")}
+              >
+                <img src="/icons/shoes.png" style={{ width: "30px" }} alt='shoes' />
               </button>
             </div>
             <div className="grid-container">

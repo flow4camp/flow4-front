@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar";
 import { Center, Button, Text, Box, Spacer, Flex } from '@chakra-ui/react';
 import Layout from '../components/layout';
 import {
