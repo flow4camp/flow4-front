@@ -58,31 +58,31 @@ function EditCharacter() {
           style={selectedItem === "hat" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("hat")}
         >
-          <img src="/icons/hat.png" style={{ width: "30px" }} />
+          <img src="/icons/hat.png" style={{ width: "30px" }} alt="hat tab" />
         </button>
         <button
           style={selectedItem === "eyeglasses" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("eyeglasses")}
         >
-          <img src="/icons/glasses.png" style={{ width: "30px" }} />
+          <img src="/icons/glasses.png" style={{ width: "30px" }} alt="accessory tab" />
         </button>
         <button
           style={selectedItem === "ghost" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("ghost")}
         >
-          <img src="/icons/face_smile.png" style={{ width: "30px" }} />
+          <img src="/icons/face_smile.png" style={{ width: "30px" }} alt="face tab" />
         </button>
         <button
           style={selectedItem === "clothes" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("clothes")}
         >
-          <img src="/icons/clothes.png" style={{ width: "30px" }} />
+          <img src="/icons/clothes.png" style={{ width: "30px" }} alt="clothes tab" />
         </button>
         <button
           style={selectedItem === "shoes" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("shoes")}
         >
-          <img src="/icons/shoes.png" style={{ width: "30px" }} />
+          <img src="/icons/shoes.png" style={{ width: "30px" }} alt="shoes tab" />
         </button>
       </div>
       <div style={styles.itemContainerWrapper}>
