@@ -30,6 +30,9 @@ function MyPage() {
     setName(inputValue);
   };
 
+  const firstBorderColor = theme.colors.line_1_color;
+  const secondBorderColor = theme.colors.line_2_color;
+
   return (
     <Layout>
       <Box w="100%">
@@ -104,14 +107,12 @@ function MyPage() {
             <Text style={{ fontFamily: "Font-content" }}>전적 1승 2패</Text>
             <Text style={{ fontFamily: "Font-content" }}>기력 149</Text>
           </Flex>
-          {/* <Button style={{ backgroundColor: "transparent" }}>
-            <Image src="/icons/edit.png" w="10px" />
-          </Button> */}
+
           <Flex
             as={Link}
             to="/edit-metroline"
-            direction="column"
             align="center"
+            justify="center"
             style={{
               borderRadius: "20px",
               height: "150px",
@@ -121,81 +122,88 @@ function MyPage() {
               position: "relative",
             }}
           >
+            {/* 첫번째 역 */}
+            <Flex direction="column" align="center">
+              <div
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  border: "3px solid #ccc",
+                  borderRadius: "50%",
+                  backgroundColor: "white",
+                }}
+              ></div>
+              <Text
+                style={{
+                  fontFamily: "Font-title-light",
+                  color: "white",
+                  fontSize: "10px",
+                }}
+              >
+                신설동
+              </Text>
+            </Flex>
+
             <Box
               style={{
-                width: "70%",
-                height: "60%",
-                border: "4px solid white",
-                borderColor: "red",
+                width: "20%",
+                height: "0",
+                border: `2px solid ${firstBorderColor}`,
                 borderRadius: "20px",
-                position: "absolute",
-                transform: "translate(0, -50%)",
                 top: "50%",
               }}
             ></Box>
-            <Text
+            {/* 두번째 역 */}
+            <Flex direction="column" align="center">
+              <div
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  border: "3px solid #ccc",
+                  borderRadius: "50%",
+                  backgroundColor: "white",
+                }}
+              ></div>
+              <Text
+                style={{
+                  fontFamily: "Font-title-light",
+                  color: "white",
+                  fontSize: "10px",
+                }}
+              >
+                시청역
+              </Text>
+            </Flex>
+            <Box
               style={{
-                position: "absolute",
+                width: "20%",
+                height: "0",
+                border: `2px solid ${secondBorderColor}`,
+                borderRadius: "20px",
                 top: "50%",
-                fontFamily: "Font-title-light",
-                transform: "translate(0, -50%)",
-                color: "white",
               }}
-            >
-              Line 2
-            </Text>
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "15%",
-                transform: "translate(-50%, -50%)",
-                width: "15px",
-                height: "15px",
-                border: "3px solid #ccc",
-                borderRadius: "50%",
-                backgroundColor: "white",
-              }}
-            ></div>
-            <Text
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "15%",
-                transform: "translate(-50%, 50%)",
-                fontFamily: "Font-title-light",
-                color: "white",
-                fontSize: "10px",
-              }}
-            >
-              대전역
-            </Text>
-            <div
-              style={{
-                position: "absolute",
-                top: "50%", // Box 컴포넌트의 중앙에 위치하도록 설정
-                right: "15%", // 우측에 위치
-                transform: "translate(50%, -50%)", // 수직으로 정확히 중앙으로 위치시키기 위해 사용
-                width: "15px",
-                height: "15px",
-                border: "3px solid #ccc",
-                borderRadius: "50%", // 원형으로 만들기 위해 50%의 borderRadius 사용
-                backgroundColor: "white", // 예시로 파란색 배경을 적용
-              }}
-            ></div>
-            <Text
-              style={{
-                position: "absolute",
-                top: "50%",
-                right: "15%",
-                transform: "translate(50%, 50%)",
-                fontFamily: "Font-title-light",
-                color: "white",
-                fontSize: "10px",
-              }}
-            >
-              유성온천역
-            </Text>
+            ></Box>
+            {/* 세번째 역 */}
+            <Flex direction="column" align="center">
+              <div
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  border: "3px solid #ccc",
+                  borderRadius: "50%", // 원형으로 만들기 위해 50%의 borderRadius 사용
+                  backgroundColor: "white", // 예시로 파란색 배경을 적용
+                }}
+              ></div>
+              <Text
+                style={{
+                  fontFamily: "Font-title-light",
+                  color: "white",
+                  fontSize: "10px",
+                }}
+              >
+                합정역
+              </Text>
+            </Flex>
           </Flex>
         </Flex>
         <Flex direction="column" style={{ width: "80%", marginTop: "50px" }}>
