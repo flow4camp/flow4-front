@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { background, useTheme } from "@chakra-ui/react";
+import { Button, useTheme } from "@chakra-ui/react";
+import { ChevronLeftIcon } from '@chakra-ui/icons';
+import { useNavigate } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
 
 function EditCharacter() {
+  const navigate = useNavigate();
+
   const [selectedItem, setSelectedItem] = useState<string>("item1");
 
   const handleTabClick = (item: string) => {
@@ -20,17 +24,32 @@ function EditCharacter() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          position: 'relative'
         }}
       >
-        {/* <img
-          src={require("../assets/ghost-basic-0.png")}
-          style={{
-            width: "300px",
-            height: "300px",
-            objectFit: "cover",
-          }}
-        /> */}
         <UserCharacter edit={true} />
+        <ChevronLeftIcon 
+          boxSize={10} 
+          color='white' 
+          position='absolute' 
+          left={0} 
+          top={0} 
+          m={2}
+          onClick={() => (navigate('/home'))}
+        />
+        <Button
+          position='absolute' 
+          right={0} 
+          top={0} 
+          m={2}
+          p={2}
+          style={{ fontFamily: "Font-Content-Light" }}
+          fontSize='md'
+          bg='transparent'
+          color='white'
+        >
+          저장하기
+        </Button>
       </div>
       <div style={styles.tabContainer}>
         <button
