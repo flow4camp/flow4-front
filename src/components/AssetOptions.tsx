@@ -8,7 +8,7 @@ type AssetVariant = {
 type CategoryProps = {
     variants: AssetVariant[];
     selectedVariant: AssetVariant;
-    setSelectedVariant: (newHat: AssetVariant) => void;
+    setSelectedVariant: (newItem: AssetVariant) => void;
 };
   
 export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
@@ -110,6 +110,126 @@ export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
     );
 };
 
+export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+
+    const [newSelectedFace, setNewSelectedFace] = useState(selectedVariant);
+    const handleSelectedAcc = (newSelectedFace: AssetVariant) => {
+        setNewSelectedFace(newSelectedFace);
+        setSelectedVariant(newSelectedFace);
+    }
+
+    return (
+        <div style={styles.itemContainerWrapper}>
+            <div style={styles.itemContainer}>
+                {variants.map((variant) => (
+                    <div 
+                        key={variant?.id}
+                        // style={styles.item} 
+                        style={newSelectedFace === variant ? styles.selectedItem : styles.item}
+                    >
+                        <div
+                            style={{
+                                backgroundImage: `url(${variant?.src})`,
+                                backgroundSize: "220% auto",
+                                backgroundPosition: "center center",
+                                width: "100px",
+                                height: "100px",
+                                marginTop: '60px',
+                                marginLeft: '12px'
+                            }}
+                            onClick={() => handleSelectedAcc(variant)}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export const ClothesOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+
+    const [newSelectedClothes, setNewSelectedClothes] = useState(selectedVariant);
+    const handleSelectedClothes = (newSelectedClothes: AssetVariant) => {
+        setNewSelectedClothes(newSelectedClothes);
+        setSelectedVariant(newSelectedClothes);
+    }
+
+    return (
+        <div style={styles.itemContainerWrapper}>
+            <div style={styles.itemContainer}>
+                <div style={newSelectedClothes === null ? styles.selectedItem : styles.item}>
+                    <img
+                        src={require("../assets/null.png")}
+                        alt="No Clothes"
+                        onClick={() => handleSelectedClothes(null)}
+                    />
+                </div>
+                {variants.map((variant) => (
+                    <div 
+                        key={variant?.id}
+                        // style={styles.item} 
+                        style={newSelectedClothes === variant ? styles.selectedItem : styles.item}
+                    >
+                        <div
+                            style={{
+                                backgroundImage: `url(${variant?.src})`,
+                                backgroundSize: "150% auto",
+                                backgroundPosition: "bottom center",
+                                width: "100px",
+                                height: "100px",
+                                marginTop: '10px',
+                                marginLeft: '2px'
+                            }}
+                            onClick={() => handleSelectedClothes(variant)}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export const ShoesOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+
+    const [newSelectedShoes, setNewSelectedShoes] = useState(selectedVariant);
+    const handleSelectedShoes = (newSelectedShoes: AssetVariant) => {
+        setNewSelectedShoes(newSelectedShoes);
+        setSelectedVariant(newSelectedShoes);
+    }
+
+    return (
+        <div style={styles.itemContainerWrapper}>
+            <div style={styles.itemContainer}>
+                <div style={newSelectedShoes === null ? styles.selectedItem : styles.item}>
+                    <img
+                        src={require("../assets/null.png")}
+                        alt="No Shoes"
+                        onClick={() => handleSelectedShoes(null)}
+                    />
+                </div>
+                {variants.map((variant) => (
+                    <div 
+                        key={variant?.id}
+                        style={newSelectedShoes === variant ? styles.selectedItem : styles.item}
+                    >
+                        <div
+                            style={{
+                                backgroundImage: `url(${variant?.src})`,
+                                backgroundSize: "220% auto",
+                                backgroundPosition: "bottom center",
+                                width: "100px",
+                                height: "100px",
+                                marginBottom: '40px',
+                                marginLeft: '2px'
+                            }}
+                            onClick={() => handleSelectedShoes(variant)}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 interface Styles {
     itemContainer: React.CSSProperties;

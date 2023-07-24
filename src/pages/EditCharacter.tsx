@@ -4,7 +4,7 @@ import { ChevronLeftIcon } from '@chakra-ui/icons';
 import { useNavigate } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
 import { hatVariants, faceVariants, accVariants, clothesVariants, shoeVariants } from "../components/AssetVariants";
-import { HatOptions, AccOptions } from "../components/AssetOptions";
+import { HatOptions, AccOptions, FaceOptions, ClothesOptions, ShoesOptions } from "../components/AssetOptions";
 
 type AssetVariant = {
   id: number;
@@ -12,15 +12,21 @@ type AssetVariant = {
 } | null ;      // nullable
 
 function EditCharacter() {
-  const navigate = useNavigate();
+  const navigate = useNavigate();   // navigator
 
   // tab option 중 선택한 item state 관리 
   const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
   const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
+  const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
+  const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(null);
+  const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
 
   // ** tab 순서: hat, acc, face, clothes, shoe (0~4) **
   const tabOptions = [<HatOptions variants={hatVariants} selectedVariant={selectedHat} setSelectedVariant={setSelectedHat} />, 
     <AccOptions variants={accVariants} selectedVariant={selectedAcc} setSelectedVariant={setSelectedAcc} />,
+    <FaceOptions variants={faceVariants} selectedVariant={selectedFace} setSelectedVariant={setSelectedFace} />,
+    <ClothesOptions variants={clothesVariants} selectedVariant={selectedClothes} setSelectedVariant={setSelectedClothes} />,
+    <ShoesOptions variants={shoeVariants} selectedVariant={selectedShoe} setSelectedVariant={setSelectedShoe} />
   ];
 
   // tab state 관리
@@ -46,7 +52,14 @@ function EditCharacter() {
           position: 'relative'
         }}
       >
-        <UserCharacter edit={true} selectedHat={selectedHat} selectedAcc={selectedAcc} />
+        <UserCharacter 
+          edit={true} 
+          selectedHat={selectedHat} 
+          selectedAcc={selectedAcc} 
+          selectedFace={selectedFace} 
+          selectedClothes={selectedClothes}
+          selectedShoe={selectedShoe}
+        />
         <ChevronLeftIcon 
           boxSize={10} 
           color='white' 

@@ -13,14 +13,17 @@ type UserCharacterProps = {
     edit: boolean;
     selectedHat: AssetVariant;
     selectedAcc: AssetVariant;
+    selectedFace: AssetVariant;
+    selectedClothes: AssetVariant;
+    selectedShoe: AssetVariant;
 }
 
-const UserCharacter: React.FC<UserCharacterProps> = ({ edit, selectedHat, selectedAcc }) => {
+const UserCharacter: React.FC<UserCharacterProps> = ({ edit, selectedHat, selectedAcc, selectedFace, selectedClothes, selectedShoe }) => {
     // const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
-    const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
+    // const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
     // const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
-    const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(null);
-    const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
+    // const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(null);
+    // const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
 
     return (
         <Box position='relative' m={3} className={`character-container ${edit ? 'edit' : ''}`} >

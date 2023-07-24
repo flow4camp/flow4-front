@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import Layout from "../components/layout";
 import UserCharacter from "../components/UserCharacter";
 import { Center, Button, Text, Box, Spacer, Flex } from '@chakra-ui/react';
+import { faceVariants } from "../components/AssetVariants";
 
 function Home() {
 
@@ -34,7 +35,14 @@ function Home() {
         <div style={styles.userinfoContainer}>
           <div style={styles.userinfoChar}>
             <NavLink to="/edit-character">
-              <UserCharacter edit={false} selectedHat={null} selectedAcc={null} />     {/* selected stuffs are null for now!! */}
+              <UserCharacter 
+                edit={false} 
+                selectedHat={null} 
+                selectedAcc={null}
+                selectedFace={faceVariants[0]}
+                selectedClothes={null}
+                selectedShoe={null}
+              />     {/* selected stuffs are null for now!! */}
             </NavLink>
           </div>
           <div style={styles.userinfoText}>
