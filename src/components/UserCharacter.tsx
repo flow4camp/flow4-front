@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Image, } from '@chakra-ui/react';
 import './UserCharacter.scss';
+import { hatVariants, faceVariants, accVariants, clothesVariants, shoeVariants } from "./AssetVariants";
 
 // Asset 데이터
 type AssetVariant = {
@@ -8,34 +9,16 @@ type AssetVariant = {
     src: string;
 } | null ;      // nullable
 
-const hatVariants: AssetVariant[] = [
-    { id: 0, src: require('../assets/hat-hiphop-hat.png') },
-];
-
-const faceVariants: AssetVariant[] = [
-    { id: 0, src: require("../assets/face-basic.png") },
-];
-
-const accVariants: AssetVariant[] = [
-    { id: 0, src: require('../assets/acc-gold-necklace.png') },
-];
-
-const clothesVariants: AssetVariant[] = [
-    { id: 0, src: require('../assets/clothes-blue-skirt.png') },
-];
-
-const shoeVariants: AssetVariant[] = [
-    { id: 0, src: require('../assets/shoe-crocs.png') },
-];
-
 type UserCharacterProps = {
     edit: boolean;
+    selectedHat: AssetVariant;
+    selectedAcc: AssetVariant;
 }
 
-const UserCharacter: React.FC<UserCharacterProps> = ({ edit }) => {
-    const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
+const UserCharacter: React.FC<UserCharacterProps> = ({ edit, selectedHat, selectedAcc }) => {
+    // const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
     const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
-    const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
+    // const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
     const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(null);
     const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
 
