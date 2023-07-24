@@ -3,6 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Layout from "../components/layout";
 import UserCharacter from "../components/UserCharacter";
+import { Center, Button, Text, Box, Spacer, Flex } from '@chakra-ui/react';
 
 function Home() {
 
@@ -19,16 +20,26 @@ function Home() {
   return (
     <Layout>
       <div style={styles.container}>
+      <Box w='100%'>
+          <Text
+            w='fit-content'
+            p={3}
+            m={2}
+            paddingBottom={0}
+            marginBottom={0}
+            fontSize='2xl'
+            style={{ fontFamily: 'Font-Title' }}
+          >지하그라운드</Text>
+        </Box>
         <div style={styles.userinfoContainer}>
           <div style={styles.userinfoChar}>
             <NavLink to="/edit-character">
-              {/* <img src="/images/test_img.gif" alt="Edit Character" /> */}
               <UserCharacter />
             </NavLink>
           </div>
           <div style={styles.userinfoText}>
             <div style={styles.userName}>{nickName}</div>
-            <div style={{ fontFamily: "Font-Title-Light" }}>
+            <div style={{ fontFamily: "Font-Content" }}>
               전적 {winNum}승 {looseNum}패
             </div>
           </div>
@@ -81,7 +92,7 @@ const styles: Styles = {
   userinfoChar: {},
   questContainer: {
     borderTop: "1px solid #ccc",
-    marginTop: "13%",
+    marginTop: "10%",
     flex: 1,
     width: "80%",
   },
