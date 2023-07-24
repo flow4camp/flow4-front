@@ -1,7 +1,6 @@
 // Home.tsx
 import React from "react";
 import { NavLink } from "react-router-dom";
-import NavBar from "../components/NavBar";
 import Layout from "../components/layout";
 
 function Home() {
@@ -62,6 +61,7 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
   },
   userinfoContainer: {
     marginTop: "5%",
@@ -83,6 +83,7 @@ const styles: Styles = {
   },
   questType: {
     marginTop: "4%",
+    marginBottom: "4%",
     fontSize: "23px",
     fontFamily: "Font-Content",
   },
