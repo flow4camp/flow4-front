@@ -20,71 +20,72 @@ import { useState, useEffect } from "react";
 
 function EditMetroLine() {
   const theme = useTheme();
-  const [selectedLine, setSelectedLine] = useState("Line 1");
+  const [firstSelectedLine, setFirstSelectedLine] = useState("1호선");
+  const [secondSelectedLine, setSecondSelectedLine] = useState("2호선");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [borderColor, setBorderColor] = useState(theme.colors.line_1_color);
+  const [isSecondLine, setIsSecondLine] = useState(false);
+  const [firstBorderColor, setFirstBorderColor] = useState(
+    theme.colors.line_1_color
+  );
+  const [secondBorderColor, setSecondBorderColor] = useState(
+    theme.colors.line_2_color
+  );
 
-  const handleLineClick = () => {
+  const handleLineClick = (isSecondLine: boolean) => {
     setIsModalOpen(true);
+    setIsSecondLine(isSecondLine);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleLineSelection = (line: string) => {
-    setSelectedLine(line);
-    setIsModalOpen(false);
-
+  const getLineColor = (line: string) => {
     switch (line) {
-      case "Line 1":
-        setBorderColor(theme.colors.line_1_color);
-        break;
-      case "Line 2":
-        setBorderColor(theme.colors.line_2_color);
-        break;
-      case "Line 3":
-        setBorderColor(theme.colors.line_3_color);
-        break;
-      case "Line 4":
-        setBorderColor(theme.colors.line_4_color);
-        break;
-      case "Line 5":
-        setBorderColor(theme.colors.line_5_color);
-        break;
-      case "Line 6":
-        setBorderColor(theme.colors.line_6_color);
-        break;
-      case "Line 7":
-        setBorderColor(theme.colors.line_7_color);
-        break;
-      case "Line 8":
-        setBorderColor(theme.colors.line_8_color);
-        break;
-      case "Line 9":
-        setBorderColor(theme.colors.line_9_color);
-        break;
+      case "1호선":
+        return theme.colors.line_1_color;
+      case "2호선":
+        return theme.colors.line_2_color;
+      case "3호선":
+        return theme.colors.line_3_color;
+      case "4호선":
+        return theme.colors.line_4_color;
+      case "5호선":
+        return theme.colors.line_5_color;
+      case "6호선":
+        return theme.colors.line_6_color;
+      case "7호선":
+        return theme.colors.line_7_color;
+      case "8호선":
+        return theme.colors.line_8_color;
+      case "9호선":
+        return theme.colors.line_9_color;
       default:
-        setBorderColor(theme.colors.line_1_color);
-        break;
+        return theme.colors.line_1_color;
     }
+  };
+  const handleLineSelection = (line: string) => {
+    if (isSecondLine) {
+      setSecondSelectedLine(line);
+      setSecondBorderColor(getLineColor(line));
+    } else {
+      setFirstSelectedLine(line);
+      setFirstBorderColor(getLineColor(line));
+    }
+    setIsModalOpen(false);
   };
 
   const metroLineOptions = [
-    "Line 1",
-    "Line 2",
-    "Line 3",
-    "Line 4",
-    "Line 5",
-    "Line 6",
-    "Line 7",
-    "Line 8",
-    "Line 9",
+    "1호선",
+    "2호선",
+    "3호선",
+    "4호선",
+    "5호선",
+    "6호선",
+    "7호선",
+    "8호선",
+    "9호선",
   ];
-
-  useEffect(() => {
-    setBorderColor(selectedLine);
-  });
 
   return (
     <Flex
@@ -129,35 +130,11 @@ function EditMetroLine() {
             borderRadius: "0px",
             height: "100%",
             width: "80%",
-            position: "relative",
           }}
         >
-          <Text
-            style={{
-              fontFamily: "Font-title-light",
-              color: "white",
-              fontSize: "30px",
-            }}
-            onClick={handleLineClick}
-          >
-            {selectedLine}
-          </Text>
-          <Box
-            style={{
-              width: "70%",
-              height: "60%",
-              border: `7px solid ${borderColor}`,
-              borderRadius: "20px",
-              position: "relative",
-            }}
-          ></Box>
-
+          {/* 첫번째 역 */}
           <div
             style={{
-              position: "absolute",
-              top: "50%",
-              left: "15%",
-              transform: "translate(-50%, -50%)",
               width: "20px",
               height: "20px",
               borderRadius: "50%",
@@ -167,10 +144,6 @@ function EditMetroLine() {
           ></div>
           <Text
             style={{
-              position: "absolute",
-              top: "50%",
-              left: "15%",
-              transform: "translate(-50%, 50%)",
               fontFamily: "Font-title-light",
               color: "white",
               fontSize: "20px",
@@ -178,12 +151,36 @@ function EditMetroLine() {
           >
             대전역
           </Text>
+          {/* 첫번째 노선선 */}
+          <Box
+            style={{
+              width: "0",
+              height: "10%",
+              border: `4px solid ${firstBorderColor}`,
+              borderRadius: "20px",
+            }}
+          ></Box>
+          <Text
+            style={{
+              fontFamily: "Font-title-light",
+              color: "white",
+              fontSize: "30px",
+            }}
+            onClick={() => handleLineClick(false)}
+          >
+            {firstSelectedLine}
+          </Text>
+          <Box
+            style={{
+              width: "0",
+              height: "10%",
+              border: `4px solid ${firstBorderColor}`,
+              borderRadius: "20px",
+            }}
+          ></Box>
+          {/* 두번째 역 */}
           <div
             style={{
-              position: "absolute",
-              top: "50%",
-              right: "15%",
-              transform: "translate(50%, -50%)",
               width: "20px",
               height: "20px",
               borderRadius: "50%",
@@ -193,10 +190,52 @@ function EditMetroLine() {
           ></div>
           <Text
             style={{
-              position: "absolute",
-              top: "50%",
-              right: "15%",
-              transform: "translate(50%, 50%)",
+              fontFamily: "Font-title-light",
+              color: "white",
+              fontSize: "20px",
+            }}
+          >
+            대전역
+          </Text>
+          {/* 두번쨰 노선 */}
+          <Box
+            style={{
+              width: "0",
+              height: "10%",
+              border: `4px solid ${secondBorderColor}`,
+              borderRadius: "20px",
+            }}
+          ></Box>
+          <Text
+            style={{
+              fontFamily: "Font-title-light",
+              color: "white",
+              fontSize: "30px",
+            }}
+            onClick={() => handleLineClick(true)}
+          >
+            {secondSelectedLine}
+          </Text>
+          <Box
+            style={{
+              width: "0",
+              height: "10%",
+              border: `4px solid ${secondBorderColor}`,
+              borderRadius: "20px",
+            }}
+          ></Box>
+          {/* 마지막 도착역 */}
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+              border: "3px solid #ccc",
+            }}
+          ></div>
+          <Text
+            style={{
               fontFamily: "Font-title-light",
               color: "white",
               fontSize: "20px",
@@ -211,7 +250,7 @@ function EditMetroLine() {
         <ModalOverlay />
         <ModalContent style={{ width: "80%", opacity: "0.5" }}>
           <ModalHeader style={{ textAlign: "center" }}>
-            Choose Metro Line
+            호선 선택하기
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
