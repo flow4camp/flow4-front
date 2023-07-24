@@ -28,7 +28,11 @@ const shoeVariants: AssetVariant[] = [
     { id: 0, src: require('../assets/shoe-crocs.png') },
 ];
 
-const UserCharacter = () => {
+type UserCharacterProps = {
+    edit: boolean;
+}
+
+const UserCharacter: React.FC<UserCharacterProps> = ({ edit }) => {
     const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
     const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
     const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
@@ -36,7 +40,7 @@ const UserCharacter = () => {
     const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
 
     return (
-        <Box w='180px' h='220px' position='relative' m={3} className="character-container" >
+        <Box position='relative' m={3} className={`character-container ${edit ? 'edit' : ''}`} >
             <Image src={require('../assets/ghost-basic-0.png')} />
             { selectedFace && <Image src={selectedFace.src} alt='face' position='absolute' top='0' left='0' />}
             { selectedHat && <Image src={selectedHat.src} alt='hat' position='absolute' top='0' left='0' />}

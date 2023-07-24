@@ -34,7 +34,7 @@ function Home() {
         <div style={styles.userinfoContainer}>
           <div style={styles.userinfoChar}>
             <NavLink to="/edit-character">
-              <UserCharacter />
+              <UserCharacter edit={false} />
             </NavLink>
           </div>
           <div style={styles.userinfoText}>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { background, useTheme } from "@chakra-ui/react";
+import UserCharacter from "../components/UserCharacter";
 
 function EditCharacter() {
   const [selectedItem, setSelectedItem] = useState<string>("item1");
@@ -21,28 +22,17 @@ function EditCharacter() {
           alignItems: "center",
         }}
       >
-        <img
+        {/* <img
           src={require("../assets/ghost-basic-0.png")}
           style={{
             width: "300px",
             height: "300px",
             objectFit: "cover",
           }}
-        />
+        /> */}
+        <UserCharacter edit={true} />
       </div>
       <div style={styles.tabContainer}>
-        <button
-          style={selectedItem === "clothes" ? styles.activeTab : styles.tab}
-          onClick={() => handleTabClick("clothes")}
-        >
-          <img src="/icons/clothes.png" style={{ width: "30px" }} />
-        </button>
-        <button
-          style={selectedItem === "eyeglasses" ? styles.activeTab : styles.tab}
-          onClick={() => handleTabClick("eyeglasses")}
-        >
-          <img src="/icons/eyeglasses.png" style={{ width: "30px" }} />
-        </button>
         <button
           style={selectedItem === "hat" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("hat")}
@@ -50,16 +40,28 @@ function EditCharacter() {
           <img src="/icons/hat.png" style={{ width: "30px" }} />
         </button>
         <button
-          style={selectedItem === "shoes" ? styles.activeTab : styles.tab}
-          onClick={() => handleTabClick("shoes")}
+          style={selectedItem === "eyeglasses" ? styles.activeTab : styles.tab}
+          onClick={() => handleTabClick("eyeglasses")}
         >
-          <img src="/icons/shoes.png" style={{ width: "30px" }} />
+          <img src="/icons/glasses.png" style={{ width: "30px" }} />
         </button>
         <button
           style={selectedItem === "ghost" ? styles.activeTab : styles.tab}
           onClick={() => handleTabClick("ghost")}
         >
-          <img src="/icons/ghost.png" style={{ width: "30px" }} />
+          <img src="/icons/face_smile.png" style={{ width: "30px" }} />
+        </button>
+        <button
+          style={selectedItem === "clothes" ? styles.activeTab : styles.tab}
+          onClick={() => handleTabClick("clothes")}
+        >
+          <img src="/icons/clothes.png" style={{ width: "30px" }} />
+        </button>
+        <button
+          style={selectedItem === "shoes" ? styles.activeTab : styles.tab}
+          onClick={() => handleTabClick("shoes")}
+        >
+          <img src="/icons/shoes.png" style={{ width: "30px" }} />
         </button>
       </div>
       <div style={styles.itemContainerWrapper}>
