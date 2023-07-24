@@ -16,9 +16,75 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function EditMetroLine() {
   const theme = useTheme();
+  const [selectedLine, setSelectedLine] = useState("Line 1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [borderColor, setBorderColor] = useState(theme.colors.line_1_color);
+
+  const handleLineClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleLineSelection = (line: string) => {
+    setSelectedLine(line);
+    setIsModalOpen(false);
+
+    switch (line) {
+      case "Line 1":
+        setBorderColor(theme.colors.line_1_color);
+        break;
+      case "Line 2":
+        setBorderColor(theme.colors.line_2_color);
+        break;
+      case "Line 3":
+        setBorderColor(theme.colors.line_3_color);
+        break;
+      case "Line 4":
+        setBorderColor(theme.colors.line_4_color);
+        break;
+      case "Line 5":
+        setBorderColor(theme.colors.line_5_color);
+        break;
+      case "Line 6":
+        setBorderColor(theme.colors.line_6_color);
+        break;
+      case "Line 7":
+        setBorderColor(theme.colors.line_7_color);
+        break;
+      case "Line 8":
+        setBorderColor(theme.colors.line_8_color);
+        break;
+      case "Line 9":
+        setBorderColor(theme.colors.line_9_color);
+        break;
+      default:
+        setBorderColor(theme.colors.line_1_color);
+        break;
+    }
+  };
+
+  const metroLineOptions = [
+    "Line 1",
+    "Line 2",
+    "Line 3",
+    "Line 4",
+    "Line 5",
+    "Line 6",
+    "Line 7",
+    "Line 8",
+    "Line 9",
+  ];
+
+  useEffect(() => {
+    setBorderColor(selectedLine);
+  });
 
   return (
     <Flex
@@ -72,27 +138,31 @@ function EditMetroLine() {
               color: "white",
               fontSize: "30px",
             }}
+            onClick={handleLineClick}
           >
-            Line 2
+            {selectedLine}
           </Text>
           <Box
             style={{
               width: "70%",
               height: "60%",
-              border: "1.5px solid white",
+              border: `7px solid ${borderColor}`,
               borderRadius: "20px",
+              position: "relative",
             }}
           ></Box>
+
           <div
             style={{
               position: "absolute",
               top: "50%",
               left: "15%",
               transform: "translate(-50%, -50%)",
-              width: "50px",
-              height: "50px",
+              width: "20px",
+              height: "20px",
               borderRadius: "50%",
-              backgroundColor: "red",
+              backgroundColor: "white",
+              border: "3px solid #ccc",
             }}
           ></div>
           <Text
@@ -111,13 +181,14 @@ function EditMetroLine() {
           <div
             style={{
               position: "absolute",
-              top: "50%", // Box 컴포넌트의 중앙에 위치하도록 설정
-              right: "15%", // 우측에 위치
-              transform: "translate(50%, -50%)", // 수직으로 정확히 중앙으로 위치시키기 위해 사용
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%", // 원형으로 만들기 위해 50%의 borderRadius 사용
-              backgroundColor: "blue", // 예시로 파란색 배경을 적용
+              top: "50%",
+              right: "15%",
+              transform: "translate(50%, -50%)",
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+              border: "3px solid #ccc",
             }}
           ></div>
           <Text
@@ -135,6 +206,28 @@ function EditMetroLine() {
           </Text>
         </Flex>
       </Flex>
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <ModalOverlay />
+        <ModalContent style={{ width: "80%", opacity: "0.5" }}>
+          <ModalHeader style={{ textAlign: "center" }}>
+            Choose Metro Line
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {metroLineOptions.map((line) => (
+              <Button
+                key={line}
+                onClick={() => handleLineSelection(line)}
+                w="100%"
+              >
+                {line}
+              </Button>
+            ))}
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 }
