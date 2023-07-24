@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 type AssetVariant = {
     id: number;
@@ -8,26 +8,31 @@ type AssetVariant = {
 type CategoryProps = {
     variants: AssetVariant[];
     selectedVariant: AssetVariant;
-    setSelectedVariant: React.Dispatch<React.SetStateAction<AssetVariant>>;
+    setSelectedVariant: (newHat: AssetVariant) => void;
 };
   
 export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
 
+    const [newSelectedHat, setNewSelectedHat] = useState(selectedVariant);
+    const handleSelectedHat = (newSelectedHat: AssetVariant) => {
+        setNewSelectedHat(newSelectedHat);
+        setSelectedVariant(newSelectedHat);
+    }
+
     return (
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
-                <div style={selectedVariant === null ? styles.selectedItem : styles.item}>
+                <div style={newSelectedHat === null ? styles.selectedItem : styles.item}>
                     <img
                         src={require("../assets/null.png")}
                         alt="No Hat"
-                        onClick={() => setSelectedVariant(null)}
+                        onClick={() => handleSelectedHat(null)}
                     />
                 </div>
                 {variants.map((variant) => (
                     <div 
                         key={variant?.id}
-                        // style={styles.item} 
-                        style={selectedVariant === variant ? styles.selectedItem : styles.item}
+                        style={newSelectedHat === variant ? styles.selectedItem : styles.item}
                     >
                         {/* <img
                             key={variant?.id}
@@ -46,7 +51,7 @@ export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                                 marginTop: '40px',
                                 marginRight: '5px'
                             }}
-                            onClick={() => setSelectedVariant(variant)}
+                            onClick={() => handleSelectedHat(variant)}
                         />
                     </div>
                 ))}
@@ -57,21 +62,27 @@ export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
 
 export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
 
+    const [newSelectedAcc, setNewSelectedAcc] = useState(selectedVariant);
+    const handleSelectedAcc = (newSelectedAcc: AssetVariant) => {
+        setNewSelectedAcc(newSelectedAcc);
+        setSelectedVariant(newSelectedAcc);
+    }
+
     return (
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
-                <div style={selectedVariant === null ? styles.selectedItem : styles.item}>
+                <div style={newSelectedAcc === null ? styles.selectedItem : styles.item}>
                     <img
                         src={require("../assets/null.png")}
                         alt="No Accessory"
-                        onClick={() => setSelectedVariant(null)}
+                        onClick={() => handleSelectedAcc(null)}
                     />
                 </div>
                 {variants.map((variant) => (
                     <div 
                         key={variant?.id}
                         // style={styles.item} 
-                        style={selectedVariant === variant ? styles.selectedItem : styles.item}
+                        style={newSelectedAcc === variant ? styles.selectedItem : styles.item}
                     >
                         {/* <img
                             key={variant?.id}
@@ -90,7 +101,7 @@ export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                                 marginTop: '20px',
                                 marginLeft: '5px'
                             }}
-                            onClick={() => setSelectedVariant(variant)}
+                            onClick={() => handleSelectedAcc(variant)}
                         />
                     </div>
                 ))}
