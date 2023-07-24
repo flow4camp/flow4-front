@@ -11,6 +11,8 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import React, { useState } from "react";
 import Layout from "../components/layout";
 import { Link } from "react-router-dom";
+import UserCharacter from "../components/UserCharacter";
+import { faceVariants } from "../components/AssetVariants";
 
 function MyPage() {
   const theme = useTheme();
@@ -54,16 +56,18 @@ function MyPage() {
             align="center"
             style={{
               backgroundColor: theme.colors.ziha_charcoal,
-              width: "150px",
-              height: "150px",
+              width: "200px",
+              height: "200px",
               borderRadius: "50%",
             }}
           >
-            <Image
-              src={require("../assets/ghost-basic-0.png")}
-              w="100px"
-              h="100px"
-              m={3}
+            <UserCharacter
+              edit={false}
+              selectedHat={null}
+              selectedAcc={null}
+              selectedFace={faceVariants[0]}
+              selectedClothes={null}
+              selectedShoe={null}
             />
           </Flex>
 
