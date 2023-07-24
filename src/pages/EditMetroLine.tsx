@@ -250,7 +250,7 @@ function EditMetroLine() {
         <ModalOverlay />
         <ModalContent style={{ width: "80%", opacity: "0.5" }}>
           <ModalHeader style={{ textAlign: "center" }}>
-            Choose Metro Line
+            호선 선택하기
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
