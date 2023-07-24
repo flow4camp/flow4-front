@@ -2,8 +2,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Layout from "../components/layout";
+import UserCharacter from "../components/UserCharacter";
 
 function Home() {
+
   const nickName = "user1";
   const winNum = 1;
   const looseNum = 12;
@@ -20,7 +22,8 @@ function Home() {
         <div style={styles.userinfoContainer}>
           <div style={styles.userinfoChar}>
             <NavLink to="/edit-character">
-              <img src="/images/test_img.gif" alt="Edit Character" />
+              {/* <img src="/images/test_img.gif" alt="Edit Character" /> */}
+              <UserCharacter />
             </NavLink>
           </div>
           <div style={styles.userinfoText}>
@@ -65,15 +68,16 @@ const styles: Styles = {
   },
   userinfoContainer: {
     marginTop: "5%",
-    backgroundColor: "#EBEEF3",
+    backgroundColor: "#5A5A5A",
     borderRadius: "30px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "30%",
+    // height: "30%",
+    height: '250px',
     width: "90%",
   },
-  userinfoText: { flex: 1 },
+  userinfoText: { flex: 1, color: 'white' },
   userinfoChar: {},
   questContainer: {
     borderTop: "1px solid #ccc",

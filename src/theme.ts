@@ -12,7 +12,7 @@ const colors = {
     ziha_green:'#CDF082',
     ziha_green_gray: '#C3DB90',
     ziha_purple: '#B1A6D2',
-    ziha_purple_gray: 'B9B3CA'
+    ziha_purple_gray: '#B9B3CA'
 }
 
 const theme = extendTheme({ colors })
