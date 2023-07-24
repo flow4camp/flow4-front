@@ -47,6 +47,8 @@ function EditCharacter() {
           fontSize='md'
           bg='transparent'
           color='white'
+          _active={{ backgroundColor: 'whiteAlpha.400' }}
+          _focus={{ backgroundColor: 'whiteAlpha.400' }}
         >
           저장하기
         </Button>
