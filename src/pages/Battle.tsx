@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import { Center, Button, Text, Box, Spacer, Flex } from '@chakra-ui/react';
 import Layout from '../components/layout';
@@ -11,12 +12,38 @@ import {
   ModalBody,
 } from '@chakra-ui/modal';
 import { useDisclosure } from '@chakra-ui/hooks';
+import { useTheme } from '@chakra-ui/react';
 
 function Battle() {
 
+  const theme = useTheme();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const openModalForMatch = () => {
+  const [currentLineNumber, setCurrentLineNumber] = useState(1);
+
+  const openModalForMatch1 = () => {
+    setCurrentLineNumber(1);
+    onOpen();
+  }
+  const openModalForMatch2 = () => {
+    setCurrentLineNumber(2);
+    onOpen();
+  }
+  const openModalForMatch3 = () => {
+    setCurrentLineNumber(3);
+    onOpen();
+  }
+  const openModalForMatch4 = () => {
+    setCurrentLineNumber(4);
+    onOpen();
+  }
+  const openModalForMatch5 = () => {
+    setCurrentLineNumber(5);
+    onOpen();
+  }
+  const openModalForMatch6 = () => {
+    setCurrentLineNumber(6);
     onOpen();
   }
 
@@ -48,7 +75,7 @@ function Battle() {
           <Flex
             direction='row'
             w='100%'
-            onClick={openModalForMatch}
+            onClick={openModalForMatch1}
           >
             <Spacer />
             <Text p={2} alignSelf='center' style={{ fontFamily: 'Font-Content' }} >1호선</Text>
@@ -58,7 +85,7 @@ function Battle() {
           <Flex
             direction='row'
             w='100%'
-            onClick={openModalForMatch}
+            onClick={openModalForMatch2}
           >
             <Spacer />
             <Text p={2} alignSelf='center' style={{ fontFamily: 'Font-Content' }} >2호선</Text>
@@ -68,7 +95,7 @@ function Battle() {
           <Flex
             direction='row'
             w='100%'
-            onClick={openModalForMatch}
+            onClick={openModalForMatch3}
           >
             <Spacer />
             <Text p={2} alignSelf='center' style={{ fontFamily: 'Font-Content' }} >3호선</Text>
@@ -78,7 +105,7 @@ function Battle() {
           <Flex
             direction='row'
             w='100%'
-            onClick={openModalForMatch}
+            onClick={openModalForMatch4}
           >
             <Spacer />
             <Text p={2} alignSelf='center' style={{ fontFamily: 'Font-Content' }} >4호선</Text>
@@ -88,7 +115,7 @@ function Battle() {
           <Flex
             direction='row'
             w='100%'
-            onClick={openModalForMatch}
+            onClick={openModalForMatch5}
           >
             <Spacer />
             <Text p={2} alignSelf='center' style={{ fontFamily: 'Font-Content' }} >5호선</Text>
@@ -98,7 +125,7 @@ function Battle() {
           <Flex
             direction='row'
             w='100%'
-            onClick={openModalForMatch}
+            onClick={openModalForMatch6}
           >
             <Spacer />
             <Text p={2} alignSelf='center' style={{ fontFamily: 'Font-Content' }} >6호선</Text>
@@ -114,9 +141,31 @@ function Battle() {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Header</ModalHeader>
+            <ModalHeader style={{ fontFamily: 'Font-Title-Light' }} >{currentLineNumber}호선 배틀</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>Body</ModalBody>
+            <ModalBody>
+              <Center w='100%' marginRight={5} >
+                <Flex direction='column' gap={3} w='100%' >
+                  <Flex bg={theme.colors.ziha_charcoal_gray} w='100%' h='120px' borderRadius='lg' align='center' justify='center' >
+                    <Text  
+                      color='white'
+                      fontSize='lg' 
+                      style={{ fontFamily: 'Font-Content' }}
+                    >
+                      나</Text>
+                  </Flex>
+                  <Flex bg={theme.colors.ziha_charcoal_gray} w='100%' h='120px' borderRadius='lg' align='center' justify='center' >
+                    <Text  
+                      color='white'
+                      fontSize='lg' 
+                      style={{ fontFamily: 'Font-Content' }}
+                    >
+                      매칭 상대 기다리는 중
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Center>
+            </ModalBody>
             <ModalFooter>
               <Button onClick={onClose}>취소</Button>
             </ModalFooter>
