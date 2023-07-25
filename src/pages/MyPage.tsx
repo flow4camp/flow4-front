@@ -19,15 +19,22 @@ function MyPage() {
   const [name, setName] = useState("User1");
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [ghostName, setGhostName] = useState("유령이");
+  const [isEditingGhostName, setIsEditingGhostName] = useState(false);
+  const [inputValueGhostName, setInputValueGhostName] = useState("");
 
   const handleEditClick = () => {
     setIsEditing(true);
     setInputValue(name);
+    setIsEditingGhostName(true);
+    setInputValueGhostName(ghostName);
   };
 
   const handleSaveClick = () => {
     setIsEditing(false);
     setName(inputValue);
+    setIsEditingGhostName(false);
+    setGhostName(inputValueGhostName);
   };
 
   const firstBorderColor = theme.colors.line_1_color;
@@ -73,12 +80,11 @@ function MyPage() {
               selectedShoe={null}
             />
           </Flex>
-
-          <Flex justify="space-between" style={{ marginTop: "30px" }}>
-            {isEditing ? (
+          <Flex direction="column" h="100px" style={{ marginTop: "30px" }}>
+            {isEditingGhostName ? (
               <Input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                value={inputValueGhostName}
+                onChange={(e) => setInputValueGhostName(e.target.value)}
                 style={{ fontFamily: "Font-Title", alignSelf: "center" }}
               />
             ) : (
@@ -86,6 +92,20 @@ function MyPage() {
                 fontSize="3xl"
                 fontWeight="bold"
                 style={{ fontFamily: "Font-Title", alignSelf: "center" }}
+                onClick={handleEditClick}
+              >
+                {ghostName}
+              </Text>
+            )}
+            {isEditing ? (
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                style={{ fontFamily: "Font-Title-light", alignSelf: "center" }}
+              />
+            ) : (
+              <Text
+                style={{ fontFamily: "Font-Title-light", alignSelf: "center" }}
                 onClick={handleEditClick}
               >
                 {name}
@@ -100,6 +120,7 @@ function MyPage() {
               </Button>
             )}
           </Flex>
+
           <Flex
             style={{ width: "50%", marginTop: "15px" }}
             justify="space-between"
