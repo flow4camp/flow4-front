@@ -209,7 +209,9 @@ function Battle() {
           size="sm"
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent 
+            mt="50%"
+          >
             <ModalHeader style={{ fontFamily: "Font-Title-Light" }}>
               {currentLineNumber}호선 배틀
             </ModalHeader>
@@ -242,13 +244,6 @@ function Battle() {
                     align="center"
                     justify="center"
                   >
-                    {/* <Text
-                      color="white"
-                      fontSize="lg"
-                      style={{ fontFamily: "Font-Content" }}
-                    >
-                      매칭 상대 기다리는 중
-                    </Text> */}
                     <Spinner 
                       color='ziha_green' 
                       emptyColor='gray.500'
