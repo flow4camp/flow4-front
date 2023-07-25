@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Center, Button, Text, Box, Spacer, Flex, Image } from "@chakra-ui/react";
+import { Center, Button, Text, Box, Spacer, Flex, Image, Spinner } from "@chakra-ui/react";
 import Layout from "../components/layout";
 import {
   Modal,
@@ -218,7 +218,24 @@ function Battle() {
               <Center w="100%" marginRight={5}>
                 <Flex direction="column" gap={3} w="100%">
                   <Flex
-                    bg={theme.colors.ziha_charcoal_gray}
+                    bg={theme.colors.ziha_charcoal}
+                    w="100%"
+                    h="120px"
+                    borderRadius="lg"
+                    align="center"
+                    justify="center"
+                  >
+                    <UserCharacter 
+                      usage={'profile'} 
+                      selectedHat={null} 
+                      selectedAcc={null}
+                      selectedFace={faceVariants[0]}
+                      selectedClothes={null}
+                      selectedShoe={null}
+                    />     {/* selected stuffs are null for now!! */}
+                  </Flex>
+                  <Flex
+                    bg={theme.colors.ziha_charcoal}
                     w="100%"
                     h="120px"
                     borderRadius="lg"
@@ -230,32 +247,15 @@ function Battle() {
                       fontSize="lg"
                       style={{ fontFamily: "Font-Content" }}
                     >
-                      나
-                    </Text> */}
-                    <UserCharacter 
-                      usage={'profile'} 
-                      selectedHat={null} 
-                      selectedAcc={null}
-                      selectedFace={faceVariants[0]}
-                      selectedClothes={null}
-                      selectedShoe={null}
-                    />     {/* selected stuffs are null for now!! */}
-                  </Flex>
-                  <Flex
-                    bg={theme.colors.ziha_charcoal_gray}
-                    w="100%"
-                    h="120px"
-                    borderRadius="lg"
-                    align="center"
-                    justify="center"
-                  >
-                    <Text
-                      color="white"
-                      fontSize="lg"
-                      style={{ fontFamily: "Font-Content" }}
-                    >
                       매칭 상대 기다리는 중
-                    </Text>
+                    </Text> */}
+                    <Spinner 
+                      color='ziha_green' 
+                      emptyColor='gray.500'
+                      thickness='4px'
+                      size='lg'
+                      speed='2.5s'
+                    />
                   </Flex>
                 </Flex>
               </Center>
