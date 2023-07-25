@@ -13,6 +13,7 @@ import Layout from "../components/layout";
 import { Link } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
 import { faceVariants } from "../components/AssetVariants";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function MyPage() {
   const theme = useTheme();
@@ -252,7 +253,7 @@ function MyPage() {
             }}
           >
             <Text>기력 충전하기</Text>
-            <Text>&gt;</Text>
+            <ChevronRightIcon boxSize={5} color="black" />
           </Button>
           <Button
             as={Link}
@@ -266,7 +267,10 @@ function MyPage() {
             }}
           >
             <Text>내 유령 꾸미기</Text>
-            <Text>&gt;</Text>
+
+            <Box>
+              <ChevronRightIcon boxSize={5} color="black" />
+            </Box>
           </Button>
         </Flex>
       </Flex>
