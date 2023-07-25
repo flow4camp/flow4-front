@@ -60,78 +60,144 @@ function Battle() {
             지하배틀
           </Text>
         </Box>
-        <Flex direction="column" w="100%" p={2} gap={3} paddingTop={0} >
-          <Flex direction="row" w="100%" onClick={openModalForMatch1}>
+        <Flex direction="column" w="100%" p={2} gap={2} paddingTop={0} >
+          <Flex direction="row" w="100%" align='center' >
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_1_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch1}
             >
-              1호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                1호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
             <Image src={require('../assets/trains/train_1.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch2}>
+          <Flex direction="row" w="100%" align='center' >
+            <Image src={require('../assets/trains/train_2_flip.png')} w='250px' h='100px' justifySelf='right' />
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_2_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch2}
             >
-              2호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                2호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Image src={require('../assets/trains/train_2.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch3}>
+          <Flex direction="row" w="100%" align='center' >
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_3_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch3}
             >
-              3호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                3호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
             <Image src={require('../assets/trains/train_3.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch4}>
+          <Flex direction="row" w="100%" align='center' >
+            <Image src={require('../assets/trains/train_4_flip.png')} w='250px' h='100px' justifySelf='right' />
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_4_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch4}
             >
-              4호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                4호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Image src={require('../assets/trains/train_4.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch5}>
+          <Flex direction="row" w="100%" align='center' >
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_5_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch5}
             >
-              5호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                5호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
             <Image src={require('../assets/trains/train_5.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch6}>
+          <Flex direction="row" w="100%" align='center'>
+            <Image src={require('../assets/trains/train_6_flip.png')} w='250px' h='100px' justifySelf='right' />
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_6_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch6}
             >
-              6호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                6호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Image src={require('../assets/trains/train_6.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
         </Flex>
         <Modal
