@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Center, Button, Text, Box, Spacer, Flex } from "@chakra-ui/react";
+import { Center, Button, Text, Box, Spacer, Flex, Image } from "@chakra-ui/react";
 import Layout from "../components/layout";
 import {
   Modal,
@@ -60,7 +60,7 @@ function Battle() {
             지하배틀
           </Text>
         </Box>
-        <Flex direction="column" w="100%" p={2} gap={5}>
+        <Flex direction="column" w="100%" p={2} gap={3} paddingTop={0} >
           <Flex direction="row" w="100%" onClick={openModalForMatch1}>
             <Spacer />
             <Text
@@ -71,7 +71,7 @@ function Battle() {
               1호선
             </Text>
             <Spacer />
-            <Box bg="blue" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_1.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
           <Flex direction="row" w="100%" onClick={openModalForMatch2}>
             <Spacer />
@@ -83,7 +83,7 @@ function Battle() {
               2호선
             </Text>
             <Spacer />
-            <Box bg="green" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_2.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
           <Flex direction="row" w="100%" onClick={openModalForMatch3}>
             <Spacer />
@@ -95,7 +95,7 @@ function Battle() {
               3호선
             </Text>
             <Spacer />
-            <Box bg="orange" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_3.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
           <Flex direction="row" w="100%" onClick={openModalForMatch4}>
             <Spacer />
@@ -107,7 +107,7 @@ function Battle() {
               4호선
             </Text>
             <Spacer />
-            <Box bg="aqua" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_4.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
           <Flex direction="row" w="100%" onClick={openModalForMatch5}>
             <Spacer />
@@ -119,7 +119,7 @@ function Battle() {
               5호선
             </Text>
             <Spacer />
-            <Box bg="purple" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_5.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
           <Flex direction="row" w="100%" onClick={openModalForMatch6}>
             <Spacer />
@@ -131,7 +131,7 @@ function Battle() {
               6호선
             </Text>
             <Spacer />
-            <Box bg="brown" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_6.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
         </Flex>
         <Modal
