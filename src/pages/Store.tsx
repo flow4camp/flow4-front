@@ -90,7 +90,7 @@ const Store = () => {
               <div className="grid-item">Item 2</div>
               <div className="grid-item">Item 3</div>
             </div> */}
-            <StoreHatOptions variants={storeHatVariants} selectedVariant={null} />
+            <StoreHatOptions variants={storeHatVariants} />
             </div>
           }
           </div>
