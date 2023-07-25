@@ -23,6 +23,12 @@
 
     }
 
+    &.attacked {
+
+        animation: shake-dizzy 0.1s linear 0s 4;
+
+    }
+
 }
 
 @keyframes motion {
@@ -42,3 +48,18 @@
         margin-top: 8px;
     }
 }
+
+@keyframes shake-dizzy {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(-10deg);
+    }
+  }

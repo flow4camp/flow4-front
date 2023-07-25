@@ -27,7 +27,10 @@ const UserCharacter: React.FC<UserCharacterProps> = ({ usage, selectedHat, selec
 
     return (
         <Box position='relative' m={3} 
-            className={`character-container ${usage === "edit" ? 'edit' : ''} ${usage === "profile" ? 'profile' : ''} `} 
+            className={`character-container ${usage === "edit" ? 'edit' : ''} 
+                ${usage === "profile" ? 'profile' : ''}
+                ${usage === "attacked" ? 'attacked' : ''} 
+            `} 
         >
             <Image src={require('../assets/ghost-basic-0.png')} />
             { selectedFace && <Image src={selectedFace.src} alt='face' position='absolute' top='0' left='0' />}
