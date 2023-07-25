@@ -120,13 +120,25 @@ function MyPage() {
               </Button>
             )}
           </Flex>
-
-          <Flex
-            style={{ width: "50%", marginTop: "15px" }}
-            justify="space-between"
-          >
-            <Text style={{ fontFamily: "Font-content" }}>전적 1승 2패</Text>
-            <Text style={{ fontFamily: "Font-content" }}>기력 149</Text>
+          <Flex style={{ marginTop: "15px" }} direction="column">
+            <Flex>
+              <Image
+                src={require("../assets/fight.png")}
+                w="20px"
+                h="20px"
+                style={{ marginRight: "10px" }}
+              />
+              <Text style={{ fontFamily: "Font-content" }}>전적 1승 2패</Text>
+            </Flex>
+            <Flex>
+              <Image
+                src={require("../assets/coin.png")}
+                w="25px"
+                h="25px"
+                style={{ marginRight: "5px" }}
+              />
+              <Text style={{ fontFamily: "Font-content" }}>기력 149</Text>
+            </Flex>
           </Flex>
 
           <Flex
