@@ -26,7 +26,7 @@ export const accVariants: AssetVariant[] = [
     { id: 1, src: require('../assets/accessory/acc-glasses.png') },
     { id: 2, src: require('../assets/accessory/acc-alchohol.png') },
     { id: 3, src: require('../assets/accessory/acc-wine.png') },
-    { id: 3, src: require('../assets/accessory/acc-baton.png') },
+    { id: 4, src: require('../assets/accessory/acc-baton.png') },
 ];
 
 export const clothesVariants: AssetVariant[] = [
