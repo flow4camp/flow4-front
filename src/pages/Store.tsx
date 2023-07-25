@@ -39,7 +39,7 @@ const Store = () => {
         {/* 탭 메뉴 */}
         <div className='tab-menu'>
           <button className={activeTab === 'tab1' ? 'active-tab' : 'tab-button'}onClick={() => handleTabChange('tab1')}><Text style={{ fontFamily: 'Font-Title' }}>아이템</Text></button>
-          <button className={activeTab === 'tab2' ? 'active-tab' : 'tab-button'} onClick={() => handleTabChange('tab2')}><Text style={{ fontFamily: 'Font-Title' }}>커피</Text></button>
+          <button className={activeTab === 'tab2' ? 'active-tab' : 'tab-button'} onClick={() => handleTabChange('tab2')}><Text style={{ fontFamily: 'Font-Title' }}>상품권</Text></button>
         </div>
 
         {/* 선택된 탭에 해당하는 아이템 리스트 렌더링 */}

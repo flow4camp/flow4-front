@@ -8,6 +8,8 @@ export const hatVariants: AssetVariant[] = [
     { id: 0, src: require('../assets/hat/hat-hiphop-hat.png') },
     { id: 1, src: require('../assets/hat/hat-brunet.png') },
     { id: 2, src: require('../assets/hat/hat-flower.png') },
+    { id: 3, src: require('../assets/hat/hat-police.png') },
+    { id: 4, src: require('../assets/hat/hat-sprout.png') },
 ];
 
 export const faceVariants: AssetVariant[] = [
@@ -16,6 +18,7 @@ export const faceVariants: AssetVariant[] = [
     { id: 2, src: require("../assets/face/face-crying.png") },
     { id: 3, src: require("../assets/face/face-drunk.png") },
     { id: 4, src: require("../assets/face/face-wicked.png") },
+    { id: 5, src: require("../assets/face/face-cute.png") },
 ];
 
 export const accVariants: AssetVariant[] = [
@@ -23,6 +26,7 @@ export const accVariants: AssetVariant[] = [
     { id: 1, src: require('../assets/accessory/acc-glasses.png') },
     { id: 2, src: require('../assets/accessory/acc-alchohol.png') },
     { id: 3, src: require('../assets/accessory/acc-wine.png') },
+    { id: 3, src: require('../assets/accessory/acc-baton.png') },
 ];
 
 export const clothesVariants: AssetVariant[] = [
