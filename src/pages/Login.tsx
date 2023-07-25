@@ -2,7 +2,8 @@ import React, { ChangeEvent } from "react";
 import { Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-// import axios from 'axios';
+import { API_URL } from '../api';
+import { useUserContext } from '../context/UserContext';
 
 function Login() {
 
@@ -10,20 +11,53 @@ function Login() {
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
+  const { user, setUser } = useUserContext();
 
   const onChangeId = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputId(e.target.value);
   };
-  
+
   const onChangePwd = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputPwd(e.target.value);
+  };
+
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    if (inputId === '' || inputPwd === '') {
+      alert('빈 칸을 채워주세요.');
+      return;
+    }
+    const requestData = {
+      email: inputId,
+      password: inputPwd,
+    };
+
+    fetch(API_URL + '/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.statusCode === 401) {
+          console.log('아이디/비밀번호가 일치하지 않습니다.')
+        }
+        else {
+          setUser(data);
+          navigate('/home');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   return (
     <Center
       w='100%'
       h='100vh'
-      alignContent="center" 
+      alignContent="center"
     >
       <Center
         w='70%'
@@ -57,8 +91,8 @@ function Login() {
             p={5}
             gap={2}
           >
-            <Text 
-              marginBottom={3} 
+            <Text
+              marginBottom={3}
               style={{ fontFamily: 'Font-Content' }}
               >계정에 로그인하세요</Text>
             <Center>
@@ -82,7 +116,7 @@ function Login() {
               />
             </Center>
           </Flex>
-          <Text 
+          <Text
             fontSize="md"
             style={{ fontFamily: 'Font-Content' }}
           >
@@ -101,7 +135,7 @@ function Login() {
               <Button
                 w='220px'
                 style={{ fontFamily: 'Font-Content-Light' }}
-                onClick={()=>(navigate('/home'))}       // for now!
+                onClick={handleLogin}       // for now!
               >
                 로그인
               </Button>

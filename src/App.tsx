@@ -12,10 +12,12 @@ import StaminaStore from "./pages/StaminaStore";
 import BattleGround from "./pages/BattleGround";
 
 import "./App.css";
+import { UserProvider } from './context/UserContext';
 
 function App() {
   return (
     <div className="App">
+      <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -29,7 +31,8 @@ function App() {
           <Route path="/stamina-store" element={<StaminaStore />} />
           <Route path="/battle-ground" element={<BattleGround />} />
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+      </UserProvider>
     </div>
   );
 }

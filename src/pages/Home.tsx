@@ -5,13 +5,14 @@ import Layout from "../components/layout";
 import UserCharacter from "../components/UserCharacter";
 import { Center, Divider, Text, Box, Image, Flex, Checkbox, useTheme } from '@chakra-ui/react';
 import { faceVariants } from "../components/AssetVariants";
+import { useUserContext } from '../context/UserContext';
 
 function Home() {
 
   const theme = useTheme();
   const navigate = useNavigate();
+  const { user, setUser } = useUserContext();
 
-  const userName = "user1";   // 유저이름
   const nickName = "유령이";    // 유령이름
   const attendance = 17;      // 누적 출석 일수
   const winNum = 1;
@@ -27,7 +28,8 @@ function Home() {
 
   return (
     <Layout>
-      <div style={styles.container}>
+        {user &&
+        <div style={styles.container}>
         <Box w='100%'>
           <Text
             w='fit-content'
@@ -37,7 +39,7 @@ function Home() {
             marginBottom={0}
             fontSize='lg'
             style={{ fontFamily: 'Font-Title-Light' }}
-          >{userName}님,</Text>
+          >{user.username}님,</Text>
           <Text
             w='fit-content'
             paddingLeft={3}
@@ -51,9 +53,9 @@ function Home() {
         <div style={styles.userinfoContainer}>
           <div style={styles.userinfoChar}>
             <NavLink to="/edit-character">
-              <UserCharacter 
-                edit={false} 
-                selectedHat={null} 
+              <UserCharacter
+                edit={false}
+                selectedHat={null}
                 selectedAcc={null}
                 selectedFace={faceVariants[0]}
                 selectedClothes={null}
@@ -87,17 +89,17 @@ function Home() {
         >
           <Center w='100%' h='100%' position='relative' >
             <Box position='absolute' w='100%' h='4px' bg={lineNumColor}></Box>
-            <Box 
-              position='absolute' 
-              w='8px' h='8px' 
-              borderRadius='4px' 
+            <Box
+              position='absolute'
+              w='8px' h='8px'
+              borderRadius='4px'
               bg='white'
               boxShadow={'0 0 0 3px ' + lineNumColor}
               left={10} />
-            <Box 
-              position='absolute' 
-              w='8px' h='8px' 
-              borderRadius='4px' 
+            <Box
+              position='absolute'
+              w='8px' h='8px'
+              borderRadius='4px'
               bg='white'
               boxShadow={'0 0 0 3px ' + lineNumColor}
               right={10} />
@@ -144,9 +146,9 @@ function Home() {
             <Divider borderColor='ziha_charcoal_gray' w='50%' marginBottom={2}/>
             {dailyQuestList.map((quest) => (
               <Checkbox
-                key={quest.id} 
+                key={quest.id}
                 size='sm'
-                style={{ fontFamily: "Font-Content-Light" }} 
+                style={{ fontFamily: "Font-Content-Light" }}
                 w='fit-content'
                 marginLeft={1}
                 fontSize='lg'
@@ -176,15 +178,16 @@ function Home() {
               marginTop={2}
             >특별 퀘스트</Text>
             <Divider borderColor='ziha_charcoal_gray' w='50%' marginBottom={2} />
-              <Checkbox 
+              <Checkbox
                 size='sm'
-                style={{ fontFamily: "Font-Content-Light" }} 
+                style={{ fontFamily: "Font-Content-Light" }}
                 w='fit-content'
                 marginLeft={1}
               >{specialQuest}</Checkbox>
           </Flex>
-        </Box>
-      </div>
+            </Box>
+        </div>
+      }
     </Layout>
   );
 }
@@ -219,9 +222,9 @@ const styles: Styles = {
     width: "90%",
     boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.3)'
   },
-  userinfoText: { 
-    flex: 1, 
-    color: 'white', 
+  userinfoText: {
+    flex: 1,
+    color: 'white',
     marginRight: '20px',
   },
   userinfoChar: {},
