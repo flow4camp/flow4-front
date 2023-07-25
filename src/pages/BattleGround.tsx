@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import UserCharacter from "../components/UserCharacter";
 import { faceVariants } from "../components/AssetVariants";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 function BattleGround() {
   const theme = useTheme();
@@ -54,106 +55,101 @@ function BattleGround() {
           3:28
         </Text>
       </Box>
-      <Flex direction="column" justify="center" align="center">
-        {/* hp 바 */}
-        <Flex align="center" w="90vw" justify="space-between">
-          <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-            HP
-          </Text>
-          <Flex
-            w="300px"
-            h="10px"
-            style={{ border: "2px solid white", borderRadius: "10px" }}
+      {/* 상대방 캐릭터 */}
+      <Flex justify="center" align="center" h="30%">
+        <Flex direction="column" style={{ marginTop: "50px" }}>
+          <Text
+            fontSize="2xl"
+            style={{ fontFamily: "Font-Title", color: "white" }}
           >
-            <Flex w="80%" h="100%" style={{ backgroundColor: "white" }}></Flex>
-          </Flex>
-        </Flex>
-        {/* 기력 바 */}
-        <Flex align="center" w="90vw" justify="space-between">
-          <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-            기력
+            귀신이
           </Text>
-          <Flex
-            w="300px"
-            h="10px"
-            style={{ border: "2px solid white", borderRadius: "10px" }}
-          >
+          <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
+            User2
+          </Text>
+          {/* hp 바 */}
+          <Flex align="center" w="140px" justify="space-between">
+            <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
+              HP
+            </Text>
             <Flex
-              w="80%"
-              h="100%"
-              style={{ backgroundColor: theme.colors.ziha_green }}
-            ></Flex>
+              w="100px"
+              h="10px"
+              style={{ border: "2px solid white", borderRadius: "10px" }}
+            >
+              <Flex
+                w="80%"
+                h="100%"
+                style={{ backgroundColor: theme.colors.ziha_green }}
+              ></Flex>
+            </Flex>
           </Flex>
+        </Flex>
+        <Flex justify="center" align="center">
+          {" "}
+          <UserCharacter
+            edit={false}
+            selectedHat={null}
+            selectedAcc={null}
+            selectedFace={faceVariants[0]}
+            selectedClothes={null}
+            selectedShoe={null}
+          />
         </Flex>
       </Flex>
-      <Flex
-        justify="center"
-        align="center"
-        direction="column"
-        style={{ marginTop: "50px" }}
-      >
-        <Text
-          fontSize="3xl"
-          style={{ fontFamily: "Font-Title", color: "white" }}
-        >
-          귀신이
-        </Text>
-        <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-          User2
-        </Text>
-        {/* hp 바 */}
-        <Flex align="center" w="150px" justify="space-between">
-          <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-            HP
-          </Text>
-          <Flex
-            w="100px"
-            h="10px"
-            style={{ border: "2px solid white", borderRadius: "10px" }}
-          >
-            <Flex w="80%" h="100%" style={{ backgroundColor: "white" }}></Flex>
-          </Flex>
+      {/* 내 캐릭터 */}
+      <Flex justify="center" align="center" h="20%">
+        <Flex justify="center" align="center">
+          {" "}
+          <UserCharacter
+            edit={false}
+            selectedHat={null}
+            selectedAcc={null}
+            selectedFace={faceVariants[0]}
+            selectedClothes={null}
+            selectedShoe={null}
+          />
         </Flex>
-        {/* 기력 바 */}
-        <Flex align="center" w="150px" justify="space-between">
-          <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-            기력
-          </Text>
-          <Flex
-            w="100px"
-            h="10px"
-            style={{ border: "2px solid white", borderRadius: "10px" }}
+        <Flex direction="column" style={{ marginTop: "50px" }}>
+          <Text
+            fontSize="2xl"
+            style={{ fontFamily: "Font-Title", color: "white" }}
           >
+            유령이
+          </Text>
+          <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
+            User2
+          </Text>
+          {/* hp 바 */}
+          <Flex align="center" w="140px" justify="space-between">
+            <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
+              HP
+            </Text>
             <Flex
-              w="80%"
-              h="100%"
-              style={{ backgroundColor: theme.colors.ziha_green }}
-            ></Flex>
+              w="100px"
+              h="10px"
+              style={{ border: "2px solid white", borderRadius: "10px" }}
+            >
+              <Flex
+                w="80%"
+                h="100%"
+                style={{ backgroundColor: theme.colors.ziha_green }}
+              ></Flex>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-      <Flex justify="center" align="center" h="250px">
-        {" "}
-        <UserCharacter
-          edit={false}
-          selectedHat={null}
-          selectedAcc={null}
-          selectedFace={faceVariants[0]}
-          selectedClothes={null}
-          selectedShoe={null}
-        />
-      </Flex>
-      <Flex w="80vw" justify="space-between" style={{ marginTop: "20px" }}>
+      <Flex w="70vw" justify="space-between" style={{ marginTop: "30%" }}>
         <Flex
           justify="center"
           align="center"
           direction="column"
-          w="30vw"
-          h="20vh"
+          w="12vh"
+          h="17vh"
           style={{ border: "2px solid white", borderRadius: "20px" }}
           _active={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
         >
-          <Image src="/icons/shield.png" w="80%" h="50%" />
+          <Image src="/icons/shield.png" w="70%" h="50%" />
           <Text
             style={{
               marginTop: "10px",
@@ -168,12 +164,12 @@ function BattleGround() {
           justify="center"
           align="center"
           direction="column"
-          w="30vw"
-          h="20vh"
+          w="12vh"
+          h="17vh"
           style={{ border: "2px solid white", borderRadius: "20px" }}
           _active={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
         >
-          <Image src="/icons/sword.png" w="80%" h="50%" />
+          <Image src="/icons/sword.png" w="70%" h="50%" />
           <Text
             style={{
               marginTop: "10px",
