@@ -12,7 +12,7 @@ const Store = () => {
   // // 모자, 악세서리, 표정, 옷, 신발 -> ItemTab
   // ** ItemTab 순서: hat, acc, face, clothes, shoe (0~4) **
   const [selectedItemTab, setSelectedItemTab] = useState<number>(0);
-  
+
   // ItemTabOptions array
   const itemTabOptions = [<StoreHatOptions variants={storeHatVariants} />,
     <StoreAccOptions variants={storeAccVariants} />,
@@ -33,7 +33,7 @@ const Store = () => {
   };
 
   return (
-    <Layout>
+    <Layout scroll='none'>
       <Box
           w='100%'
         >
@@ -54,7 +54,6 @@ const Store = () => {
         {/* 선택된 탭에 해당하는 아이템 리스트 렌더링 */}
         {activeCategoryTab === 'tab1' && (
           <div className='contents'>
-          {<div>
             <div style={styles.tabContainer}>
               <button
                 style={selectedItemTab === 0 ? styles.activeTab : styles.tab}
@@ -88,8 +87,6 @@ const Store = () => {
               </button>
             </div>
             {selectedItemTabOption}
-            </div>
-          }
           </div>
         )}
 
@@ -126,6 +123,7 @@ const styles: Styles = {
     height: "50%",
   },
   tabContainer: {
+    marginBottom: "10px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",

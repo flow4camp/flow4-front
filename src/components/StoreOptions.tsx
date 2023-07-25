@@ -10,7 +10,7 @@ type StoreVariant = {
 type StoreCategoryProps = {
     variants: StoreVariant[];
 };
-  
+
 export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
 
     const toast = useToast();
@@ -26,12 +26,12 @@ export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
             duration: 3000,
             isClosable: true,
             render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
+                <Box
+                    color='ziha_charcoal'
+                    p={3}
+                    bg='ziha_green_gray'
+                    m={3}
+                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
                 >
                     <Text style={{ fontFamily: 'Font-Content'}}
                     >구매 성공!</Text>
@@ -46,7 +46,7 @@ export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -100,12 +100,12 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
             duration: 3000,
             isClosable: true,
             render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
+                <Box
+                    color='ziha_charcoal'
+                    p={3}
+                    bg='ziha_green_gray'
+                    m={3}
+                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
                 >
                     <Text style={{ fontFamily: 'Font-Content'}}
                     >구매 성공!</Text>
@@ -120,7 +120,7 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -175,12 +175,12 @@ export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants }) => 
             duration: 3000,
             isClosable: true,
             render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
+                <Box
+                    color='ziha_charcoal'
+                    p={3}
+                    bg='ziha_green_gray'
+                    m={3}
+                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
                 >
                     <Text style={{ fontFamily: 'Font-Content'}}
                     >구매 성공!</Text>
@@ -195,7 +195,7 @@ export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants }) => 
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -249,12 +249,12 @@ export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants }) 
             duration: 3000,
             isClosable: true,
             render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
+                <Box
+                    color='ziha_charcoal'
+                    p={3}
+                    bg='ziha_green_gray'
+                    m={3}
+                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
                 >
                     <Text style={{ fontFamily: 'Font-Content'}}
                     >구매 성공!</Text>
@@ -269,7 +269,7 @@ export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants }) 
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -324,12 +324,12 @@ export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants }) =>
             duration: 3000,
             isClosable: true,
             render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
+                <Box
+                    color='ziha_charcoal'
+                    p={3}
+                    bg='ziha_green_gray'
+                    m={3}
+                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
                 >
                     <Text style={{ fontFamily: 'Font-Content'}}
                     >구매 성공!</Text>
@@ -344,7 +344,7 @@ export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants }) =>
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -390,6 +390,7 @@ interface Styles {
 
 const styles: Styles = {
     itemContainerWrapper: {
+        flex: 1,
         overflowY: "auto",
     },
     itemContainer: {
