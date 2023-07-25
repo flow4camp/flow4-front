@@ -9,6 +9,7 @@ import Signin from "./pages/Signin";
 import EditCharacter from "./pages/EditCharacter";
 import EditMetroLine from "./pages/EditMetroLine";
 import StaminaStore from "./pages/StaminaStore";
+import BattleGround from "./pages/BattleGround";
 
 import "./App.css";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/edit-character" element={<EditCharacter />} />
           <Route path="/edit-metroline" element={<EditMetroLine />} />
           <Route path="/stamina-store" element={<StaminaStore />} />
+          <Route path="/battle-ground" element={<BattleGround />} />
         </Routes>
       </BrowserRouter>
     </div>
