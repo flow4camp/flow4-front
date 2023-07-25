@@ -4,9 +4,8 @@ import { background, useTheme } from "@chakra-ui/react";
 import '../css/Store.css';
 import Layout from '../components/layout';
 import { Center, Image, Text, Box, Spacer, Flex } from '@chakra-ui/react';
-import { HatOptions, AccOptions, FaceOptions, ClothesOptions, ShoesOptions } from "../components/AssetOptions";
-import { StoreHatOptions } from '../components/StoreOptions';
-import { storeHatVariants } from '../components/StoreVariants';
+import { StoreAccOptions, StoreClothesOptions, StoreFaceOptions, StoreHatOptions, StoreShoesOptions } from '../components/StoreOptions';
+import { storeAccVariants, storeClothesVariants, storeFaceVariants, storeHatVariants, storeShoeVariants } from '../components/StoreVariants';
 
 const Store = () => {
   // 상태(State) 설정
@@ -15,6 +14,16 @@ const Store = () => {
   // // 모자, 악세서리, 표정, 옷, 신발 -> ItemTab
   // ** ItemTab 순서: hat, acc, face, clothes, shoe (0~4) **
   const [selectedItemTab, setSelectedItemTab] = useState<number>(0);
+  
+  // ItemTabOptions array
+  const itemTabOptions = [<StoreHatOptions variants={storeHatVariants} />,
+    <StoreAccOptions variants={storeAccVariants} />,
+    <StoreFaceOptions variants={storeFaceVariants} />,
+    <StoreClothesOptions variants={storeClothesVariants} />,
+    <StoreShoesOptions variants={storeShoeVariants} />
+  ];
+  // ItemTabOption component state 관리
+  const [selectedItemTabOption, setSelectedItemTabOption] = useState<JSX.Element>(itemTabOptions[0]);
 
   const theme = useTheme();
 
@@ -24,6 +33,7 @@ const Store = () => {
   };
   const handleItemTabChange = (item: number) => {
     setSelectedItemTab(item);
+    setSelectedItemTabOption(itemTabOptions[item]);
   };
 
   // 아이템 리스트 데이터 (여기서는 간단하게 배열로 구성)
@@ -90,7 +100,7 @@ const Store = () => {
               <div className="grid-item">Item 2</div>
               <div className="grid-item">Item 3</div>
             </div> */}
-            <StoreHatOptions variants={storeHatVariants} />
+            {selectedItemTabOption}
             </div>
           }
           </div>
