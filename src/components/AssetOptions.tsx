@@ -34,22 +34,14 @@ export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                         key={variant?.id}
                         style={newSelectedHat === variant ? styles.selectedItem : styles.item}
                     >
-                        {/* <img
-                            key={variant?.id}
-                            src={variant?.src}
-                            style={{ height: "80px", objectFit: "cover" }}
-                            alt={`Hat ${variant?.id}`}
-                            onClick={() => setSelectedVariant(variant)}
-                        /> */}
                         <div
                             style={{
                                 backgroundImage: `url(${variant?.src})`,
-                                backgroundSize: "200% auto",
+                                backgroundSize: "170% auto",
                                 backgroundPosition: "top center",
                                 width: "100px",
                                 height: "100px",
                                 marginTop: '40px',
-                                marginRight: '5px'
                             }}
                             onClick={() => handleSelectedHat(variant)}
                         />
@@ -84,22 +76,15 @@ export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                         // style={styles.item} 
                         style={newSelectedAcc === variant ? styles.selectedItem : styles.item}
                     >
-                        {/* <img
-                            key={variant?.id}
-                            src={variant?.src}
-                            style={{ height: "80px", objectFit: "cover" }}
-                            alt={`Hat ${variant?.id}`}
-                            onClick={() => setSelectedVariant(variant)}
-                        /> */}
                         <div
                             style={{
                                 backgroundImage: `url(${variant?.src})`,
-                                backgroundSize: "150% auto",
+                                backgroundSize: "120% auto",
                                 backgroundPosition: "center center",
                                 width: "100px",
                                 height: "100px",
                                 marginTop: '20px',
-                                marginLeft: '5px'
+                                marginLeft: '10px'
                             }}
                             onClick={() => handleSelectedAcc(variant)}
                         />
@@ -124,7 +109,6 @@ export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant
                 {variants.map((variant) => (
                     <div 
                         key={variant?.id}
-                        // style={styles.item} 
                         style={newSelectedFace === variant ? styles.selectedItem : styles.item}
                     >
                         <div
@@ -134,8 +118,8 @@ export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant
                                 backgroundPosition: "center center",
                                 width: "100px",
                                 height: "100px",
-                                marginTop: '60px',
-                                marginLeft: '12px'
+                                marginTop: '70px',
+                                marginLeft: '10px'
                             }}
                             onClick={() => handleSelectedAcc(variant)}
                         />
@@ -167,13 +151,12 @@ export const ClothesOptions: React.FC<CategoryProps> = ({ variants, selectedVari
                 {variants.map((variant) => (
                     <div 
                         key={variant?.id}
-                        // style={styles.item} 
                         style={newSelectedClothes === variant ? styles.selectedItem : styles.item}
                     >
                         <div
                             style={{
                                 backgroundImage: `url(${variant?.src})`,
-                                backgroundSize: "150% auto",
+                                backgroundSize: "120% auto",
                                 backgroundPosition: "bottom center",
                                 width: "100px",
                                 height: "100px",
@@ -215,12 +198,11 @@ export const ShoesOptions: React.FC<CategoryProps> = ({ variants, selectedVarian
                         <div
                             style={{
                                 backgroundImage: `url(${variant?.src})`,
-                                backgroundSize: "220% auto",
+                                backgroundSize: "190% auto",
                                 backgroundPosition: "bottom center",
                                 width: "100px",
                                 height: "100px",
-                                marginBottom: '40px',
-                                marginLeft: '2px'
+                                marginBottom: '50px',
                             }}
                             onClick={() => handleSelectedShoes(variant)}
                         />
@@ -246,7 +228,7 @@ const styles: Styles = {
         display: "grid",
         gridTemplateColumns: "repeat(4, 1fr)",
         gridTemplateRows: "repeat(4, 1fr)",
-        rowGap: "1%",
+        rowGap: "6%",
         justifyContent: "center",
         justifyItems: "center",
         marginTop: '2%',
