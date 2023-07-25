@@ -217,31 +217,31 @@ function BattleGround() {
           </Text>
         </Flex>
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>정말 나가시겠습니까?</ModalHeader>
           <ModalBody>나가면 기력이 소진됩니다.</ModalBody>
           <ModalFooter>
             <Link to="/battle">
-              <Button colorScheme="red" mr={3} onClick={handleExit}>
+              <Button bg="gray" color='white' onClick={handleExit} style={{ fontFamily: 'Font-Content'}} >
                 나가기
               </Button>
             </Link>
             <Box
               // Apply custom styles to the Box wrapping the ModalCloseButton
               style={{
-                fontFamily: "Font-Title",
-                fontSize: "2xl",
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                color: "black",
+                fontFamily: "Font-Content",
+                fontSize: "xl",
+                backgroundColor: theme.colors.ziha_green_gray,
+                color: theme.colors.ziha_charcoal,
+                padding: '9px',
                 borderRadius: "8px",
                 boxShadow: "0 0 8px rgba(255, 255, 255, 0.5)",
                 cursor: "pointer", // Add a cursor pointer to indicate clickability
               }}
               onClick={handleContinue}
               // Apply other styles like padding, margin, etc., as needed
-              p={3}
               ml={3}
             >
               계속하기
