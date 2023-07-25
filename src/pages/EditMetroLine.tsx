@@ -22,8 +22,16 @@ function EditMetroLine() {
   const theme = useTheme();
   const [firstSelectedLine, setFirstSelectedLine] = useState("1호선");
   const [secondSelectedLine, setSecondSelectedLine] = useState("2호선");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [firstSelectedStation, setFirstSelectedStation] = useState("대전역");
+  const [secondSelectedStation, setSecondSelectedStation] = useState("대전역");
+  const [thirdSelectedStation, setThirdSelectedStation] = useState("대전역");
+
+  const [isLineModalOpen, setIsLineModalOpen] = useState(false);
+  const [isStationModalOpen, setIsStationModalOpen] = useState(false);
+
   const [isSecondLine, setIsSecondLine] = useState(false);
+  const [stationNumber, setStationNumber] = useState(1);
+
   const [firstBorderColor, setFirstBorderColor] = useState(
     theme.colors.line_1_color
   );
@@ -31,13 +39,40 @@ function EditMetroLine() {
     theme.colors.line_2_color
   );
 
+  const handleStationClick = (stationNum: number) => {
+    setIsStationModalOpen(true);
+    setStationNumber(stationNum);
+  };
   const handleLineClick = (isSecondLine: boolean) => {
-    setIsModalOpen(true);
+    setIsLineModalOpen(true);
     setIsSecondLine(isSecondLine);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseLineModal = () => {
+    setIsLineModalOpen(false);
+  };
+  const handleCloseStationModal = () => {
+    setIsStationModalOpen(false);
+  };
+  const handleLineSelection = (line: string) => {
+    if (isSecondLine) {
+      setSecondSelectedLine(line);
+      setSecondBorderColor(getLineColor(line));
+    } else {
+      setFirstSelectedLine(line);
+      setFirstBorderColor(getLineColor(line));
+    }
+    setIsLineModalOpen(false);
+  };
+  const handleStationSelection = (station: string) => {
+    if (stationNumber === 1) {
+      setFirstSelectedStation(station);
+    } else if (stationNumber === 2) {
+      setSecondSelectedStation(station);
+    } else if (stationNumber === 3) {
+      setThirdSelectedStation(station);
+    }
+    setIsStationModalOpen(false);
   };
 
   const getLineColor = (line: string) => {
@@ -64,17 +99,8 @@ function EditMetroLine() {
         return theme.colors.line_1_color;
     }
   };
-  const handleLineSelection = (line: string) => {
-    if (isSecondLine) {
-      setSecondSelectedLine(line);
-      setSecondBorderColor(getLineColor(line));
-    } else {
-      setFirstSelectedLine(line);
-      setFirstBorderColor(getLineColor(line));
-    }
-    setIsModalOpen(false);
-  };
 
+  const stationOptions = ["대전역", "춘천역", "유성온천역"];
   const metroLineOptions = [
     "1호선",
     "2호선",
@@ -148,10 +174,11 @@ function EditMetroLine() {
               color: "white",
               fontSize: "20px",
             }}
+            onClick={() => handleStationClick(1)}
           >
-            대전역
+            {firstSelectedStation}
           </Text>
-          {/* 첫번째 노선선 */}
+          {/* 첫번째 노선 */}
           <Box
             style={{
               width: "0",
@@ -194,8 +221,9 @@ function EditMetroLine() {
               color: "white",
               fontSize: "20px",
             }}
+            onClick={() => handleStationClick(2)}
           >
-            대전역
+            {secondSelectedStation}
           </Text>
           {/* 두번쨰 노선 */}
           <Box
@@ -240,13 +268,14 @@ function EditMetroLine() {
               color: "white",
               fontSize: "20px",
             }}
+            onClick={() => handleStationClick(3)}
           >
-            유성온천역
+            {thirdSelectedStation}
           </Text>
         </Flex>
       </Flex>
-      {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+      {/* 호선 선택 Modal */}
+      <Modal isOpen={isLineModalOpen} onClose={handleCloseLineModal}>
         <ModalOverlay />
         <ModalContent style={{ width: "80%", opacity: "0.5" }}>
           <ModalHeader style={{ textAlign: "center" }}>
@@ -261,6 +290,26 @@ function EditMetroLine() {
                 w="100%"
               >
                 {line}
+              </Button>
+            ))}
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* 역 선택 모달 */}
+      <Modal isOpen={isStationModalOpen} onClose={handleCloseStationModal}>
+        <ModalOverlay />
+        <ModalContent style={{ width: "80%", opacity: "0.5" }}>
+          <ModalHeader style={{ textAlign: "center" }}>역 선택하기</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {stationOptions.map((station) => (
+              <Button
+                key={station}
+                onClick={() => handleStationSelection(station)}
+                w="100%"
+              >
+                {station}
               </Button>
             ))}
           </ModalBody>
