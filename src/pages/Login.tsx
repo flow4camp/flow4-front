@@ -40,6 +40,7 @@ function Login() {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data);
         if (data.statusCode === 401) {
           console.log('아이디/비밀번호가 일치하지 않습니다.')
         }

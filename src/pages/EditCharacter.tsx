@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
 import { hatVariants, faceVariants, accVariants, clothesVariants, shoeVariants } from "../components/AssetVariants";
 import { HatOptions, AccOptions, FaceOptions, ClothesOptions, ShoesOptions } from "../components/AssetOptions";
+import { useUserContext } from '../context/UserContext';
 
 type AssetVariant = {
   id: number;
@@ -13,16 +14,17 @@ type AssetVariant = {
 
 function EditCharacter() {
   const navigate = useNavigate();   // navigator
+  const { user, setUser } = useUserContext();
 
-  // tab option 중 선택한 item state 관리 
-  const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
-  const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
-  const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
-  const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(null);
-  const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
+  // tab option 중 선택한 item state 관리
+  const [selectedHat, setSelectedHat] = useState<AssetVariant>(user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null);
+  const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(user.accVariants !== -1 ? accVariants[user.accVariants] : null);
+  const [selectedFace, setSelectedFace] = useState<AssetVariant>(user.accVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]);
+  const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null);
+  const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null);
 
   // ** tab 순서: hat, acc, face, clothes, shoe (0~4) **
-  const tabOptions = [<HatOptions variants={hatVariants} selectedVariant={selectedHat} setSelectedVariant={setSelectedHat} />, 
+  const tabOptions = [<HatOptions variants={hatVariants} selectedVariant={selectedHat} setSelectedVariant={setSelectedHat} />,
     <AccOptions variants={accVariants} selectedVariant={selectedAcc} setSelectedVariant={setSelectedAcc} />,
     <FaceOptions variants={faceVariants} selectedVariant={selectedFace} setSelectedVariant={setSelectedFace} />,
     <ClothesOptions variants={clothesVariants} selectedVariant={selectedClothes} setSelectedVariant={setSelectedClothes} />,
@@ -52,27 +54,27 @@ function EditCharacter() {
           position: 'relative'
         }}
       >
-        <UserCharacter 
-          edit={true} 
-          selectedHat={selectedHat} 
-          selectedAcc={selectedAcc} 
-          selectedFace={selectedFace} 
+        <UserCharacter
+          edit={true}
+          selectedHat={selectedHat}
+          selectedAcc={selectedAcc}
+          selectedFace={selectedFace}
           selectedClothes={selectedClothes}
           selectedShoe={selectedShoe}
         />
-        <ChevronLeftIcon 
-          boxSize={10} 
-          color='white' 
-          position='absolute' 
-          left={0} 
-          top={0} 
+        <ChevronLeftIcon
+          boxSize={10}
+          color='white'
+          position='absolute'
+          left={0}
+          top={0}
           m={2}
           onClick={() => (navigate('/home'))}
         />
         <Button
-          position='absolute' 
-          right={0} 
-          top={0} 
+          position='absolute'
+          right={0}
+          top={0}
           m={2}
           p={2}
           style={{ fontFamily: "Font-Content-Light" }}
@@ -126,12 +128,12 @@ function EditCharacter() {
           ))}
         </div>
       </div> */}
-      {/* <HatOptions  
+      {/* <HatOptions
         variants={hatVariants}
         selectedVariant={selectedHat}
         setSelectedVariant={setSelectedHat}
       /> */}
-      {/* <AccOptions  
+      {/* <AccOptions
         variants={accVariants}
         selectedVariant={selectedAcc}
         setSelectedVariant={setSelectedAcc}

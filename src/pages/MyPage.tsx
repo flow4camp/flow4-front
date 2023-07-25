@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import Layout from "../components/layout";
 import { Link } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
-import { faceVariants } from "../components/AssetVariants";
+import { accVariants, clothesVariants, faceVariants, hatVariants, shoeVariants } from "../components/AssetVariants";
 import { useUserContext } from '../context/UserContext';
 
 function MyPage() {
@@ -69,11 +69,11 @@ function MyPage() {
             >
               <UserCharacter
                 edit={false}
-                selectedHat={null}
-                selectedAcc={null}
-                selectedFace={faceVariants[0]}
-                selectedClothes={null}
-                selectedShoe={null}
+                selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
+                selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
+                selectedFace={user.accVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]}
+                selectedClothes={user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null}
+                selectedShoe={user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null}
               />
             </Flex>
 

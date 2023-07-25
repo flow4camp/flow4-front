@@ -1,6 +1,6 @@
 import React, {  ChangeEvent } from "react";
 import { Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { API_URL } from '../api';
 import { useUserContext } from '../context/UserContext';
@@ -12,6 +12,7 @@ function Signin() {
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
   const { user, setUser } = useUserContext();
+  const navigate = useNavigate();
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputName(e.target.value);
@@ -50,6 +51,7 @@ function Signin() {
         }
         else {
           setUser(data);
+          navigate('/home');
         }
       })
       .catch(error => {

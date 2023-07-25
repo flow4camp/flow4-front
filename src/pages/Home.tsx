@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
 import UserCharacter from "../components/UserCharacter";
 import { Center, Divider, Text, Box, Image, Flex, Checkbox, useTheme } from '@chakra-ui/react';
-import { faceVariants } from "../components/AssetVariants";
+import { accVariants, clothesVariants, faceVariants, hatVariants, shoeVariants } from "../components/AssetVariants";
 import { useUserContext } from '../context/UserContext';
 
 function Home() {
@@ -25,6 +25,15 @@ function Home() {
     { id: 3, text: "세 번째 퀘스트" },
   ];
   const specialQuest = "특별 퀘스트";
+  console.log(user);
+
+  function getDaysSinceCreation(createdAt: string) {
+    const currentDate = new Date();
+    const createdDate = new Date(createdAt);
+    const timeDifference = currentDate.getTime() - createdDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference + 1;
+  }
 
   return (
     <Layout>
@@ -55,11 +64,11 @@ function Home() {
             <NavLink to="/edit-character">
               <UserCharacter
                 edit={false}
-                selectedHat={null}
-                selectedAcc={null}
-                selectedFace={faceVariants[0]}
-                selectedClothes={null}
-                selectedShoe={null}
+                selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
+                selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
+                selectedFace={user.accVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]}
+                selectedClothes={user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null}
+                selectedShoe={user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null}
               />     {/* selected stuffs are null for now!! */}
             </NavLink>
           </div>
@@ -69,7 +78,7 @@ function Home() {
               style={{ fontFamily: "Font-Content" }}
               p={3}
               paddingBottom={2}
-            >지하출근 {attendance}일차</Text>
+            >지하출근 {getDaysSinceCreation(user.createdAt)}일차</Text>
             <Text style={{ fontFamily: "Font-Content-Light" }} fontSize='sm' >
               오늘의 전적 {winNum}승 {looseNum}패
             </Text>

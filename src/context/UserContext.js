@@ -8,6 +8,12 @@ interface User {
     win: number;
     lose: number;
     type: string;
+    createdAt: Date;
+    hatVariants: number;
+    accVariants: number;
+    faceVariants: number;
+    clothesVariants: number;
+    shoesVariants: number;
 }
 
 const initialUserState: User = {
@@ -18,6 +24,12 @@ const initialUserState: User = {
     win: 1,
     lose: 1,
     type: 'user',
+    createdAt: '2023-07-24 19:10:57',
+    hatVariants: 0,
+    accVariants: -1,
+    faceVariants: -1,
+    clothesVariants: 0,
+    shoesVariants: -1,
 };
 
 const UserContext = createContext();
