@@ -6,6 +6,7 @@ import UserCharacter from "../components/UserCharacter";
 import { hatVariants, faceVariants, accVariants, clothesVariants, shoeVariants } from "../components/AssetVariants";
 import { HatOptions, AccOptions, FaceOptions, ClothesOptions, ShoesOptions } from "../components/AssetOptions";
 import { useUserContext } from '../context/UserContext';
+import { API_URL } from '../api';
 
 type AssetVariant = {
   id: number;
@@ -41,6 +42,37 @@ function EditCharacter() {
   };
   const theme = useTheme();
   // const itemNumbers = Array.from({ length: 36 }, (_, index) => index + 1);
+  const handleCharacterEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    const requestData = {
+      hatVariants: selectedHat?.id ?? -1,
+      accVariants: selectedAcc?.id ?? -1,
+      faceVariants: selectedFace?.id ?? -1,
+      clothesVariants: selectedClothes?.id ?? -1,
+      shoeVariants: selectedShoe?.id ?? -1
+    };
+
+    fetch(API_URL + `/user/character/${user.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.statusCode === 400) {
+          console.log('이미 존재하는 아이디/이름입니다');
+        }
+        else {
+          setUser(data);
+          navigate('/home');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   return (
     <div style={styles.container}>
@@ -83,6 +115,7 @@ function EditCharacter() {
           color='white'
           _active={{ backgroundColor: 'whiteAlpha.400' }}
           _focus={{ backgroundColor: 'whiteAlpha.400' }}
+          onClick={handleCharacterEdit}
         >
           저장하기
         </Button>

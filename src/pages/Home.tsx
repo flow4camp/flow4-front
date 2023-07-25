@@ -80,10 +80,10 @@ function Home() {
               paddingBottom={2}
             >지하출근 {getDaysSinceCreation(user.createdAt)}일차</Text>
             <Text style={{ fontFamily: "Font-Content-Light" }} fontSize='sm' >
-              오늘의 전적 {winNum}승 {looseNum}패
+              오늘도 출근!
             </Text>
             <Text style={{ fontFamily: "Font-Content-Light" }} fontSize='sm' >
-              누적 전적 {winNum+10}승 {looseNum+15}패
+              누적 전적 {user.win}승 {user.lose}패
             </Text>
           </div>
         </div>

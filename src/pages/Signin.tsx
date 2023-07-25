@@ -46,13 +46,8 @@ function Signin() {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.statusCode === 400) {
-          console.log('이미 존재하는 아이디/이름입니다');
-        }
-        else {
-          setUser(data);
-          navigate('/home');
-        }
+        setUser(data);
+        navigate('/home');
       })
       .catch(error => {
         console.error('Error:', error);
