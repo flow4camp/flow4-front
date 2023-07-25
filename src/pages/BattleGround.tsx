@@ -104,7 +104,7 @@ function BattleGround() {
         <Flex justify="center" align="center">
           {" "}
           <UserCharacter
-            edit={false}
+            usage={''}
             selectedHat={null}
             selectedAcc={null}
             selectedFace={faceVariants[0]}
@@ -118,7 +118,7 @@ function BattleGround() {
         <Flex justify="center" align="center">
           {" "}
           <UserCharacter
-            edit={false}
+            usage={''}
             selectedHat={null}
             selectedAcc={null}
             selectedFace={faceVariants[0]}

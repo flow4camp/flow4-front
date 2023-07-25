@@ -65,7 +65,7 @@ function MyPage() {
             }}
           >
             <UserCharacter
-              edit={false}
+              usage={''}
               selectedHat={null}
               selectedAcc={null}
               selectedFace={faceVariants[0]}

@@ -10,7 +10,7 @@ type AssetVariant = {
 } | null ;      // nullable
 
 type UserCharacterProps = {
-    edit: boolean;
+    usage: string;
     selectedHat: AssetVariant;
     selectedAcc: AssetVariant;
     selectedFace: AssetVariant;
@@ -18,7 +18,7 @@ type UserCharacterProps = {
     selectedShoe: AssetVariant;
 }
 
-const UserCharacter: React.FC<UserCharacterProps> = ({ edit, selectedHat, selectedAcc, selectedFace, selectedClothes, selectedShoe }) => {
+const UserCharacter: React.FC<UserCharacterProps> = ({ usage, selectedHat, selectedAcc, selectedFace, selectedClothes, selectedShoe }) => {
     // const [selectedHat, setSelectedHat] = useState<AssetVariant>(null);
     // const [selectedFace, setSelectedFace] = useState<AssetVariant>(faceVariants[0]);
     // const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(null);
@@ -26,7 +26,9 @@ const UserCharacter: React.FC<UserCharacterProps> = ({ edit, selectedHat, select
     // const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(null);
 
     return (
-        <Box position='relative' m={3} className={`character-container ${edit ? 'edit' : ''}`} >
+        <Box position='relative' m={3} 
+            className={`character-container ${usage === "edit" ? 'edit' : ''} ${usage === "profile" ? 'profile' : ''} `} 
+        >
             <Image src={require('../assets/ghost-basic-0.png')} />
             { selectedFace && <Image src={selectedFace.src} alt='face' position='absolute' top='0' left='0' />}
             { selectedHat && <Image src={selectedHat.src} alt='hat' position='absolute' top='0' left='0' />}

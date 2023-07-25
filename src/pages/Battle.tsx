@@ -13,6 +13,8 @@ import {
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useTheme } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import UserCharacter from "../components/UserCharacter";
+import { faceVariants } from "../components/AssetVariants";
 
 function Battle() {
   const theme = useTheme();
@@ -223,13 +225,21 @@ function Battle() {
                     align="center"
                     justify="center"
                   >
-                    <Text
+                    {/* <Text
                       color="white"
                       fontSize="lg"
                       style={{ fontFamily: "Font-Content" }}
                     >
                       나
-                    </Text>
+                    </Text> */}
+                    <UserCharacter 
+                      usage={'profile'} 
+                      selectedHat={null} 
+                      selectedAcc={null}
+                      selectedFace={faceVariants[0]}
+                      selectedClothes={null}
+                      selectedShoe={null}
+                    />     {/* selected stuffs are null for now!! */}
                   </Flex>
                   <Flex
                     bg={theme.colors.ziha_charcoal_gray}
@@ -251,10 +261,10 @@ function Battle() {
               </Center>
             </ModalBody>
             <ModalFooter
-              style={{ display: "flex", justifyContent: "space-between" }}
+              style={{ display: "flex", justifyContent: 'end', gap: '8px' }}
             >
-              <Button onClick={onClose}>취소</Button>
-              <Button as={Link} to="/battle-ground">
+              <Button onClick={onClose}>취소하기</Button>
+              <Button as={Link} to="/battle-ground" bg='ziha_green_gray' color='ziha_charcoal' >
                 배틀 시작하기
               </Button>
             </ModalFooter>

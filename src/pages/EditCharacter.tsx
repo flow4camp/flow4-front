@@ -53,7 +53,7 @@ function EditCharacter() {
         }}
       >
         <UserCharacter 
-          edit={true} 
+          usage={'edit'} 
           selectedHat={selectedHat} 
           selectedAcc={selectedAcc} 
           selectedFace={selectedFace} 
