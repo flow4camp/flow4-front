@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from '../components/NavBar';
-import { background, useTheme } from "@chakra-ui/react";
 import '../css/Store.css';
 import Layout from '../components/layout';
 import { Center, Image, Text, Box, Spacer, Flex } from '@chakra-ui/react';
@@ -25,8 +23,6 @@ const Store = () => {
   // ItemTabOption component state 관리
   const [selectedItemTabOption, setSelectedItemTabOption] = useState<JSX.Element>(itemTabOptions[0]);
 
-  const theme = useTheme();
-
   // 탭 변경 핸들러 함수
   const handleCategoryTabChange = (tab :string) => {
     setActiveCategoryTab(tab);
@@ -35,10 +31,6 @@ const Store = () => {
     setSelectedItemTab(item);
     setSelectedItemTabOption(itemTabOptions[item]);
   };
-
-  // 아이템 리스트 데이터 (여기서는 간단하게 배열로 구성)
-  const tab1Items = ['Item 1A', 'Item 1B', 'Item 1C'];
-  const tab2Items = ['Item 2A', 'Item 2B', 'Item 2C'];
 
   return (
     <Layout>
@@ -95,11 +87,6 @@ const Store = () => {
                 <img src="/icons/shoes.png" style={{ width: "30px" }} alt='shoes' />
               </button>
             </div>
-            {/* <div className="grid-container">
-              <div className="grid-item">Item 1</div>
-              <div className="grid-item">Item 2</div>
-              <div className="grid-item">Item 3</div>
-            </div> */}
             {selectedItemTabOption}
             </div>
           }
