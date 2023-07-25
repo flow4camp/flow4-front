@@ -2,25 +2,40 @@ import {
   Image,
   Text,
   Box,
-  Button,
   Flex,
   useTheme,
-  Center,
-  Input,
+  useDisclosure,
   Modal,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
-  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
   ModalBody,
+  ModalCloseButton,
+  Button,
 } from "@chakra-ui/react";
 import UserCharacter from "../components/UserCharacter";
 import { faceVariants } from "../components/AssetVariants";
-import { useBreakpointValue } from "@chakra-ui/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function BattleGround() {
   const theme = useTheme();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isExiting, setIsExiting] = useState(false);
+
+  function handleExitButtonClick() {
+    onOpen();
+  }
+  function handleContinue() {
+    setIsExiting(false);
+    onClose();
+  }
+
+  function handleExit() {
+    setIsExiting(true);
+    onClose();
+  }
 
   return (
     <Flex
@@ -42,6 +57,7 @@ function BattleGround() {
           m={2}
           fontSize="2xl"
           style={{ fontFamily: "Font-Title", color: "white" }}
+          onClick={handleExitButtonClick}
         >
           나가기
         </Text>
@@ -181,6 +197,38 @@ function BattleGround() {
           </Text>
         </Flex>
       </Flex>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>정말 나가시겠습니까?</ModalHeader>
+          <ModalBody>나가면 기력이 소진됩니다.</ModalBody>
+          <ModalFooter>
+            <Link to="/battle">
+              <Button colorScheme="red" mr={3} onClick={handleExit}>
+                나가기
+              </Button>
+            </Link>
+            <Box
+              // Apply custom styles to the Box wrapping the ModalCloseButton
+              style={{
+                fontFamily: "Font-Title",
+                fontSize: "2xl",
+                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                color: "black",
+                borderRadius: "8px",
+                boxShadow: "0 0 8px rgba(255, 255, 255, 0.5)",
+                cursor: "pointer", // Add a cursor pointer to indicate clickability
+              }}
+              onClick={handleContinue}
+              // Apply other styles like padding, margin, etc., as needed
+              p={3}
+              ml={3}
+            >
+              계속하기
+            </Box>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 }
