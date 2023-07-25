@@ -13,6 +13,7 @@ import Layout from "../components/layout";
 import { Link } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
 import { faceVariants } from "../components/AssetVariants";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function MyPage() {
   const theme = useTheme();
@@ -72,7 +73,7 @@ function MyPage() {
             }}
           >
             <UserCharacter
-              usage={''}
+              usage={"profile"}
               selectedHat={null}
               selectedAcc={null}
               selectedFace={faceVariants[0]}
@@ -120,13 +121,25 @@ function MyPage() {
               </Button>
             )}
           </Flex>
-
-          <Flex
-            style={{ width: "50%", marginTop: "15px" }}
-            justify="space-between"
-          >
-            <Text style={{ fontFamily: "Font-content" }}>전적 1승 2패</Text>
-            <Text style={{ fontFamily: "Font-content" }}>기력 149</Text>
+          <Flex style={{ marginTop: "15px" }} direction="column">
+            <Flex>
+              <Image
+                src={require("../assets/fight.png")}
+                w="20px"
+                h="20px"
+                style={{ marginRight: "10px" }}
+              />
+              <Text style={{ fontFamily: "Font-content" }}>전적 1승 2패</Text>
+            </Flex>
+            <Flex>
+              <Image
+                src={require("../assets/coin.png")}
+                w="25px"
+                h="25px"
+                style={{ marginRight: "5px" }}
+              />
+              <Text style={{ fontFamily: "Font-content" }}>기력 149</Text>
+            </Flex>
           </Flex>
 
           <Flex
@@ -240,7 +253,7 @@ function MyPage() {
             }}
           >
             <Text>기력 충전하기</Text>
-            <Text>&gt;</Text>
+            <ChevronRightIcon boxSize={5} color="black" />
           </Button>
           <Button
             as={Link}
@@ -254,7 +267,10 @@ function MyPage() {
             }}
           >
             <Text>내 유령 꾸미기</Text>
-            <Text>&gt;</Text>
+
+            <Box>
+              <ChevronRightIcon boxSize={5} color="black" />
+            </Box>
           </Button>
         </Flex>
       </Flex>
