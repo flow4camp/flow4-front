@@ -15,10 +15,12 @@ import {
   ModalCloseButton,
   ModalBody,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 
 function EditMetroLine() {
+  const navigate = useNavigate(); // navigator
   const theme = useTheme();
   const [firstSelectedLine, setFirstSelectedLine] = useState("1호선");
   const [secondSelectedLine, setSecondSelectedLine] = useState("2호선");
@@ -123,26 +125,25 @@ function EditMetroLine() {
         style={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
           boxShadow: "0 0 20px rgba(255, 255, 255, 0.5)",
         }}
       >
+        <Box>
+          <ChevronLeftIcon
+            boxSize={10}
+            color="white"
+            m={2}
+            onClick={() => navigate("/mypage")}
+          />
+        </Box>
+
         <Text
           w="fit-content"
           p={3}
           m={2}
-          fontSize="2xl"
-          style={{ fontFamily: "Font-Title", color: "white" }}
-          as={Link}
-          to="/mypage"
-        >
-          &lt;
-        </Text>
-        <Text
-          w="fit-content"
-          p={3}
-          m={2}
-          fontSize="2xl"
-          style={{ fontFamily: "Font-Title", color: "white" }}
+          fontSize="xl"
+          style={{ fontFamily: "Font-Title-light", color: "white" }}
         >
           내 노선
         </Text>
