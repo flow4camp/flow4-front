@@ -52,7 +52,7 @@ function Home() {
           <div style={styles.userinfoChar}>
             <NavLink to="/edit-character">
               <UserCharacter 
-                edit={false} 
+                usage={''} 
                 selectedHat={null} 
                 selectedAcc={null}
                 selectedFace={faceVariants[0]}

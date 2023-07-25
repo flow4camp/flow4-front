@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Center, Button, Text, Box, Spacer, Flex } from "@chakra-ui/react";
+import { Center, Button, Text, Box, Spacer, Flex, Image, Spinner } from "@chakra-ui/react";
 import Layout from "../components/layout";
 import {
   Modal,
@@ -13,6 +13,8 @@ import {
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useTheme } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import UserCharacter from "../components/UserCharacter";
+import { faceVariants } from "../components/AssetVariants";
 
 function Battle() {
   const theme = useTheme();
@@ -60,78 +62,144 @@ function Battle() {
             지하배틀
           </Text>
         </Box>
-        <Flex direction="column" w="100%" p={2} gap={5}>
-          <Flex direction="row" w="100%" onClick={openModalForMatch1}>
+        <Flex direction="column" w="100%" p={2} gap={2} paddingTop={0} >
+          <Flex direction="row" w="100%" align='center' >
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_1_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch1}
             >
-              1호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                1호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Box bg="blue" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_1.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch2}>
+          <Flex direction="row" w="100%" align='center' >
+            <Image src={require('../assets/trains/train_2_flip.png')} w='250px' h='100px' justifySelf='right' />
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_2_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch2}
             >
-              2호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                2호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Box bg="green" w="250px" h="100px" justifySelf="right"></Box>
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch3}>
+          <Flex direction="row" w="100%" align='center' >
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_3_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch3}
             >
-              3호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                3호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Box bg="orange" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_3.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch4}>
+          <Flex direction="row" w="100%" align='center' >
+            <Image src={require('../assets/trains/train_4_flip.png')} w='250px' h='100px' justifySelf='right' />
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_4_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch4}
             >
-              4호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                4호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Box bg="aqua" w="250px" h="100px" justifySelf="right"></Box>
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch5}>
+          <Flex direction="row" w="100%" align='center' >
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_5_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch5}
             >
-              5호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                5호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Box bg="purple" w="250px" h="100px" justifySelf="right"></Box>
+            <Image src={require('../assets/trains/train_5.png')} w='250px' h='100px' justifySelf='right' />
           </Flex>
-          <Flex direction="row" w="100%" onClick={openModalForMatch6}>
+          <Flex direction="row" w="100%" align='center'>
+            <Image src={require('../assets/trains/train_6_flip.png')} w='250px' h='100px' justifySelf='right' />
             <Spacer />
-            <Text
-              p={2}
-              alignSelf="center"
-              style={{ fontFamily: "Font-Content" }}
+            <Flex 
+              w='fit-content' 
+              h='fit-content' 
+              p={1} 
+              bg='transparent' 
+              border={`2px solid ${theme.colors.line_6_color}`}
+              borderRadius='1em'
+              boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+              onClick={openModalForMatch6}
             >
-              6호선
-            </Text>
+              <Text
+                p={2}
+                alignSelf="center"
+                style={{ fontFamily: "Font-Content" }}
+              >
+                6호선 탑승하기
+              </Text>
+            </Flex>
             <Spacer />
-            <Box bg="brown" w="250px" h="100px" justifySelf="right"></Box>
           </Flex>
         </Flex>
         <Modal
@@ -141,7 +209,9 @@ function Battle() {
           size="sm"
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent 
+            mt="50%"
+          >
             <ModalHeader style={{ fontFamily: "Font-Title-Light" }}>
               {currentLineNumber}호선 배틀
             </ModalHeader>
@@ -150,45 +220,46 @@ function Battle() {
               <Center w="100%" marginRight={5}>
                 <Flex direction="column" gap={3} w="100%">
                   <Flex
-                    bg={theme.colors.ziha_charcoal_gray}
+                    bg={theme.colors.ziha_charcoal}
                     w="100%"
                     h="120px"
                     borderRadius="lg"
                     align="center"
                     justify="center"
                   >
-                    <Text
-                      color="white"
-                      fontSize="lg"
-                      style={{ fontFamily: "Font-Content" }}
-                    >
-                      나
-                    </Text>
+                    <UserCharacter 
+                      usage={'profile'} 
+                      selectedHat={null} 
+                      selectedAcc={null}
+                      selectedFace={faceVariants[0]}
+                      selectedClothes={null}
+                      selectedShoe={null}
+                    />     {/* selected stuffs are null for now!! */}
                   </Flex>
                   <Flex
-                    bg={theme.colors.ziha_charcoal_gray}
+                    bg={theme.colors.ziha_charcoal}
                     w="100%"
                     h="120px"
                     borderRadius="lg"
                     align="center"
                     justify="center"
                   >
-                    <Text
-                      color="white"
-                      fontSize="lg"
-                      style={{ fontFamily: "Font-Content" }}
-                    >
-                      매칭 상대 기다리는 중
-                    </Text>
+                    <Spinner 
+                      color='ziha_green' 
+                      emptyColor='gray.500'
+                      thickness='4px'
+                      size='lg'
+                      speed='2.5s'
+                    />
                   </Flex>
                 </Flex>
               </Center>
             </ModalBody>
             <ModalFooter
-              style={{ display: "flex", justifyContent: "space-between" }}
+              style={{ display: "flex", justifyContent: 'end', gap: '8px' }}
             >
-              <Button onClick={onClose}>취소</Button>
-              <Button as={Link} to="/battle-ground">
+              <Button onClick={onClose}>취소하기</Button>
+              <Button as={Link} to="/battle-ground" bg='ziha_green_gray' color='ziha_charcoal' >
                 배틀 시작하기
               </Button>
             </ModalFooter>
