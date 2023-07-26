@@ -28,6 +28,7 @@ function BattleGround() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isExiting, setIsExiting] = useState(false);
 
+  // 상대 state 관리
   // 공격 혹은 방어 시 상대 face 변화
   const [currentEnemySelectedFace, setCurrentEnemySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
@@ -39,6 +40,7 @@ function BattleGround() {
   // 공격 시 상대 miss 문구 visibility 변화
   const [enemyMissText, setEnemyMissText] = useState(false);
 
+  // 내 state 관리
   // 공격 혹은 방어 시 내 face 변화
   const [currentMySelectedFace, setCurrentMySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 내 animation 변화
@@ -82,6 +84,20 @@ function BattleGround() {
     } else {
       // 10 hp 감소
       setCurrentEnemyHP((current) => (current - 10));
+    }
+
+  }
+
+  function handleMyHP(current: number) {
+
+    if (current === 10) {
+      // 10 hp 남음, 게임 오버
+      setCurrentMyHP(0);
+      gameOver(false);
+
+    } else {
+      // 10 hp 감소
+      setCurrentMyHP((current) => (current - 10));
     }
 
   }
@@ -176,6 +192,8 @@ function BattleGround() {
     setCurrentMySelectedFace(storeFaceVariants[5]);
     // 우는 모션
     setCurrentMyUsageProp('attacked');
+    // HP 감소 혹은 game over
+    handleMyHP(currentMyHP);
     // critical text
     setMyCriticalText(true);
 
@@ -344,7 +362,7 @@ function BattleGround() {
                 style={{ border: "2px solid white", borderRadius: "10px" }}
               >
                 <Flex
-                  w="80%"
+                  w={currentMyHP}
                   h="100%"
                   style={{ backgroundColor: theme.colors.ziha_green }}
                 ></Flex>
