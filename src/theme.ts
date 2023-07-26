@@ -12,6 +12,7 @@ const colors = {
   ziha_green: "#CDF082",
   ziha_green_gray: "#C3DB90",
   ziha_purple: "#B1A6D2",
+  ziha_purple_sharp: "#D6CCF4",
   ziha_purple_gray: "#B9B3CA",
 
   // 지하철 노선도 색

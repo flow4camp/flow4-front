@@ -1,0 +1,64 @@
+
+.critical-text {
+
+    visibility: hidden;
+
+    &.visible {
+
+        visibility: visible;
+
+        animation: stress 1s linear 0s 1;
+
+    }
+}
+
+.miss-text {
+
+    visibility: hidden;
+
+    &.visible {
+
+        visibility: visible;
+
+        animation: stress 1s linear 0s 1;
+
+    }
+}
+
+.attack-button {
+
+    pointer-events: all;
+    background-color: transparent;
+
+    &.no-click {
+        pointer-events: none;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+}
+
+.defend-button {
+
+    pointer-events: all;
+    background-color: transparent;
+
+    &.no-click {
+        pointer-events: none;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+}
+
+@keyframes stress {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
