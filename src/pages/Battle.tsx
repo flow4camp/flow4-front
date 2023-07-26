@@ -207,10 +207,10 @@ function Battle() {
           isOpen={isOpen}
           onClose={onClose}
           size="sm"
+          isCentered
         >
           <ModalOverlay />
           <ModalContent 
-            mt="50%"
           >
             <ModalHeader style={{ fontFamily: "Font-Title-Light" }}>
               {currentLineNumber}호선 배틀

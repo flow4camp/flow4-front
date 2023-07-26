@@ -217,7 +217,7 @@ function BattleGround() {
           </Text>
         </Flex>
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered >
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size='sm' >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>정말 나가시겠습니까?</ModalHeader>
@@ -236,6 +236,8 @@ function BattleGround() {
                 backgroundColor: theme.colors.ziha_green_gray,
                 color: theme.colors.ziha_charcoal,
                 padding: '9px',
+                paddingLeft: '16px',
+                paddingRight: '16px',
                 borderRadius: "8px",
                 boxShadow: "0 0 8px rgba(255, 255, 255, 0.5)",
                 cursor: "pointer", // Add a cursor pointer to indicate clickability
