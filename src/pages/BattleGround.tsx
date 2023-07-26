@@ -18,6 +18,7 @@ import UserCharacter from "../components/UserCharacter";
 import { faceVariants } from "../components/AssetVariants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import './BattleGround.scss';
 
 function BattleGround() {
   const theme = useTheme();
@@ -28,6 +29,10 @@ function BattleGround() {
   const [currentSelectedFace, setCurrentSelectedFace] = useState(faceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
   const [currentUsageProp, setCurrentUsageProp] = useState('');
+  // 공격 시 상대 Hp 바 변화
+  const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
+  // 공격 시 상대 critical 문구 visibility 변화
+  const [enemyCriticalText, setEnemyCriticalText] = useState(false);
 
   function handleExitButtonClick() {
     onOpen();
@@ -46,13 +51,19 @@ function BattleGround() {
   function handleAttackClick() {
     // 우는 표정
     setCurrentSelectedFace(faceVariants[2]);
+    // 우는 모션
     setCurrentUsageProp('attacked');
+    // HP 감소
+    setCurrentEnemyHP((current) => (current - 10));
+    // critical text
+    setEnemyCriticalText(true);
 
     // 원상복구
     setTimeout(() => {
       setCurrentSelectedFace(faceVariants[0]);
       setCurrentUsageProp('');
-    }, 3000);
+      setEnemyCriticalText(false);
+    }, 2000);
   }
 
   return (
@@ -90,7 +101,7 @@ function BattleGround() {
         </Text>
       </Box>
       {/* 두 캐릭터들 */}
-      <Flex direction='column' w='100%' h='550px' gap='10%' marginTop={8} >
+      <Flex direction='column' w='100%' h='550px' gap='10%' marginTop={8} position='relative' >
         {/* 상대방 캐릭터 */}
         <Flex justify="center" align="center" h="40%" >
           <Flex direction="column" style={{ marginTop: "50px" }}>
@@ -114,7 +125,7 @@ function BattleGround() {
                 style={{ border: "2px solid white", borderRadius: "10px" }}
               >
                 <Flex
-                  w="80%"
+                  w={`${currentEnemyHP}%`}
                   h="100%"
                   style={{ backgroundColor: theme.colors.ziha_green }}
                 ></Flex>
@@ -130,6 +141,15 @@ function BattleGround() {
               selectedClothes={null}
               selectedShoe={null}
             />
+            <Box 
+              position='absolute' 
+              className={`critical-text ${enemyCriticalText ? 'visible' : ''} `}
+              p={1} 
+              top={-3}
+            >
+              <Text fontSize='xs' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
+              >CRITICAL</Text>
+            </Box>
           </Flex>
         </Flex>
         {/* 내 캐릭터 */}

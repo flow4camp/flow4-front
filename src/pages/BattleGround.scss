@@ -1,0 +1,27 @@
+
+.critical-text {
+
+    visibility: hidden;
+
+    &.visible {
+
+        visibility: visible;
+
+        animation: stress 1s linear 0s 1;
+
+    }
+}
+
+@keyframes stress {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
