@@ -17,11 +17,14 @@ import {
 import UserCharacter from "../components/UserCharacter";
 import { faceVariants } from "../components/AssetVariants";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './BattleGround.scss';
 
 function BattleGround() {
+
   const theme = useTheme();
+  const navigate = useNavigate();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isExiting, setIsExiting] = useState(false);
 
@@ -33,6 +36,9 @@ function BattleGround() {
   const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
   // 공격 시 상대 critical 문구 visibility 변화
   const [enemyCriticalText, setEnemyCriticalText] = useState(false);
+  
+  // 공격 도중 공격 버튼 clickability
+  const [isAttackClickable, setIsAttackClickable] = useState(true);
 
   function handleExitButtonClick() {
     onOpen();
@@ -47,23 +53,58 @@ function BattleGround() {
     onClose();
   }
 
-  // 공격 버튼 누르기 이후 handle
-  function handleAttackClick() {
+  function gameOver(win: boolean) {
+    navigate('/game-over', { state: { win } });
+  }
+
+  function handleEnemyHP(current: number) {
+
+    if (current === 10) {
+      // 10 hp 남음, 게임 오버
+      setCurrentEnemyHP(0);
+      gameOver(true);
+
+    } else {
+      // 10 hp 감소
+      setCurrentEnemyHP((current) => (current - 10));
+    }
+
+  }
+
+  // 공격이 성공했을 시 
+  function attackSuccess() {
+    // 공격 버튼 안 눌림
+    setIsAttackClickable(false);
     // 우는 표정
     setCurrentSelectedFace(faceVariants[2]);
     // 우는 모션
     setCurrentUsageProp('attacked');
-    // HP 감소
-    setCurrentEnemyHP((current) => (current - 10));
+    // HP 감소 혹은 game over
+    handleEnemyHP(currentEnemyHP);
     // critical text
     setEnemyCriticalText(true);
 
     // 원상복구
     setTimeout(() => {
+      setIsAttackClickable(true);
       setCurrentSelectedFace(faceVariants[0]);
       setCurrentUsageProp('');
       setEnemyCriticalText(false);
     }, 2000);
+  }
+
+  // 공격이 실패했을 시
+  function attackFail() {
+
+  }
+
+  // 공격 버튼 누르기 이후 handle
+  function handleAttackClick() {
+    if (Math.random() > 0.6) {
+      attackSuccess();
+    } else {
+      attackFail();
+    }
   }
 
   return (
@@ -224,6 +265,7 @@ function BattleGround() {
           style={{ border: "2px solid white", borderRadius: "20px" }}
           _active={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
           onClick={handleAttackClick}
+          className={`attack-button ${isAttackClickable ? '' : 'no-click'}`}
         >
           <Image src="/icons/sword.png" w="70%" h="50%" />
           <Text

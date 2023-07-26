@@ -10,6 +10,7 @@ import EditCharacter from "./pages/EditCharacter";
 import EditMetroLine from "./pages/EditMetroLine";
 import StaminaStore from "./pages/StaminaStore";
 import BattleGround from "./pages/BattleGround";
+import GameOver from "./pages/GameOver";
 
 import "./App.css";
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/edit-metroline" element={<EditMetroLine />} />
           <Route path="/stamina-store" element={<StaminaStore />} />
           <Route path="/battle-ground" element={<BattleGround />} />
+          <Route path="/game-over" element={<GameOver win={true} />} />
         </Routes>
       </BrowserRouter>
     </div>
