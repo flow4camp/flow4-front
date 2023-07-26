@@ -15,7 +15,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import UserCharacter from "../components/UserCharacter";
-import { faceVariants } from "../components/AssetVariants";
+import { storeFaceVariants } from "../components/StoreVariants";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './BattleGround.scss';
@@ -29,7 +29,7 @@ function BattleGround() {
   const [isExiting, setIsExiting] = useState(false);
 
   // 공격 혹은 방어 시 상대 face 변화
-  const [currentSelectedFace, setCurrentSelectedFace] = useState(faceVariants[0]);
+  const [currentSelectedFace, setCurrentSelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
   const [currentUsageProp, setCurrentUsageProp] = useState('');
   // 공격 시 상대 Hp 바 변화
@@ -76,7 +76,7 @@ function BattleGround() {
     // 공격 버튼 안 눌림
     setIsAttackClickable(false);
     // 우는 표정
-    setCurrentSelectedFace(faceVariants[2]);
+    setCurrentSelectedFace(storeFaceVariants[2]);
     // 우는 모션
     setCurrentUsageProp('attacked');
     // HP 감소 혹은 game over
@@ -87,7 +87,7 @@ function BattleGround() {
     // 원상복구
     setTimeout(() => {
       setIsAttackClickable(true);
-      setCurrentSelectedFace(faceVariants[0]);
+      setCurrentSelectedFace(storeFaceVariants[0]);
       setCurrentUsageProp('');
       setEnemyCriticalText(false);
     }, 2000);
@@ -200,7 +200,7 @@ function BattleGround() {
               usage={''}
               selectedHat={null}
               selectedAcc={null}
-              selectedFace={faceVariants[0]}
+              selectedFace={storeFaceVariants[0]}
               selectedClothes={null}
               selectedShoe={null}
             />

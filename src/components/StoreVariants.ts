@@ -11,6 +11,7 @@ export const storeHatVariants: StoreVariant[] = [
     { id: 2, src: require('../assets/hat/hat-flower.png'), price: 15 },
     { id: 3, src: require('../assets/hat/hat-police.png'), price: 30 },
     { id: 4, src: require('../assets/hat/hat-sprout.png'), price: 10 },
+    { id: 5, src: require('../assets/hat/hat-mario.png'), price: 30 },
 ];
 
 export const storeFaceVariants: StoreVariant[] = [
@@ -20,6 +21,8 @@ export const storeFaceVariants: StoreVariant[] = [
     { id: 3, src: require("../assets/face/face-drunk.png"), price: 15 },
     { id: 4, src: require("../assets/face/face-wicked.png"), price: 15 },
     { id: 5, src: require("../assets/face/face-cute.png"), price: 10 },
+    { id: 6, src: require("../assets/face/face-melong.png"), price: 15 },
+    { id: 7, src: require("../assets/face/face-relief.png"), price: 10 },
 ];
 
 export const storeAccVariants: StoreVariant[] = [
@@ -28,12 +31,15 @@ export const storeAccVariants: StoreVariant[] = [
     { id: 2, src: require('../assets/accessory/acc-alchohol.png'), price: 10 },
     { id: 3, src: require('../assets/accessory/acc-wine.png'), price: 15 },
     { id: 4, src: require('../assets/accessory/acc-baton.png'), price: 20 },
+    { id: 5, src: require('../assets/accessory/acc-name-tag.png'), price: 15 },
 ];
 
 export const storeClothesVariants: StoreVariant[] = [
     { id: 0, src: require('../assets/clothes/clothes-blue-skirt.png'), price: 20 },
     { id: 1, src: require('../assets/clothes/clothes-checkshirt.png'), price: 25 },
     { id: 2, src: require('../assets/clothes/clothes-vampire.png'), price: 30 },
+    { id: 3, src: require('../assets/clothes/clothes-office.png'), price: 20 },
+    { id: 4, src: require('../assets/clothes/clothes-patrick.png'), price: 25 },
 ];
 
 export const storeShoeVariants: StoreVariant[] = [
