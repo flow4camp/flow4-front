@@ -9,9 +9,10 @@ type CategoryProps = {
     variants: AssetVariant[];
     selectedVariant: AssetVariant;
     setSelectedVariant: (newItem: AssetVariant) => void;
+    myList: number[];
 };
-  
-export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+
+export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant, myList }) => {
 
     const [newSelectedHat, setNewSelectedHat] = useState(selectedVariant);
     const handleSelectedHat = (newSelectedHat: AssetVariant) => {
@@ -30,7 +31,8 @@ export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                     />
                 </div>
                 {variants.map((variant) => (
-                    <div 
+                    myList.includes(variant!.id) && (
+                    <div
                         key={variant?.id}
                         style={newSelectedHat === variant ? styles.selectedItem : styles.item}
                     >
@@ -46,13 +48,14 @@ export const HatOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                             onClick={() => handleSelectedHat(variant)}
                         />
                     </div>
+                    )
                 ))}
             </div>
         </div>
     );
 };
 
-export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant, myList }) => {
 
     const [newSelectedAcc, setNewSelectedAcc] = useState(selectedVariant);
     const handleSelectedAcc = (newSelectedAcc: AssetVariant) => {
@@ -71,9 +74,10 @@ export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                     />
                 </div>
                 {variants.map((variant) => (
-                    <div 
+                    myList.includes(variant!.id) && (
+                    <div
                         key={variant?.id}
-                        // style={styles.item} 
+                        // style={styles.item}
                         style={newSelectedAcc === variant ? styles.selectedItem : styles.item}
                     >
                         <div
@@ -88,14 +92,15 @@ export const AccOptions: React.FC<CategoryProps> = ({ variants, selectedVariant,
                             }}
                             onClick={() => handleSelectedAcc(variant)}
                         />
-                    </div>
+                        </div>
+                      )
                 ))}
             </div>
         </div>
     );
 };
 
-export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant, myList }) => {
 
     const [newSelectedFace, setNewSelectedFace] = useState(selectedVariant);
     const handleSelectedAcc = (newSelectedFace: AssetVariant) => {
@@ -107,7 +112,8 @@ export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <div 
+                      myList.includes(variant!.id) && (
+                    <div
                         key={variant?.id}
                         style={newSelectedFace === variant ? styles.selectedItem : styles.item}
                     >
@@ -123,14 +129,15 @@ export const FaceOptions: React.FC<CategoryProps> = ({ variants, selectedVariant
                             }}
                             onClick={() => handleSelectedAcc(variant)}
                         />
-                    </div>
+                        </div>
+                      )
                 ))}
             </div>
         </div>
     );
 };
 
-export const ClothesOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+export const ClothesOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant, myList }) => {
 
     const [newSelectedClothes, setNewSelectedClothes] = useState(selectedVariant);
     const handleSelectedClothes = (newSelectedClothes: AssetVariant) => {
@@ -149,7 +156,8 @@ export const ClothesOptions: React.FC<CategoryProps> = ({ variants, selectedVari
                     />
                 </div>
                 {variants.map((variant) => (
-                    <div 
+                      myList.includes(variant!.id) && (
+                    <div
                         key={variant?.id}
                         style={newSelectedClothes === variant ? styles.selectedItem : styles.item}
                     >
@@ -165,14 +173,15 @@ export const ClothesOptions: React.FC<CategoryProps> = ({ variants, selectedVari
                             }}
                             onClick={() => handleSelectedClothes(variant)}
                         />
-                    </div>
+                        </div>
+                      )
                 ))}
             </div>
         </div>
     );
 };
 
-export const ShoesOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant }) => {
+export const ShoesOptions: React.FC<CategoryProps> = ({ variants, selectedVariant, setSelectedVariant, myList }) => {
 
     const [newSelectedShoes, setNewSelectedShoes] = useState(selectedVariant);
     const handleSelectedShoes = (newSelectedShoes: AssetVariant) => {
@@ -191,7 +200,8 @@ export const ShoesOptions: React.FC<CategoryProps> = ({ variants, selectedVarian
                     />
                 </div>
                 {variants.map((variant) => (
-                    <div 
+                      myList.includes(variant!.id) && (
+                    <div
                         key={variant?.id}
                         style={newSelectedShoes === variant ? styles.selectedItem : styles.item}
                     >
@@ -207,6 +217,7 @@ export const ShoesOptions: React.FC<CategoryProps> = ({ variants, selectedVarian
                             onClick={() => handleSelectedShoes(variant)}
                         />
                     </div>
+                      )
                 ))}
             </div>
         </div>

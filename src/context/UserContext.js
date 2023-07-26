@@ -17,7 +17,7 @@ interface User {
 }
 
 const initialUserState: User = {
-    id: -1,
+    id: 21,
     username: '지하 test',
     email: 'zihatest@gmail.com',
     power: 30,

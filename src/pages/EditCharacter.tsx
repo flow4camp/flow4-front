@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Button, useTheme } from "@chakra-ui/react";
 import { ChevronLeftIcon } from '@chakra-ui/icons';
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,51 @@ type AssetVariant = {
 function EditCharacter() {
   const navigate = useNavigate();   // navigator
   const { user, setUser } = useUserContext();
+  const [myHat, setMyHat] = useState<number[]>([]);
+  const [myAcc, setMyAcc] = useState<number[]>([]);
+  const [myFace, setMyFace] = useState<number[]>([0]);
+  const [myClothes, setMyClothes] = useState<number[]>([]);
+  const [myShoes, setMyShoes] = useState<number[]>([]);
+
+  useEffect(() => {
+    fetch(API_URL + `/buy/user/${user.id}`, {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.statusCode === 500) {
+          console.log('아이템 정보를 가져오는 데 실패했습니다.');
+        }
+        else {
+          var hat:number[] = [];
+          var acc:number[] = [];
+          var face:number[] = [0];
+          var clothes:number[] = [];
+          var shoes:number[] = [];
+          data.forEach((item: any) => {
+            if (item.itemType === 'hat') {
+              hat.push(item.itemId);
+            } else if (item.itemType === 'acc') {
+              acc.push(item.itemId);
+            } else if (item.itemType === 'face') {
+              face.push(item.itemId);
+            } else if (item.itemType === 'clothes') {
+              clothes.push(item.itemId);
+            } else if (item.itemType === 'shoes') {
+              shoes.push(item.itemId);
+            }
+            setMyHat(hat);
+            setMyAcc(acc);
+            setMyFace(face);
+            setMyClothes(clothes);
+            setMyShoes(shoes);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   // tab option 중 선택한 item state 관리
   const [selectedHat, setSelectedHat] = useState<AssetVariant>(user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null);
@@ -25,20 +70,12 @@ function EditCharacter() {
   const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null);
 
   // ** tab 순서: hat, acc, face, clothes, shoe (0~4) **
-  const tabOptions = [<HatOptions variants={hatVariants} selectedVariant={selectedHat} setSelectedVariant={setSelectedHat} />,
-    <AccOptions variants={accVariants} selectedVariant={selectedAcc} setSelectedVariant={setSelectedAcc} />,
-    <FaceOptions variants={faceVariants} selectedVariant={selectedFace} setSelectedVariant={setSelectedFace} />,
-    <ClothesOptions variants={clothesVariants} selectedVariant={selectedClothes} setSelectedVariant={setSelectedClothes} />,
-    <ShoesOptions variants={shoeVariants} selectedVariant={selectedShoe} setSelectedVariant={setSelectedShoe} />
-  ];
 
   // tab state 관리
   const [selectedTab, setSelectedTab] = useState<number>(0);
-  const [selectedTabOptions, setSelectedTabOptions] = useState<JSX.Element>(tabOptions[0]);
 
   const handleTabClick = (tab: number) => {
     setSelectedTab(tab);
-    setSelectedTabOptions(tabOptions[tab]);
   };
   const theme = useTheme();
   // const itemNumbers = Array.from({ length: 36 }, (_, index) => index + 1);
@@ -171,7 +208,11 @@ function EditCharacter() {
         selectedVariant={selectedAcc}
         setSelectedVariant={setSelectedAcc}
       /> */}
-      {selectedTabOptions}
+      {selectedTab === 0 ? <HatOptions variants={hatVariants} myList={myHat} selectedVariant={selectedHat} setSelectedVariant={setSelectedHat} />
+        : selectedTab === 1 ? <AccOptions variants={accVariants} myList={myAcc} selectedVariant={selectedAcc} setSelectedVariant={setSelectedAcc} />
+        : selectedTab === 2 ? <FaceOptions variants={faceVariants} myList={myFace} selectedVariant={selectedFace} setSelectedVariant={setSelectedFace} />
+        : selectedTab === 3 ? <ClothesOptions variants={clothesVariants} myList={myClothes} selectedVariant={selectedClothes} setSelectedVariant={setSelectedClothes} />
+        : <ShoesOptions variants={shoeVariants} myList={myShoes} selectedVariant={selectedShoe} setSelectedVariant={setSelectedShoe} />}
     </div>
   );
 }
