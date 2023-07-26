@@ -45,6 +45,8 @@ function BattleGround() {
   const [currentMyUsageProp, setCurrentMyUsageProp] = useState('');
   // 공격 시 내 Hp 바 변화
   const [currentMyHP, setCurrentMyHP] = useState(100);
+  // 공격 시 내 critical 문구 visibility 변화
+  const [myCriticalText, setMyCriticalText] = useState(false);
   // 방어 시 내 miss 문구 visibility 변화
   const [myMissText, setMyMissText] = useState(false);
   
@@ -88,6 +90,8 @@ function BattleGround() {
   function attackSuccess() {
     // 공격 버튼 안 눌림
     setIsAttackClickable(false);
+    // 방어 버튼 안 눌림
+    setIsDefendClickable(false);
     // 우는 표정
     setCurrentEnemySelectedFace(storeFaceVariants[2]);
     // 우는 모션
@@ -100,6 +104,7 @@ function BattleGround() {
     // 원상복구
     setTimeout(() => {
       setIsAttackClickable(true);
+      setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyCriticalText(false);
@@ -110,15 +115,21 @@ function BattleGround() {
   function attackFail() {
     // 공격 버튼 안 눌림
     setIsAttackClickable(false);
+    // 방어 버튼 안 눌림
+    setIsDefendClickable(false);
     // 다행인 표정
     setCurrentEnemySelectedFace(storeFaceVariants[7]);
+    // 피하는 모션
+    setCurrentEnemyUsageProp('defended');
     // miss text
     setEnemyMissText(true);
 
     // 원상복구
     setTimeout(() => {
       setIsAttackClickable(true);
+      setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
+      setCurrentEnemyUsageProp('');
       setEnemyMissText(false);
     }, 2000);
   }
@@ -136,6 +147,8 @@ function BattleGround() {
   function defendSuccess() {
     // 방어 버튼 안 눌림
     setIsDefendClickable(false);
+    // 공격 버튼 안 눌림
+    setIsAttackClickable(false);
     // 메롱 표정
     setCurrentMySelectedFace(storeFaceVariants[6]);
     // 우는 모션
@@ -146,6 +159,7 @@ function BattleGround() {
     // 원상복구
     setTimeout(() => {
       setIsDefendClickable(true);
+      setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyMissText(false);
@@ -154,7 +168,25 @@ function BattleGround() {
 
   // 방어가 실패했을 시
   function defendFail() {
+    // 방어 버튼 안 눌림
+    setIsDefendClickable(false);
+    // 공격 버튼 안 눌림
+    setIsAttackClickable(false);
+    // 아픈 표정
+    setCurrentMySelectedFace(storeFaceVariants[5]);
+    // 우는 모션
+    setCurrentMyUsageProp('attacked');
+    // critical text
+    setMyCriticalText(true);
 
+    // 원상복구
+    setTimeout(() => {
+      setIsDefendClickable(true);
+      setIsAttackClickable(true);
+      setCurrentMySelectedFace(storeFaceVariants[0]);
+      setCurrentMyUsageProp('');
+      setMyCriticalText(false);
+    }, 2000);
   }
 
   // 방어 버튼 누르기 이후 handle
@@ -274,9 +306,18 @@ function BattleGround() {
             />
             <Box 
               position='absolute' 
+              className={`critical-text ${myCriticalText ? 'visible' : ''} `}
+              p={2} 
+              top={-3}
+            >
+              <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_purple_sharp'
+              >CRITICAL</Text>
+            </Box>
+            <Box 
+              position='absolute' 
               className={`miss-text ${myMissText ? 'visible' : ''} `}
               p={2} 
-              top={-5}
+              top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
               >MISS</Text>
