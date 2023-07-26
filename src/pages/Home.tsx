@@ -28,9 +28,9 @@ function Home() {
   const lineNum = 1; // 등록된 출근 호선 번호
   const lineNumColor = theme.colors["line_" + lineNum + "_color"];
   const dailyQuestList = [
-    { id: 1, text: "지하철 탑승하기" },
-    { id: 2, text: "1회 배틀하기" },
-    { id: 3, text: "지하철에서 내리기" },
+    { id: 1, text: "지하철 탑승하기", isActive: false },
+    { id: 2, text: "1회 배틀하기", isActive: false },
+    { id: 3, text: "지하철에서 내리기", isActive: true },
   ];
   const specialQuestNum = 5;
   const specialQuest = `배틀 ${specialQuestNum}회 이기기`;
@@ -183,10 +183,16 @@ function Home() {
                 <Box
                   w="80px"
                   style={{
-                    border: "1px solid black",
+                    border: "1px solid",
                     borderRadius: "5px",
                     fontSize: "13px",
                     fontFamily: "Font-Content-Light",
+                    borderColor: quest.isActive
+                      ? "black"
+                      : theme.colors.ziha_purple_gray,
+                    color: quest.isActive
+                      ? "black"
+                      : theme.colors.ziha_purple_gray,
                   }}
                 >
                   보상 받기
