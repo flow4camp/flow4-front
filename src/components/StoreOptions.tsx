@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, Text, Image, Box, useToast } from "@chakra-ui/react";
+import { API_URL } from '../api';
+import { useUserContext } from '../context/UserContext';
 
 type StoreVariant = {
     id: number;
@@ -9,36 +11,82 @@ type StoreVariant = {
 
 type StoreCategoryProps = {
     variants: StoreVariant[];
+    myList: number[];
 };
-  
-export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
 
+const failedToast = () => (
+    <Box
+        color='ziha_charcoal'
+        p={3}
+        bg='ziha_purple'
+        m={3}
+        boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+    >
+        <Text style={{ fontFamily: 'Font-Content' }}
+        >구매 실패</Text>
+        <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light' }}
+        >기력이 부족해 구매할 수 없습니다.</Text>
+    </Box>
+);
+
+const successToast = () => (
+    <Box
+        color='ziha_charcoal'
+        p={3}
+        bg='ziha_green_gray'
+        m={3}
+        boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)'
+    >
+        <Text style={{ fontFamily: 'Font-Content' }}
+        >구매 성공!</Text>
+        <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light' }}
+        >아이템을 성공적으로 구매하였습니다.</Text>
+    </Box>
+);
+
+export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants, myList }) => {
     const toast = useToast();
+    const { user, setUser } = useUserContext();
 
     const buySelectedHat = (hat: StoreVariant) => {
+        if (user.power < hat!.price) {
+            toast({
+                position: 'bottom',
+                duration: 3000,
+                isClosable: true,
+                render: failedToast,
+            });
+            return;
+        }
+        const requestData = {
+            itemType: 'hat',
+            itemId: hat!.id,
+            userId: user.id,
+            price: hat!.price,
+        };
 
-        // 성공적으로 구매했음을 toast로 알려주기
-        toast({
-            position: 'bottom',
-            // title: '구매 성공!',
-            // description: '아이템을 성공적으로 구매하였습니다.',
-            // status: 'success',
-            duration: 3000,
-            isClosable: true,
-            render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
-                >
-                    <Text style={{ fontFamily: 'Font-Content'}}
-                    >구매 성공!</Text>
-                    <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light'}}
-                    >아이템을 성공적으로 구매하였습니다.</Text>
-                </Box>
-            ),
+        fetch(API_URL + '/buy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => {
+            if (response.status === 201) {
+                myList.push(hat!.id);
+                user.power -= hat!.price;
+                setUser(user);
+                toast({
+                    position: 'bottom',
+                    duration: 3000,
+                    isClosable: true,
+                    render: successToast,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     };
 
@@ -46,7 +94,7 @@ export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -61,23 +109,40 @@ export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
                                 marginTop: '20px',
                             }}
                         />
+                        { myList.includes(variant!.id) ?
                         <Flex
-                            w='95%'
-                            m={1}
-                            align='center'
-                            justify='center'
-                            bg='ziha_charcoal_gray'
-                            borderRadius='0.5em'
-                            p={1}
-                            onClick={() => buySelectedHat(variant)}
-                        >
-                            <Image src={require('../assets/coin.png')} w={5} h={5} />
-                            <Text
-                                style={{ fontFamily: 'Font-Content'}}
-                                color='white'
-                                fontSize='sm'
-                            >{variant?.price}</Text>
-                        </Flex>
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                            >
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >구매 완료</Text>
+                            </Flex>
+                            : <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_charcoal_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                                onClick={() => buySelectedHat(variant)}
+                            >
+                                <Image src={require('../assets/coin.png')} w={5} h={5} />
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >{variant?.price}</Text>
+                            </Flex>
+                        }
                     </Flex>
                 ))}
             </div>
@@ -85,34 +150,50 @@ export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
     );
 };
 
-export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
+export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants, myList  }) => {
 
     const toast = useToast();
+    const { user, setUser } = useUserContext();
 
     const buySelectedAcc = (acc: StoreVariant) => {
+        if (user.power < acc!.price) {
+            toast({
+                position: 'bottom',
+                duration: 3000,
+                isClosable: true,
+                render: failedToast,
+            });
+            return;
+        }
+        const requestData = {
+            itemType: 'acc',
+            itemId: acc!.id,
+            userId: user.id,
+            price: acc!.price,
+        };
 
-        // 성공적으로 구매했음을 toast로 알려주기
-        toast({
-            position: 'bottom',
-            // title: '구매 성공!',
-            // description: '아이템을 성공적으로 구매하였습니다.',
-            // status: 'success',
-            duration: 3000,
-            isClosable: true,
-            render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
-                >
-                    <Text style={{ fontFamily: 'Font-Content'}}
-                    >구매 성공!</Text>
-                    <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light'}}
-                    >아이템을 성공적으로 구매하였습니다.</Text>
-                </Box>
-            ),
+        fetch(API_URL + '/buy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => {
+            if (response.status === 201) {
+                myList.push(acc!.id);
+                user.power -= acc!.price;
+                setUser(user);
+                toast({
+                    position: 'bottom',
+                    duration: 3000,
+                    isClosable: true,
+                    render: successToast,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     };
 
@@ -120,7 +201,7 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -136,23 +217,40 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
                                 // marginLeft: '20px'
                             }}
                         />
-                        <Flex
-                            w='95%'
-                            m={1}
-                            align='center'
-                            justify='center'
-                            bg='ziha_charcoal_gray'
-                            borderRadius='0.5em'
-                            p={1}
-                            onClick={() => buySelectedAcc(variant)}
-                        >
-                            <Image src={require('../assets/coin.png')} w={5} h={5} />
-                            <Text
-                                style={{ fontFamily: 'Font-Content'}}
-                                color='white'
-                                fontSize='sm'
-                            >{variant?.price}</Text>
-                        </Flex>
+                        {myList.includes(variant!.id) ?
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                            >
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >구매 완료</Text>
+                            </Flex>
+                            : <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_charcoal_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                                onClick={() => buySelectedAcc(variant)}
+                            >
+                                <Image src={require('../assets/coin.png')} w={5} h={5} />
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >{variant?.price}</Text>
+                            </Flex>
+                        }
                     </Flex>
                 ))}
             </div>
@@ -160,34 +258,50 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
     );
 };
 
-export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
+export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants, myList }) => {
 
     const toast = useToast();
+    const { user, setUser } = useUserContext();
 
     const buySelectedFace = (face: StoreVariant) => {
+        if (user.power < face!.price) {
+            toast({
+                position: 'bottom',
+                duration: 3000,
+                isClosable: true,
+                render: failedToast,
+            });
+            return;
+        }
+        const requestData = {
+            itemType: 'face',
+            itemId: face!.id,
+            userId: user.id,
+            price: face!.price,
+        };
 
-        // 성공적으로 구매했음을 toast로 알려주기
-        toast({
-            position: 'bottom',
-            // title: '구매 성공!',
-            // description: '아이템을 성공적으로 구매하였습니다.',
-            // status: 'success',
-            duration: 3000,
-            isClosable: true,
-            render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
-                >
-                    <Text style={{ fontFamily: 'Font-Content'}}
-                    >구매 성공!</Text>
-                    <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light'}}
-                    >아이템을 성공적으로 구매하였습니다.</Text>
-                </Box>
-            ),
+        fetch(API_URL + '/buy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => {
+            if (response.status === 201) {
+                myList.push(face!.id);
+                user.power -= face!.price;
+                setUser(user);
+                toast({
+                    position: 'bottom',
+                    duration: 3000,
+                    isClosable: true,
+                    render: successToast,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     };
 
@@ -195,7 +309,7 @@ export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants }) => 
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -210,23 +324,41 @@ export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants }) => 
                                 marginLeft: '20px'
                             }}
                         />
-                        <Flex
-                            w='95%'
-                            m={1}
-                            align='center'
-                            justify='center'
-                            bg='ziha_charcoal_gray'
-                            borderRadius='0.5em'
-                            p={1}
-                            onClick={() => buySelectedFace(variant)}
-                        >
-                            <Image src={require('../assets/coin.png')} w={5} h={5} />
-                            <Text
-                                style={{ fontFamily: 'Font-Content'}}
-                                color='white'
-                                fontSize='sm'
-                            >{variant?.price}</Text>
-                        </Flex>
+                        {myList.includes(variant!.id) ?
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                            >
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >구매 완료</Text>
+                            </Flex>
+                            :
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_charcoal_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                                onClick={() => buySelectedFace(variant)}
+                            >
+                                <Image src={require('../assets/coin.png')} w={5} h={5} />
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >{variant?.price}</Text>
+                            </Flex>
+                        }
                     </Flex>
                 ))}
             </div>
@@ -234,34 +366,49 @@ export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants }) => 
     );
 };
 
-export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
+export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants, myList }) => {
 
     const toast = useToast();
+    const { user, setUser } = useUserContext();
 
     const buySelectedClothes = (clothes: StoreVariant) => {
-
-        // 성공적으로 구매했음을 toast로 알려주기
-        toast({
-            position: 'bottom',
-            // title: '구매 성공!',
-            // description: '아이템을 성공적으로 구매하였습니다.',
-            // status: 'success',
-            duration: 3000,
-            isClosable: true,
-            render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
-                >
-                    <Text style={{ fontFamily: 'Font-Content'}}
-                    >구매 성공!</Text>
-                    <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light'}}
-                    >아이템을 성공적으로 구매하였습니다.</Text>
-                </Box>
-            ),
+        if (user.power < clothes!.price) {
+            toast({
+                position: 'bottom',
+                duration: 3000,
+                isClosable: true,
+                render: failedToast,
+            });
+            return;
+        }
+        const requestData = {
+            itemType: 'clothes',
+            itemId: clothes!.id,
+            userId: user.id,
+            price: clothes!.price,
+        };
+        fetch(API_URL + '/buy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => {
+            if (response.status === 201) {
+                myList.push(clothes!.id);
+                user.power -= clothes!.price;
+                setUser(user);
+                toast({
+                    position: 'bottom',
+                    duration: 3000,
+                    isClosable: true,
+                    render: successToast,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     };
 
@@ -269,7 +416,7 @@ export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants }) 
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -285,23 +432,41 @@ export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants }) 
                                 marginLeft: '2px'
                             }}
                         />
-                        <Flex
-                            w='95%'
-                            m={1}
-                            align='center'
-                            justify='center'
-                            bg='ziha_charcoal_gray'
-                            borderRadius='0.5em'
-                            p={1}
-                            onClick={() => buySelectedClothes(variant)}
-                        >
-                            <Image src={require('../assets/coin.png')} w={5} h={5} />
-                            <Text
-                                style={{ fontFamily: 'Font-Content'}}
-                                color='white'
-                                fontSize='sm'
-                            >{variant?.price}</Text>
-                        </Flex>
+                        {myList.includes(variant!.id) ?
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                            >
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >구매 완료</Text>
+                            </Flex>
+                            :
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_charcoal_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                                onClick={() => buySelectedClothes(variant)}
+                            >
+                                <Image src={require('../assets/coin.png')} w={5} h={5} />
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >{variant?.price}</Text>
+                            </Flex>
+                        }
                     </Flex>
                 ))}
             </div>
@@ -309,34 +474,49 @@ export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants }) 
     );
 };
 
-export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants }) => {
+export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants, myList }) => {
 
     const toast = useToast();
+    const { user, setUser } = useUserContext();
 
     const buySelectedShoe = (shoe: StoreVariant) => {
-
-        // 성공적으로 구매했음을 toast로 알려주기
-        toast({
-            position: 'bottom',
-            // title: '구매 성공!',
-            // description: '아이템을 성공적으로 구매하였습니다.',
-            // status: 'success',
-            duration: 3000,
-            isClosable: true,
-            render: () => (
-                <Box 
-                    color='ziha_charcoal' 
-                    p={3} 
-                    bg='ziha_green_gray' 
-                    m={3} 
-                    boxShadow='0px 2px 6px rgba(0, 0, 0, 0.2)' 
-                >
-                    <Text style={{ fontFamily: 'Font-Content'}}
-                    >구매 성공!</Text>
-                    <Text fontSize='sm' style={{ fontFamily: 'Font-Content-Light'}}
-                    >아이템을 성공적으로 구매하였습니다.</Text>
-                </Box>
-            ),
+        if (user.power < shoe!.price) {
+            toast({
+                position: 'bottom',
+                duration: 3000,
+                isClosable: true,
+                render: failedToast,
+            });
+            return;
+        }
+        const requestData = {
+            itemType: 'shoes',
+            itemId: shoe!.id,
+            userId: user.id,
+            price: shoe!.price,
+        };
+        fetch(API_URL + '/buy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => {
+            if (response.status === 201) {
+                myList.push(shoe!.id);
+                user.power -= shoe!.price;
+                setUser(user);
+                toast({
+                    position: 'bottom',
+                    duration: 3000,
+                    isClosable: true,
+                    render: successToast,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     };
 
@@ -344,7 +524,7 @@ export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants }) =>
         <div style={styles.itemContainerWrapper}>
             <div style={styles.itemContainer}>
                 {variants.map((variant) => (
-                    <Flex 
+                    <Flex
                         key={variant?.id}
                         direction='column'
                         style={styles.item}
@@ -358,23 +538,41 @@ export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants }) =>
                                 height: "160px",
                             }}
                         />
-                        <Flex
-                            w='95%'
-                            m={1}
-                            align='center'
-                            justify='center'
-                            bg='ziha_charcoal_gray'
-                            borderRadius='0.5em'
-                            p={1}
-                            onClick={() => buySelectedShoe(variant)}
-                        >
-                            <Image src={require('../assets/coin.png')} w={5} h={5} />
-                            <Text
-                                style={{ fontFamily: 'Font-Content'}}
-                                color='white'
-                                fontSize='sm'
-                            >{variant?.price}</Text>
-                        </Flex>
+                        {myList.includes(variant!.id) ?
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                            >
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >구매 완료</Text>
+                            </Flex>
+                            :
+                            <Flex
+                                w='95%'
+                                m={1}
+                                align='center'
+                                justify='center'
+                                bg='ziha_charcoal_gray'
+                                borderRadius='0.5em'
+                                p={1}
+                                onClick={() => buySelectedShoe(variant)}
+                            >
+                                <Image src={require('../assets/coin.png')} w={5} h={5} />
+                                <Text
+                                    style={{ fontFamily: 'Font-Content' }}
+                                    color='white'
+                                    fontSize='sm'
+                                >{variant?.price}</Text>
+                            </Flex>
+                        }
                     </Flex>
                 ))}
             </div>
@@ -390,6 +588,7 @@ interface Styles {
 
 const styles: Styles = {
     itemContainerWrapper: {
+        flex: 1,
         overflowY: "auto",
     },
     itemContainer: {

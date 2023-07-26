@@ -1,7 +1,9 @@
 import React, {  ChangeEvent } from "react";
 import { Center, Image, Text, Input, Button, Flex } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { API_URL } from '../api';
+import { useUserContext } from '../context/UserContext';
 // import axios from 'axios';
 
 function Signin() {
@@ -9,6 +11,8 @@ function Signin() {
   const [inputName, setInputName] = useState('');
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
+  const { user, setUser } = useUserContext();
+  const navigate = useNavigate();
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputName(e.target.value);
@@ -17,9 +21,37 @@ function Signin() {
   const onChangeId = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputId(e.target.value);
   };
-  
+
   const onChangePwd = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputPwd(e.target.value);
+  };
+
+  const handleSignIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    if (inputId === '' || inputPwd === '' || inputName === '') {
+      alert('빈 칸을 채워주세요.');
+      return;
+    }
+    const requestData = {
+      email: inputId,
+      password: inputPwd,
+      username: inputName,
+    };
+
+    fetch(API_URL + '/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setUser(data);
+        navigate('/home');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -60,8 +92,8 @@ function Signin() {
             p={5}
             gap={2}
           >
-            <Text 
-              marginBottom={3} 
+            <Text
+              marginBottom={3}
               style={{ fontFamily: 'Font-Content' }}
             >계정을 등록하세요</Text>
             <Center>
@@ -95,7 +127,7 @@ function Signin() {
               />
             </Center>
           </Flex>
-          <Text 
+          <Text
             fontSize="md"
             style={{ fontFamily: 'Font-Content' }}
           >
@@ -114,6 +146,7 @@ function Signin() {
               <Button
                 w='220px'
                 style={{ fontFamily: 'Font-Content-Light' }}
+                onClick={handleSignIn}
               >
                 회원가입
               </Button>

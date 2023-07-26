@@ -1,27 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/Store.css';
 import Layout from '../components/layout';
 import { Center, Image, Text, Box, Spacer, Flex } from '@chakra-ui/react';
 import { StoreAccOptions, StoreClothesOptions, StoreFaceOptions, StoreHatOptions, StoreShoesOptions } from '../components/StoreOptions';
 import { storeAccVariants, storeClothesVariants, storeFaceVariants, storeHatVariants, storeShoeVariants } from '../components/StoreVariants';
+import { API_URL } from '../api';
+import { useUserContext } from '../context/UserContext';
 
 const Store = () => {
-  // 상태(State) 설정
-  // // 아이템 혹은 상품권 -> CategoryTab
+  const { user, setUser } = useUserContext();
+  const [myHat, setMyHat] = useState<number[]>([]);
+  const [myAcc, setMyAcc] = useState<number[]>([]);
+  const [myFace, setMyFace] = useState<number[]>([]);
+  const [myClothes, setMyClothes] = useState<number[]>([]);
+  const [myShoes, setMyShoes] = useState<number[]>([]);
+
+  useEffect(() => {
+    fetch(API_URL + `/buy/user/${user.id}`, {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.statusCode === 500) {
+          console.log('아이템 정보를 가져오는 데 실패했습니다.');
+        }
+        else {
+          var hat:number[] = [];
+          var acc:number[] = [];
+          var face:number[] = [];
+          var clothes:number[] = [];
+          var shoes:number[] = [];
+          data.forEach((item: any) => {
+            if (item.itemType === 'hat') {
+              hat.push(item.itemId);
+            } else if (item.itemType === 'acc') {
+              acc.push(item.itemId);
+            } else if (item.itemType === 'face') {
+              face.push(item.itemId);
+            } else if (item.itemType === 'clothes') {
+              clothes.push(item.itemId);
+            } else if (item.itemType === 'shoes') {
+              shoes.push(item.itemId);
+            }
+            setMyHat(hat);
+            setMyAcc(acc);
+            setMyFace(face);
+            setMyClothes(clothes);
+            setMyShoes(shoes);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
   const [activeCategoryTab, setActiveCategoryTab] = useState('tab1'); // 기본적으로 첫 번째 탭이 선택되도록 설정
-  // // 모자, 악세서리, 표정, 옷, 신발 -> ItemTab
+
   // ** ItemTab 순서: hat, acc, face, clothes, shoe (0~4) **
   const [selectedItemTab, setSelectedItemTab] = useState<number>(0);
-  
-  // ItemTabOptions array
-  const itemTabOptions = [<StoreHatOptions variants={storeHatVariants} />,
-    <StoreAccOptions variants={storeAccVariants} />,
-    <StoreFaceOptions variants={storeFaceVariants} />,
-    <StoreClothesOptions variants={storeClothesVariants} />,
-    <StoreShoesOptions variants={storeShoeVariants} />
-  ];
-  // ItemTabOption component state 관리
-  const [selectedItemTabOption, setSelectedItemTabOption] = useState<JSX.Element>(itemTabOptions[0]);
 
   // 탭 변경 핸들러 함수
   const handleCategoryTabChange = (tab :string) => {
@@ -29,13 +66,14 @@ const Store = () => {
   };
   const handleItemTabChange = (item: number) => {
     setSelectedItemTab(item);
-    setSelectedItemTabOption(itemTabOptions[item]);
   };
 
   return (
-    <Layout>
-      <Box
-          w='100%'
+    <Layout scroll='none'>
+      <Flex
+        w='100%'
+        justify={'space-between'}
+        align={'center'}
         >
           <Text
             w='fit-content'
@@ -43,8 +81,15 @@ const Store = () => {
             m={2}
             fontSize='2xl'
             style={{ fontFamily: 'Font-Title' }}
-          >스토어</Text>
-        </Box>
+        >스토어</Text>
+        <Text
+            w='fit-content'
+            p={3}
+            m={2}
+            fontSize='lg'
+            style={{ fontFamily: 'Font-Title' }}
+        >{`기력 : ${user.power}`}</Text>
+        </Flex>
         {/* 탭 메뉴 */}
         <div className='tab-menu'>
           <button className={activeCategoryTab === 'tab1' ? 'active-tab' : 'tab-button'}onClick={() => handleCategoryTabChange('tab1')}><Text style={{ fontFamily: 'Font-Title' }}>아이템</Text></button>
@@ -54,7 +99,6 @@ const Store = () => {
         {/* 선택된 탭에 해당하는 아이템 리스트 렌더링 */}
         {activeCategoryTab === 'tab1' && (
           <div className='contents'>
-          {<div>
             <div style={styles.tabContainer}>
               <button
                 style={selectedItemTab === 0 ? styles.activeTab : styles.tab}
@@ -87,8 +131,12 @@ const Store = () => {
                 <img src="/icons/shoes.png" style={{ width: "30px" }} alt='shoes' />
               </button>
             </div>
-            {selectedItemTabOption}
-            </div>
+          {
+            selectedItemTab === 0 ? <StoreHatOptions variants={storeHatVariants} myList={myHat}  />
+            : selectedItemTab === 1 ?<StoreAccOptions variants={storeAccVariants} myList={myAcc}  />
+            : selectedItemTab === 2 ?<StoreFaceOptions variants={storeFaceVariants} myList={myFace}  />
+            : selectedItemTab === 3? <StoreClothesOptions variants={storeClothesVariants} myList={myClothes}  />
+            : selectedItemTab === 4 && <StoreShoesOptions variants={storeShoeVariants} myList={myShoes}  />
           }
           </div>
         )}
@@ -126,6 +174,7 @@ const styles: Styles = {
     height: "50%",
   },
   tabContainer: {
+    marginBottom: "10px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",

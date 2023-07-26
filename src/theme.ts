@@ -9,6 +9,7 @@ const colors = {
   //   },
   ziha_charcoal: "#323232",
   ziha_charcoal_gray: "#5A5A5A",
+  ziha_gray: "#999999",
   ziha_green: "#CDF082",
   ziha_green_gray: "#C3DB90",
   ziha_purple: "#B1A6D2",

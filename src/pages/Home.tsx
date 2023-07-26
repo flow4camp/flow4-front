@@ -12,18 +12,19 @@ import {
   Flex,
   useToast,
   useTheme,
+  Checkbox,
   Button,
 } from "@chakra-ui/react";
-import { faceVariants } from "../components/AssetVariants";
+import { accVariants, clothesVariants, faceVariants, hatVariants, shoeVariants } from "../components/AssetVariants";
+import { useUserContext } from '../context/UserContext';
 
 function Home() {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { user, setUser } = useUserContext();
   const toast = useToast();
-
-  const userName = "user1"; // 유저이름
-  const nickName = "유령이"; // 유령이름
-  const attendance = 17; // 누적 출석 일수
+  const nickName = "유령이";    // 유령이름
+  const attendance = 17;      // 누적 출석 일수
   const winNum = 1;
   const looseNum = 12;
   const lineNum = 1; // 등록된 출근 호선 번호
@@ -43,21 +44,28 @@ function Home() {
     setIsSpecialActive(specialQuestNum === specialQuestProgress);
   }, [specialQuestNum, specialQuestProgress]);
 
+  function getDaysSinceCreation(createdAt: string) {
+    const currentDate = new Date();
+    const createdDate = new Date(createdAt);
+    const timeDifference = currentDate.getTime() - createdDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference + 1;
+  }
+
   return (
     <Layout>
-      <div style={styles.container}>
-        <Box w="100%">
+        {user &&
+        <div style={styles.container}>
+        <Box w='100%'>
           <Text
             w="fit-content"
             p={3}
             m={2}
             paddingBottom={0}
             marginBottom={0}
-            fontSize="lg"
-            style={{ fontFamily: "Font-Title-Light" }}
-          >
-            {userName}님,
-          </Text>
+            fontSize='lg'
+            style={{ fontFamily: 'Font-Title-Light' }}
+          >{user.username}님,</Text>
           <Text
             w="fit-content"
             paddingLeft={3}
@@ -73,13 +81,12 @@ function Home() {
             <NavLink to="/edit-character">
               <UserCharacter
                 usage={""}
-                selectedHat={null}
-                selectedAcc={null}
-                selectedFace={faceVariants[0]}
-                selectedClothes={null}
-                selectedShoe={null}
-              />{" "}
-              {/* selected stuffs are null for now!! */}
+                selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
+                selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
+                selectedFace={user.faceVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]}
+                selectedClothes={user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null}
+                selectedShoe={user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null}
+              />     {/* selected stuffs are null for now!! */}
             </NavLink>
           </div>
           <div style={styles.userinfoText}>
@@ -88,14 +95,12 @@ function Home() {
               style={{ fontFamily: "Font-Content" }}
               p={3}
               paddingBottom={2}
-            >
-              지하출근 {attendance}일차
+            >지하출근 {getDaysSinceCreation(user.createdAt)}일차</Text>
+            <Text style={{ fontFamily: "Font-Content-Light" }} fontSize='sm' >
+              오늘도 출근!
             </Text>
-            <Text style={{ fontFamily: "Font-Content-Light" }} fontSize="sm">
-              오늘의 전적 {winNum}승 {looseNum}패
-            </Text>
-            <Text style={{ fontFamily: "Font-Content-Light" }} fontSize="sm">
-              누적 전적 {winNum + 10}승 {looseNum + 15}패
+            <Text style={{ fontFamily: "Font-Content-Light" }} fontSize='sm' >
+              누적 전적 {user.win}승 {user.lose}패
             </Text>
           </div>
         </div>
@@ -322,8 +327,9 @@ function Home() {
               </Box>
             </Flex>
           </Flex>
-        </Box>
-      </div>
+            </Box>
+        </div>
+      }
     </Layout>
   );
 }
