@@ -423,7 +423,7 @@ function BattleGround() {
           <ModalHeader>정말 나가시겠습니까?</ModalHeader>
           <ModalBody>나가면 기력이 소진됩니다.</ModalBody>
           <ModalFooter>
-            <Link to="/battle">
+            <Link to="/game-over" state={{win: false}}>
               <Button bg="gray" color='white' onClick={handleExit} style={{ fontFamily: 'Font-Content'}} >
                 나가기
               </Button>

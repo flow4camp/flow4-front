@@ -1,20 +1,17 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 
-interface GameOverProps {
-    win: boolean;
-  }
-
-const GameOver: React.FC<GameOverProps> = ({ win }) => {
-
+const GameOver: React.FC = () => {
+    const location = useLocation();
+    const win = location.state?.win || false;
+  
     return (
-        <div>
-            {win ? (
-                <div>win</div>
-            ) : (
-                <div>lose</div>
-            )}
-        </div>
-    )
-}
+      <div>
+        {win ? 
+        (<h1>Congratulations! You won!</h1>) : 
+        (<h1>Game Over! Better luck next time!</h1>)}
+      </div>
+    );
+  };
 
 export default GameOver;

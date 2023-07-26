@@ -29,7 +29,7 @@ function App() {
           <Route path="/edit-metroline" element={<EditMetroLine />} />
           <Route path="/stamina-store" element={<StaminaStore />} />
           <Route path="/battle-ground" element={<BattleGround />} />
-          <Route path="/game-over" element={<GameOver win={true} />} />
+          <Route path="/game-over" element={<GameOver />} />
         </Routes>
       </BrowserRouter>
     </div>
