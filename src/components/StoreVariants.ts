@@ -24,6 +24,7 @@ export const storeFaceVariants: StoreVariant[] = [
     { id: 5, src: require("../assets/face/face-cute.png"), price: 10 },
     { id: 6, src: require("../assets/face/face-melong.png"), price: 15 },
     { id: 7, src: require("../assets/face/face-relief.png"), price: 10 },
+    { id: 8, src: require("../assets/face/face-smile.png"), price: 10 },
 ];
 
 export const storeAccVariants: StoreVariant[] = [
