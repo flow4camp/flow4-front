@@ -19,7 +19,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import useToastNotification from "../hooks/useToastNotification";
 
 function EditMetroLine() {
   const navigate = useNavigate(); // navigator
@@ -149,8 +148,6 @@ function EditMetroLine() {
     const minute = String(currentTime.getMinutes()).padStart(2, "0");
     return `${hour}:${minute}`;
   };
-
-  useToastNotification();
 
   return (
     <Flex
