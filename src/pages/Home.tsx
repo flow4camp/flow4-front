@@ -1,5 +1,5 @@
 // Home.tsx
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
 import UserCharacter from "../components/UserCharacter";
@@ -10,7 +10,7 @@ import {
   Box,
   Image,
   Flex,
-  Checkbox,
+  useToast,
   useTheme,
   Button,
 } from "@chakra-ui/react";
@@ -19,6 +19,7 @@ import { faceVariants } from "../components/AssetVariants";
 function Home() {
   const theme = useTheme();
   const navigate = useNavigate();
+  const toast = useToast();
 
   const userName = "user1"; // 유저이름
   const nickName = "유령이"; // 유령이름
@@ -27,11 +28,11 @@ function Home() {
   const looseNum = 12;
   const lineNum = 1; // 등록된 출근 호선 번호
   const lineNumColor = theme.colors["line_" + lineNum + "_color"];
-  const dailyQuestList = [
-    { id: 1, text: "지하철 탑승하기", isActive: false },
-    { id: 2, text: "1회 배틀하기", isActive: false },
-    { id: 3, text: "지하철에서 내리기", isActive: true },
-  ];
+  const [dailyQuestList, setDailyQuestList] = useState([
+    { id: 1, text: "지하철 탑승하기", isActive: false, isComplete: false },
+    { id: 2, text: "1회 배틀하기", isActive: false, isComplete: false },
+    { id: 3, text: "지하철에서 내리기", isActive: true, isComplete: false },
+  ]);
   const specialQuestNum = 5;
   const specialQuest = `배틀 ${specialQuestNum}회 이기기`;
 
@@ -194,8 +195,25 @@ function Home() {
                       ? "black"
                       : theme.colors.ziha_purple_gray,
                   }}
+                  onClick={() => {
+                    if (quest.isActive && !quest.isComplete) {
+                      toast({
+                        title: "보상을 받았습니다.",
+                        description: "10 기력을 받았습니다!",
+                        status: "success",
+                        duration: 3000,
+                        isClosable: true,
+                        position: "top",
+                      });
+                      setDailyQuestList((prevQuests) =>
+                        prevQuests.map((q) =>
+                          q.id === quest.id ? { ...q, isComplete: true } : q
+                        )
+                      );
+                    }
+                  }}
                 >
-                  보상 받기
+                  {quest.isComplete ? "완료" : "보상 받기"}
                 </Box>
               </Flex>
             ))}
