@@ -5,7 +5,7 @@ function useToastNotification() {
   const toast = useToast();
   const [firstTime, setFirstTime] = useState("00:56");
   const [secondTime, setSecondTime] = useState("00:10");
-  const [thirdTime, setThirdTime] = useState("01:40");
+  const [thirdTime, setThirdTime] = useState("02:19");
   useEffect(() => {
     const interval = setInterval(() => {
       // thirdTime과 현재 시간의 차이를 계산합니다.

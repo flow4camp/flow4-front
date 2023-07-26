@@ -230,7 +230,7 @@ function BattleGround() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
+          boxShadow: "0 0 10px rgba(255, 255, 255, 0.1)",
         }}
       >
         <Text
@@ -254,10 +254,25 @@ function BattleGround() {
         </Text>
       </Box>
       {/* 두 캐릭터들 */}
-      <Flex direction='column' w='100%' h='550px' gap='10%' marginTop={8} >
+      <Flex direction='column' w='100%' h='550px' gap='5%' marginTop='15%' >
         {/* 상대방 캐릭터 */}
         <Flex justify="center" align="center" h="40%" >
-          <Flex direction="column" style={{ marginTop: "30px" }} position='relative'>
+          <Flex direction="column" style={{ marginTop: "40px" }} position='relative' bg='gray' >
+            
+            {/* 상대방이 선택한 카드 공개 */}
+            <Flex
+              // className={`enemy-card ${}`}
+              position='absolute'
+              alignSelf='center'
+              top='-105px'
+            >
+              <Flex 
+                p={2} 
+                borderRadius='1em' bg='ziha_charcoal_gray' 
+              >
+                <Image src='/icons/green_up.png' w={12} h={12} />
+              </Flex>
+            </Flex>
             {/* 공격자 포지션 */}
             <Flex 
               className={`attack-position ${myTurnToAttack ? 'false' : 'true'}`}
@@ -478,15 +493,15 @@ function BattleGround() {
           onClick={handleDefendClick}
           className={`defend-button ${isDefendClickable ? '' : 'no-click'}`}
         >
-          <Image src="/icons/shield.png" w="70%" h="50%" />
+          <Image src="/icons/purple_down.png" w="70%" h="50%" />
           <Text
             style={{
               marginTop: "10px",
-              fontFamily: "Font-Title-Light",
+              fontFamily: "Font-Title",
               color: "white",
             }}
           >
-            방어하기
+            DOWN
           </Text>
         </Flex>
         <Flex
@@ -500,15 +515,15 @@ function BattleGround() {
           onClick={handleAttackClick}
           className={`attack-button ${isAttackClickable ? '' : 'no-click'}`}
         >
-          <Image src="/icons/sword.png" w="70%" h="50%" />
+          <Image src="/icons/green_up.png" w="70%" h="50%" />
           <Text
             style={{
               marginTop: "10px",
-              fontFamily: "Font-Title-light",
+              fontFamily: "Font-Title",
               color: "white",
             }}
           >
-            공격하기
+            UP
           </Text>
         </Flex>
       </Flex>
