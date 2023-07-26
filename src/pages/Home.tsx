@@ -66,7 +66,7 @@ function Home() {
                 edit={false}
                 selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
                 selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
-                selectedFace={user.accVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]}
+                selectedFace={user.faceVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]}
                 selectedClothes={user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null}
                 selectedShoe={user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null}
               />     {/* selected stuffs are null for now!! */}

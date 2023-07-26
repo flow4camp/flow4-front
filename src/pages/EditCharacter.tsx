@@ -65,7 +65,7 @@ function EditCharacter() {
   // tab option 중 선택한 item state 관리
   const [selectedHat, setSelectedHat] = useState<AssetVariant>(user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null);
   const [selectedAcc, setSelectedAcc] = useState<AssetVariant>(user.accVariants !== -1 ? accVariants[user.accVariants] : null);
-  const [selectedFace, setSelectedFace] = useState<AssetVariant>(user.accVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]);
+  const [selectedFace, setSelectedFace] = useState<AssetVariant>(user.faceVariants!== -1 ?  faceVariants[user.faceVariants] : faceVariants[0]);
   const [selectedClothes, setSelectedClothes] = useState<AssetVariant>(user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null);
   const [selectedShoe, setSelectedShoe] = useState<AssetVariant>(user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null);
 
