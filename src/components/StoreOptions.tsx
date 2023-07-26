@@ -62,6 +62,7 @@ export const StoreHatOptions: React.FC<StoreCategoryProps> = ({ variants, myList
             itemType: 'hat',
             itemId: hat!.id,
             userId: user.id,
+            price: hat!.price,
         };
 
         fetch(API_URL + '/buy', {
@@ -168,6 +169,7 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants, myList
             itemType: 'acc',
             itemId: acc!.id,
             userId: user.id,
+            price: acc!.price,
         };
 
         fetch(API_URL + '/buy', {
@@ -275,6 +277,7 @@ export const StoreFaceOptions: React.FC<StoreCategoryProps> = ({ variants, myLis
             itemType: 'face',
             itemId: face!.id,
             userId: user.id,
+            price: face!.price,
         };
 
         fetch(API_URL + '/buy', {
@@ -382,6 +385,7 @@ export const StoreClothesOptions: React.FC<StoreCategoryProps> = ({ variants, my
             itemType: 'clothes',
             itemId: clothes!.id,
             userId: user.id,
+            price: clothes!.price,
         };
         fetch(API_URL + '/buy', {
             method: 'POST',
@@ -489,6 +493,7 @@ export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants, myLi
             itemType: 'shoes',
             itemId: shoe!.id,
             userId: user.id,
+            price: shoe!.price,
         };
         fetch(API_URL + '/buy', {
             method: 'POST',

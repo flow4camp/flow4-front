@@ -25,7 +25,6 @@ function Home() {
     { id: 3, text: "세 번째 퀘스트" },
   ];
   const specialQuest = "특별 퀘스트";
-  console.log(user);
 
   function getDaysSinceCreation(createdAt: string) {
     const currentDate = new Date();
