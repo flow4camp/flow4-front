@@ -3,6 +3,7 @@ import {
   Text,
   Box,
   Flex,
+  Spacer,
   useTheme,
   useDisclosure,
   Modal,
@@ -257,77 +258,84 @@ function BattleGround() {
       <Flex direction='column' w='100%' h='550px' gap='5%' marginTop='15%' >
         {/* 상대방 캐릭터 */}
         <Flex justify="center" align="center" h="40%" >
-          <Flex direction="column" style={{ marginTop: "40px" }} position='relative' bg='gray' >
-            
-            {/* 상대방이 선택한 카드 공개 */}
-            <Flex
-              // className={`enemy-card ${}`}
-              position='absolute'
-              alignSelf='center'
-              top='-105px'
-            >
-              <Flex 
-                p={2} 
-                borderRadius='1em' bg='ziha_charcoal_gray' 
-              >
-                <Image src='/icons/green_up.png' w={12} h={12} />
+          {/* 상대방 캐릭터 info */}
+          <Flex direction="column" style={{ marginTop: "40px" }} >
+            <Flex direction='row' justify='space-between'>
+              <Flex direction='column' position='relative'>
+                <Text
+                  fontSize="2xl"
+                  style={{ fontFamily: "Font-Title", color: "white" }}
+                >
+                  귀신이
+                </Text>
+                {/* 상대방이 선택한 카드 공개 */}
+                <Flex
+                  // className={`enemy-card ${}`}
+                  position='absolute'
+                  alignSelf='center'
+                  top='-80px'
+                >
+                  <Flex 
+                    p={2} 
+                    borderRadius='1em' bg='ziha_charcoal_gray' 
+                  >
+                    <Image src='/icons/green_up.png' w={14} h={14} />
+                  </Flex>
+                </Flex>
+              </Flex>
+              <Flex direction='column' position='relative' >
+                {/* 공격자 포지션 */}
+                <Flex 
+                  className={`attack-position ${myTurnToAttack ? 'false' : 'true'}`}
+                  position='absolute'
+                  alignSelf='center'
+                  align='center' 
+                  justify='center' 
+                  border={`1px solid ${theme.colors.ziha_purple_sharp}`}
+                  borderRadius='0.8em' 
+                  w='fit-content'
+                  p={1}
+                  paddingLeft={2}
+                  paddingRight={2}
+                  m={1}
+                  top={-5}
+                >
+                  <Text
+                    fontSize='xx-small'
+                    style={{ fontFamily: 'Font-Content' }}
+                    color='ziha_purple_sharp'
+                    w='fit-content'
+                  >ATTACK</Text>
+                </Flex>
+                {/* 수비자 포지션 */}
+                <Flex 
+                  className={`defend-position ${myTurnToAttack ? 'true' : 'false'}`}
+                  position='absolute'
+                  alignSelf='center'
+                  align='center' 
+                  justify='center' 
+                  border={`1px solid ${theme.colors.ziha_green}`}
+                  borderRadius='0.8em' 
+                  w='fit-content'
+                  p={1}
+                  paddingLeft={2}
+                  paddingRight={2}
+                  m={1}
+                  top={-5}
+                >
+                  <Text
+                    fontSize='xx-small'
+                    style={{ fontFamily: 'Font-Content' }}
+                    color='ziha_green'
+                    w='fit-content'
+                  >DEFEND</Text>
+                </Flex>
+                <Spacer />
+                <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
+                  User2
+                </Text>
               </Flex>
             </Flex>
-            {/* 공격자 포지션 */}
-            <Flex 
-              className={`attack-position ${myTurnToAttack ? 'false' : 'true'}`}
-              position='absolute'
-              alignSelf='center'
-              align='center' 
-              justify='center' 
-              border={`1px solid ${theme.colors.ziha_purple_sharp}`}
-              borderRadius='0.8em' 
-              w='fit-content'
-              p={1}
-              paddingLeft={2}
-              paddingRight={2}
-              m={1}
-              top={-8}
-            >
-              <Text
-                fontSize='xx-small'
-                style={{ fontFamily: 'Font-Content' }}
-                color='ziha_purple_sharp'
-                w='fit-content'
-              >ATTACK</Text>
-            </Flex>
-            {/* 수비자 포지션 */}
-            <Flex 
-              className={`defend-position ${myTurnToAttack ? 'true' : 'false'}`}
-              position='absolute'
-              alignSelf='center'
-              align='center' 
-              justify='center' 
-              border={`1px solid ${theme.colors.ziha_green}`}
-              borderRadius='0.8em' 
-              w='fit-content'
-              p={1}
-              paddingLeft={2}
-              paddingRight={2}
-              m={1}
-              top={-8}
-            >
-              <Text
-                fontSize='xx-small'
-                style={{ fontFamily: 'Font-Content' }}
-                color='ziha_green'
-                w='fit-content'
-              >DEFEND</Text>
-            </Flex>
-            <Text
-              fontSize="2xl"
-              style={{ fontFamily: "Font-Title", color: "white" }}
-            >
-              귀신이
-            </Text>
-            <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-              User2
-            </Text>
             {/* hp 바 */}
             <Flex align="center" w="140px" justify="space-between" marginTop={2}>
               <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
