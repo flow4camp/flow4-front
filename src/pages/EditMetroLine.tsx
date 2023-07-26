@@ -6,6 +6,7 @@ import {
   Flex,
   useTheme,
   useToast,
+  ToastProvider,
   Input,
   Modal,
   ModalContent,
@@ -18,43 +19,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import useToastNotification from "../hooks/useToastNotification";
 
 function EditMetroLine() {
   const navigate = useNavigate(); // navigator
   const theme = useTheme();
-  const toast = useToast();
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Calculate the difference in minutes between thirdTime and the current time
-      const currentTime = new Date();
-      const thirdTimeDate = new Date(currentTime);
-
-      const [hours, minutes] = thirdTime.split(":");
-      thirdTimeDate.setHours(parseInt(hours, 10));
-      thirdTimeDate.setMinutes(parseInt(minutes, 10));
-
-      // If the specified time is before the current time, it means it's on the next day
-      // Adjust the thirdTimeDate accordingly
-      if (thirdTimeDate < currentTime) {
-        thirdTimeDate.setDate(thirdTimeDate.getDate() + 1);
-      }
-
-      const timeDifference =
-        (thirdTimeDate.getTime() - currentTime.getTime()) / (1000 * 60);
-      const minutesRemaining = Math.floor(timeDifference);
-
-      // Show the toast notification
-      toast({
-        title: `하차까지 ${minutesRemaining}분 남았습니다.`,
-        status: "info",
-        duration: null, // Toast will not automatically close
-        isClosable: true,
-        position: "top",
-      });
-    }, 1 * 60 * 1000); // 1 minute in milliseconds
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, [toast]);
 
   const [firstSelectedLine, setFirstSelectedLine] = useState("1호선");
   const [secondSelectedLine, setSecondSelectedLine] = useState("2호선");
@@ -154,8 +123,8 @@ function EditMetroLine() {
   ];
 
   const [firstTime, setFirstTime] = useState("12:00");
-  const [secondTime, setSecondTime] = useState("12:00");
-  const [thirdTime, setThirdTime] = useState("12:00");
+  const [secondTime, setSecondTime] = useState("12:10");
+  const [thirdTime, setThirdTime] = useState("12:20");
   const handleTimeClick = (stationNum: number) => {
     // Set the correct time for the stationNum
     const selectedTime = getTimeForStation(stationNum);
@@ -180,6 +149,8 @@ function EditMetroLine() {
     const minute = String(currentTime.getMinutes()).padStart(2, "0");
     return `${hour}:${minute}`;
   };
+
+  useToastNotification();
 
   return (
     <Flex
