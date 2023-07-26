@@ -1,5 +1,5 @@
 // Home.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
 import UserCharacter from "../components/UserCharacter";
@@ -33,8 +33,15 @@ function Home() {
     { id: 2, text: "1회 배틀하기", isActive: false, isComplete: false },
     { id: 3, text: "지하철에서 내리기", isActive: true, isComplete: false },
   ]);
-  const specialQuestNum = 5;
+  const specialQuestNum: number = 5;
+  const specialQuestProgress: number = 5;
   const specialQuest = `배틀 ${specialQuestNum}회 이기기`;
+  const [isSpecialActive, setIsSpecialActive] = useState(true);
+  const [isSpecialComplete, setIsSpecialComplete] = useState(false);
+
+  useEffect(() => {
+    setIsSpecialActive(specialQuestNum === specialQuestProgress);
+  }, [specialQuestNum, specialQuestProgress]);
 
   return (
     <Layout>
@@ -270,7 +277,7 @@ function Home() {
                     }}
                   >
                     <Box
-                      w="60%"
+                      w={`${(specialQuestProgress / specialQuestNum) * 100}%`}
                       h="100%"
                       style={{ backgroundColor: theme.colors.ziha_green }}
                     ></Box>
@@ -278,7 +285,7 @@ function Home() {
                       fontSize="7px"
                       style={{ transform: "translateY(-70%)" }}
                     >
-                      1/5
+                      {specialQuestProgress}/{specialQuestNum}
                     </Text>
                   </Box>
                 </Flex>
@@ -286,13 +293,32 @@ function Home() {
               <Box
                 w="80px"
                 style={{
-                  border: "1px solid black",
+                  border: "1px solid",
                   borderRadius: "5px",
                   fontSize: "13px",
                   fontFamily: "Font-Content-Light",
+                  borderColor: isSpecialActive
+                    ? "black"
+                    : theme.colors.ziha_purple_gray,
+                  color: isSpecialActive
+                    ? "black"
+                    : theme.colors.ziha_purple_gray,
+                }}
+                onClick={() => {
+                  if (isSpecialActive && !isSpecialComplete) {
+                    toast({
+                      title: "보상을 받았습니다.",
+                      description: "10 기력을 받았습니다!",
+                      status: "success",
+                      duration: 3000,
+                      isClosable: true,
+                      position: "top",
+                    });
+                    setIsSpecialComplete(true);
+                  }
                 }}
               >
-                보상 받기
+                {isSpecialComplete ? "완료" : "보상 받기"}
               </Box>
             </Flex>
           </Flex>
