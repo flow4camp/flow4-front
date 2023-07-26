@@ -209,11 +209,12 @@ export const StoreAccOptions: React.FC<StoreCategoryProps> = ({ variants, myList
                         <div
                             style={{
                                 backgroundImage: `url(${variant?.src})`,
-                                backgroundSize: "100% auto",
+                                backgroundSize: "90% auto",
                                 backgroundPosition: "center center",
                                 width: "140px",
                                 height: "140px",
                                 marginTop: '5px',
+                                backgroundRepeat: 'no-repeat',
                                 // marginLeft: '20px'
                             }}
                         />
