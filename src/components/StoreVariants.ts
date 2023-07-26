@@ -12,6 +12,7 @@ export const storeHatVariants: StoreVariant[] = [
     { id: 3, src: require('../assets/hat/hat-police.png'), price: 30 },
     { id: 4, src: require('../assets/hat/hat-sprout.png'), price: 10 },
     { id: 5, src: require('../assets/hat/hat-mario.png'), price: 30 },
+    { id: 6, src: require('../assets/hat/hat-link-hat.png'), price: 20 },
 ];
 
 export const storeFaceVariants: StoreVariant[] = [
@@ -32,6 +33,7 @@ export const storeAccVariants: StoreVariant[] = [
     { id: 3, src: require('../assets/accessory/acc-wine.png'), price: 15 },
     { id: 4, src: require('../assets/accessory/acc-baton.png'), price: 20 },
     { id: 5, src: require('../assets/accessory/acc-name-tag.png'), price: 15 },
+    { id: 6, src: require('../assets/accessory/acc-hyrule-hero.png'), price: 30 },
 ];
 
 export const storeClothesVariants: StoreVariant[] = [
