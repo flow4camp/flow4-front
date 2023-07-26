@@ -486,7 +486,7 @@ export const StoreShoesOptions: React.FC<StoreCategoryProps> = ({ variants, myLi
             return;
         }
         const requestData = {
-            itemType: 'clothes',
+            itemType: 'shoes',
             itemId: shoe!.id,
             userId: user.id,
         };
