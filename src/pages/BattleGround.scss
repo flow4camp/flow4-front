@@ -49,6 +49,28 @@
 
 }
 
+.attack-position {
+    
+    &.true {
+        visibility: visible;
+    }
+
+    &.false {
+        visibility: hidden;
+    }
+}
+
+.defend-position {
+    
+    &.true {
+        visibility: visible;
+    }
+
+    &.false {
+        visibility: hidden;
+    }
+}
+
 @keyframes stress {
     0% {
         transform: scale(1);

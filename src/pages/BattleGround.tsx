@@ -29,6 +29,9 @@ function BattleGround() {
   const [isExiting, setIsExiting] = useState(false);
 
   // 상대 state 관리
+  // 공격자 수비자 포지션
+  const [myTurnToAttack, setMyTurnToAttack] = useState(true);
+
   // 공격 혹은 방어 시 상대 face 변화
   const [currentEnemySelectedFace, setCurrentEnemySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
@@ -254,7 +257,53 @@ function BattleGround() {
       <Flex direction='column' w='100%' h='550px' gap='10%' marginTop={8} >
         {/* 상대방 캐릭터 */}
         <Flex justify="center" align="center" h="40%" >
-          <Flex direction="column" style={{ marginTop: "50px" }}>
+          <Flex direction="column" style={{ marginTop: "30px" }} position='relative'>
+            {/* 공격자 포지션 */}
+            <Flex 
+              className={`attack-position ${myTurnToAttack ? 'false' : 'true'}`}
+              position='absolute'
+              alignSelf='center'
+              align='center' 
+              justify='center' 
+              border={`1px solid ${theme.colors.ziha_purple_sharp}`}
+              borderRadius='0.8em' 
+              w='fit-content'
+              p={1}
+              paddingLeft={2}
+              paddingRight={2}
+              m={1}
+              top={-8}
+            >
+              <Text
+                fontSize='xx-small'
+                style={{ fontFamily: 'Font-Content' }}
+                color='ziha_purple_sharp'
+                w='fit-content'
+              >ATTACK</Text>
+            </Flex>
+            {/* 수비자 포지션 */}
+            <Flex 
+              className={`defend-position ${myTurnToAttack ? 'true' : 'false'}`}
+              position='absolute'
+              alignSelf='center'
+              align='center' 
+              justify='center' 
+              border={`1px solid ${theme.colors.ziha_green}`}
+              borderRadius='0.8em' 
+              w='fit-content'
+              p={1}
+              paddingLeft={2}
+              paddingRight={2}
+              m={1}
+              top={-8}
+            >
+              <Text
+                fontSize='xx-small'
+                style={{ fontFamily: 'Font-Content' }}
+                color='ziha_green'
+                w='fit-content'
+              >DEFEND</Text>
+            </Flex>
             <Text
               fontSize="2xl"
               style={{ fontFamily: "Font-Title", color: "white" }}
@@ -341,7 +390,53 @@ function BattleGround() {
               >MISS</Text>
             </Box>
           </Flex>
-          <Flex direction="column" style={{ marginTop: "50px" }}>
+          <Flex direction="column" style={{ marginTop: "50px" }} position='relative'>
+            {/* 공격자 포지션 */}
+            <Flex 
+              className={`attack-position ${myTurnToAttack ? 'true' : 'false'}`}
+              position='absolute'
+              alignSelf='center'
+              align='center' 
+              justify='center' 
+              border={`1px solid ${theme.colors.ziha_purple_sharp}`}
+              borderRadius='0.8em' 
+              w='fit-content'
+              p={1}
+              paddingLeft={2}
+              paddingRight={2}
+              m={1}
+              top={-8}
+            >
+              <Text
+                fontSize='xx-small'
+                style={{ fontFamily: 'Font-Content' }}
+                color='ziha_purple_sharp'
+                w='fit-content'
+              >ATTACK</Text>
+            </Flex>
+            {/* 수비자 포지션 */}
+            <Flex 
+              className={`defend-position ${myTurnToAttack ? 'false' : 'true'}`}
+              position='absolute'
+              alignSelf='center'
+              align='center' 
+              justify='center' 
+              border={`1px solid ${theme.colors.ziha_green}`}
+              borderRadius='0.8em' 
+              w='fit-content'
+              p={1}
+              paddingLeft={2}
+              paddingRight={2}
+              m={1}
+              top={-8}
+            >
+              <Text
+                fontSize='xx-small'
+                style={{ fontFamily: 'Font-Content' }}
+                color='ziha_green'
+                w='fit-content'
+              >DEFEND</Text>
+            </Flex>
             <Text
               fontSize="2xl"
               style={{ fontFamily: "Font-Title", color: "white" }}
