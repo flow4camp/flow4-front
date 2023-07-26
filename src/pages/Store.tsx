@@ -6,6 +6,7 @@ import { StoreAccOptions, StoreClothesOptions, StoreFaceOptions, StoreHatOptions
 import { storeAccVariants, storeClothesVariants, storeFaceVariants, storeHatVariants, storeShoeVariants } from '../components/StoreVariants';
 import { API_URL } from '../api';
 import { useUserContext } from '../context/UserContext';
+import { RealItemBacchus, RealItemCoffee, RealItemLemona } from '../components/RealItems';
 
 const Store = () => {
   const { user, setUser } = useUserContext();
@@ -143,12 +144,11 @@ const Store = () => {
 
         {activeCategoryTab === 'tab2' && (
           <div className='contents'>
-                    {
             <div className="one-grid-container">
-              <div className="one-grid-item">Item 1</div>
-              <div className="one-grid-item">Item 2</div>
+              <RealItemCoffee />
+              <RealItemBacchus />
+              <RealItemLemona />
             </div>
-          }
           </div>
         )}
       </Layout>
