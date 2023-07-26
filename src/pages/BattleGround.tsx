@@ -29,6 +29,10 @@ function BattleGround() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isExiting, setIsExiting] = useState(false);
 
+  // 상대 카드 이미지 src : 0 이면 보라다운, 1 이면 초록업
+  const enemyCards = ['/icons/purple_down.png', '/icons/green_up.png', '/icons/question.png']; 
+  const [currentEnemyCardIdx, setCurrentEnemyCardIdx] = useState(2);
+
   // 상대 state 관리
   // 공격자 수비자 포지션
   const [myTurnToAttack, setMyTurnToAttack] = useState(true);
@@ -279,7 +283,7 @@ function BattleGround() {
                     p={2} 
                     borderRadius='1em' bg='ziha_charcoal_gray' 
                   >
-                    <Image src='/icons/green_up.png' w={14} h={14} />
+                    <Image src={enemyCards[currentEnemyCardIdx]} w={14} h={14} />
                   </Flex>
                 </Flex>
               </Flex>
