@@ -19,7 +19,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import useToastNotification from "../hooks/useToastNotification";
 
 function EditMetroLine() {
   const navigate = useNavigate(); // navigator
@@ -121,6 +120,34 @@ function EditMetroLine() {
     "8호선",
     "9호선",
   ];
+
+  const [firstTime, setFirstTime] = useState("12:00");
+  const [secondTime, setSecondTime] = useState("12:10");
+  const [thirdTime, setThirdTime] = useState("12:20");
+  const handleTimeClick = (stationNum: number) => {
+    // Set the correct time for the stationNum
+    const selectedTime = getTimeForStation(stationNum);
+
+    // Open the time selection modal
+    setIsTimeModalOpen(true);
+
+    if (stationNum === 1) {
+      setFirstTime(selectedTime);
+    } else if (stationNum === 2) {
+      setSecondTime(selectedTime);
+    } else if (stationNum === 3) {
+      setThirdTime(selectedTime);
+    }
+
+    setStationNumber(stationNum);
+  };
+
+  const getTimeForStation = (stationNum: number) => {
+    const currentTime = new Date();
+    const hour = String(currentTime.getHours()).padStart(2, "0");
+    const minute = String(currentTime.getMinutes()).padStart(2, "0");
+    return `${hour}:${minute}`;
+  };
 
   return (
     <Flex
