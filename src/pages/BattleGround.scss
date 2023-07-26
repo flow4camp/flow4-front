@@ -12,6 +12,19 @@
     }
 }
 
+.miss-text {
+
+    visibility: hidden;
+
+    &.visible {
+
+        visibility: visible;
+
+        animation: stress 1s linear 0s 1;
+
+    }
+}
+
 .attack-button {
 
     pointer-events: all;

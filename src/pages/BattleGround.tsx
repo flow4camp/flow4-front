@@ -36,6 +36,8 @@ function BattleGround() {
   const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
   // 공격 시 상대 critical 문구 visibility 변화
   const [enemyCriticalText, setEnemyCriticalText] = useState(false);
+  // 공격 시 상대 miss 문구 visibility 변화
+  const [enemyMissText, setEnemyMissText] = useState(false);
   
   // 공격 도중 공격 버튼 clickability
   const [isAttackClickable, setIsAttackClickable] = useState(true);
@@ -95,7 +97,19 @@ function BattleGround() {
 
   // 공격이 실패했을 시
   function attackFail() {
+    // 공격 버튼 안 눌림
+    setIsAttackClickable(false);
+    // 다행인 표정
+    setCurrentSelectedFace(storeFaceVariants[7]);
+    // miss text
+    setEnemyMissText(true);
 
+    // 원상복구
+    setTimeout(() => {
+      setIsAttackClickable(true);
+      setCurrentSelectedFace(storeFaceVariants[0]);
+      setEnemyMissText(false);
+    }, 2000);
   }
 
   // 공격 버튼 누르기 이후 handle
@@ -185,11 +199,20 @@ function BattleGround() {
             <Box 
               position='absolute' 
               className={`critical-text ${enemyCriticalText ? 'visible' : ''} `}
-              p={1} 
-              top={-3}
+              p={2} 
+              top={-5}
             >
-              <Text fontSize='xs' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
+              <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_purple_sharp'
               >CRITICAL</Text>
+            </Box>
+            <Box 
+              position='absolute' 
+              className={`miss-text ${enemyMissText ? 'visible' : ''} `}
+              p={2} 
+              top={-5}
+            >
+              <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
+              >MISS</Text>
             </Box>
           </Flex>
         </Flex>
