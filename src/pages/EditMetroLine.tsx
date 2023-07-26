@@ -5,7 +5,8 @@ import {
   Button,
   Flex,
   useTheme,
-  Center,
+  useToast,
+  ToastProvider,
   Input,
   Modal,
   ModalContent,
@@ -22,6 +23,7 @@ import { ChevronLeftIcon } from "@chakra-ui/icons";
 function EditMetroLine() {
   const navigate = useNavigate(); // navigator
   const theme = useTheme();
+
   const [firstSelectedLine, setFirstSelectedLine] = useState("1호선");
   const [secondSelectedLine, setSecondSelectedLine] = useState("2호선");
   const [firstSelectedStation, setFirstSelectedStation] = useState("대전역");
@@ -30,6 +32,7 @@ function EditMetroLine() {
 
   const [isLineModalOpen, setIsLineModalOpen] = useState(false);
   const [isStationModalOpen, setIsStationModalOpen] = useState(false);
+  const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
 
   const [isSecondLine, setIsSecondLine] = useState(false);
   const [stationNumber, setStationNumber] = useState(1);
@@ -55,6 +58,9 @@ function EditMetroLine() {
   };
   const handleCloseStationModal = () => {
     setIsStationModalOpen(false);
+  };
+  const handleCloseTimeModal = () => {
+    setIsTimeModalOpen(false);
   };
   const handleLineSelection = (line: string) => {
     if (isSecondLine) {
@@ -114,6 +120,34 @@ function EditMetroLine() {
     "8호선",
     "9호선",
   ];
+
+  const [firstTime, setFirstTime] = useState("12:00");
+  const [secondTime, setSecondTime] = useState("12:10");
+  const [thirdTime, setThirdTime] = useState("12:20");
+  const handleTimeClick = (stationNum: number) => {
+    // Set the correct time for the stationNum
+    const selectedTime = getTimeForStation(stationNum);
+
+    // Open the time selection modal
+    setIsTimeModalOpen(true);
+
+    if (stationNum === 1) {
+      setFirstTime(selectedTime);
+    } else if (stationNum === 2) {
+      setSecondTime(selectedTime);
+    } else if (stationNum === 3) {
+      setThirdTime(selectedTime);
+    }
+
+    setStationNumber(stationNum);
+  };
+
+  const getTimeForStation = (stationNum: number) => {
+    const currentTime = new Date();
+    const hour = String(currentTime.getHours()).padStart(2, "0");
+    const minute = String(currentTime.getMinutes()).padStart(2, "0");
+    return `${hour}:${minute}`;
+  };
 
   return (
     <Flex
@@ -179,6 +213,16 @@ function EditMetroLine() {
           >
             {firstSelectedStation}
           </Text>
+          <Text
+            style={{
+              fontFamily: "Font-title-light",
+              color: "white",
+              fontSize: "17px",
+            }}
+            onClick={() => handleTimeClick(1)}
+          >
+            {firstTime}
+          </Text>
           {/* 첫번째 노선 */}
           <Box
             style={{
@@ -225,6 +269,16 @@ function EditMetroLine() {
             onClick={() => handleStationClick(2)}
           >
             {secondSelectedStation}
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Font-title-light",
+              color: "white",
+              fontSize: "17px",
+            }}
+            onClick={() => handleTimeClick(2)}
+          >
+            {secondTime}
           </Text>
           {/* 두번쨰 노선 */}
           <Box
@@ -273,6 +327,16 @@ function EditMetroLine() {
           >
             {thirdSelectedStation}
           </Text>
+          <Text
+            style={{
+              fontFamily: "Font-title-light",
+              color: "white",
+              fontSize: "17px",
+            }}
+            onClick={() => handleTimeClick(3)}
+          >
+            {thirdTime}
+          </Text>
         </Flex>
       </Flex>
       {/* 호선 선택 Modal */}
@@ -313,6 +377,42 @@ function EditMetroLine() {
                 {station}
               </Button>
             ))}
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isTimeModalOpen} onClose={handleCloseTimeModal}>
+        <ModalOverlay />
+        <ModalContent style={{ width: "80%", opacity: "0.5" }}>
+          <ModalHeader style={{ textAlign: "center" }}>
+            시간 선택하기
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex justify="center" align="center" direction="column">
+              <Input
+                type="time"
+                value={
+                  stationNumber === 1
+                    ? firstTime
+                    : stationNumber === 2
+                    ? secondTime
+                    : thirdTime
+                }
+                onChange={(e) => {
+                  const timeValue = e.target.value;
+                  // Set the selected time for the respective station
+                  if (stationNumber === 1) {
+                    setFirstTime(timeValue);
+                  } else if (stationNumber === 2) {
+                    setSecondTime(timeValue);
+                  } else if (stationNumber === 3) {
+                    setThirdTime(timeValue);
+                  }
+                }}
+              />
+              <Button onClick={handleCloseTimeModal}>확인</Button>
+            </Flex>
           </ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
