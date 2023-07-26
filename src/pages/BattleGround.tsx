@@ -29,18 +29,29 @@ function BattleGround() {
   const [isExiting, setIsExiting] = useState(false);
 
   // 공격 혹은 방어 시 상대 face 변화
-  const [currentSelectedFace, setCurrentSelectedFace] = useState(storeFaceVariants[0]);
+  const [currentEnemySelectedFace, setCurrentEnemySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
-  const [currentUsageProp, setCurrentUsageProp] = useState('');
+  const [currentEnemyUsageProp, setCurrentEnemyUsageProp] = useState('');
   // 공격 시 상대 Hp 바 변화
   const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
   // 공격 시 상대 critical 문구 visibility 변화
   const [enemyCriticalText, setEnemyCriticalText] = useState(false);
   // 공격 시 상대 miss 문구 visibility 변화
   const [enemyMissText, setEnemyMissText] = useState(false);
+
+  // 공격 혹은 방어 시 내 face 변화
+  const [currentMySelectedFace, setCurrentMySelectedFace] = useState(storeFaceVariants[0]);
+  // 공격 혹은 방어 시 내 animation 변화
+  const [currentMyUsageProp, setCurrentMyUsageProp] = useState('');
+  // 공격 시 내 Hp 바 변화
+  const [currentMyHP, setCurrentMyHP] = useState(100);
+  // 방어 시 내 miss 문구 visibility 변화
+  const [myMissText, setMyMissText] = useState(false);
   
   // 공격 도중 공격 버튼 clickability
   const [isAttackClickable, setIsAttackClickable] = useState(true);
+  // 방어 도중 방어 버튼 clickability
+  const [isDefendClickable, setIsDefendClickable] = useState(true);
 
   function handleExitButtonClick() {
     onOpen();
@@ -78,9 +89,9 @@ function BattleGround() {
     // 공격 버튼 안 눌림
     setIsAttackClickable(false);
     // 우는 표정
-    setCurrentSelectedFace(storeFaceVariants[2]);
+    setCurrentEnemySelectedFace(storeFaceVariants[2]);
     // 우는 모션
-    setCurrentUsageProp('attacked');
+    setCurrentEnemyUsageProp('attacked');
     // HP 감소 혹은 game over
     handleEnemyHP(currentEnemyHP);
     // critical text
@@ -89,8 +100,8 @@ function BattleGround() {
     // 원상복구
     setTimeout(() => {
       setIsAttackClickable(true);
-      setCurrentSelectedFace(storeFaceVariants[0]);
-      setCurrentUsageProp('');
+      setCurrentEnemySelectedFace(storeFaceVariants[0]);
+      setCurrentEnemyUsageProp('');
       setEnemyCriticalText(false);
     }, 2000);
   }
@@ -100,14 +111,14 @@ function BattleGround() {
     // 공격 버튼 안 눌림
     setIsAttackClickable(false);
     // 다행인 표정
-    setCurrentSelectedFace(storeFaceVariants[7]);
+    setCurrentEnemySelectedFace(storeFaceVariants[7]);
     // miss text
     setEnemyMissText(true);
 
     // 원상복구
     setTimeout(() => {
       setIsAttackClickable(true);
-      setCurrentSelectedFace(storeFaceVariants[0]);
+      setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setEnemyMissText(false);
     }, 2000);
   }
@@ -118,6 +129,40 @@ function BattleGround() {
       attackSuccess();
     } else {
       attackFail();
+    }
+  }
+
+  // 방어가 성공했을 시
+  function defendSuccess() {
+    // 방어 버튼 안 눌림
+    setIsDefendClickable(false);
+    // 메롱 표정
+    setCurrentMySelectedFace(storeFaceVariants[6]);
+    // 우는 모션
+    setCurrentMyUsageProp('defended');
+    // miss text
+    setMyMissText(true);
+
+    // 원상복구
+    setTimeout(() => {
+      setIsDefendClickable(true);
+      setCurrentMySelectedFace(storeFaceVariants[0]);
+      setCurrentMyUsageProp('');
+      setMyMissText(false);
+    }, 2000);
+  }
+
+  // 방어가 실패했을 시
+  function defendFail() {
+
+  }
+
+  // 방어 버튼 누르기 이후 handle
+  function handleDefendClick() {
+    if (Math.random() > 0.6) {
+      defendSuccess();
+    } else {
+      defendFail();
     }
   }
 
@@ -156,7 +201,7 @@ function BattleGround() {
         </Text>
       </Box>
       {/* 두 캐릭터들 */}
-      <Flex direction='column' w='100%' h='550px' gap='10%' marginTop={8} position='relative' >
+      <Flex direction='column' w='100%' h='550px' gap='10%' marginTop={8} >
         {/* 상대방 캐릭터 */}
         <Flex justify="center" align="center" h="40%" >
           <Flex direction="column" style={{ marginTop: "50px" }}>
@@ -187,12 +232,12 @@ function BattleGround() {
               </Flex>
             </Flex>
           </Flex>
-          <Flex justify="center" align="center">
+          <Flex justify="center" align="center" position='relative'>
             <UserCharacter
-              usage={currentUsageProp}
+              usage={currentEnemyUsageProp}
               selectedHat={null}
               selectedAcc={null}
-              selectedFace={currentSelectedFace}
+              selectedFace={currentEnemySelectedFace}
               selectedClothes={null}
               selectedShoe={null}
             />
@@ -200,7 +245,7 @@ function BattleGround() {
               position='absolute' 
               className={`critical-text ${enemyCriticalText ? 'visible' : ''} `}
               p={2} 
-              top={-5}
+              top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_purple_sharp'
               >CRITICAL</Text>
@@ -209,7 +254,7 @@ function BattleGround() {
               position='absolute' 
               className={`miss-text ${enemyMissText ? 'visible' : ''} `}
               p={2} 
-              top={-5}
+              top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
               >MISS</Text>
@@ -218,15 +263,24 @@ function BattleGround() {
         </Flex>
         {/* 내 캐릭터 */}
         <Flex justify="center" align="center" h="40%" >
-          <Flex justify="center" align="center">
+          <Flex justify="center" align="center" position='relative'>
             <UserCharacter
-              usage={''}
+              usage={currentMyUsageProp}
               selectedHat={null}
               selectedAcc={null}
-              selectedFace={storeFaceVariants[0]}
+              selectedFace={currentMySelectedFace}
               selectedClothes={null}
               selectedShoe={null}
             />
+            <Box 
+              position='absolute' 
+              className={`miss-text ${myMissText ? 'visible' : ''} `}
+              p={2} 
+              top={-5}
+            >
+              <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
+              >MISS</Text>
+            </Box>
           </Flex>
           <Flex direction="column" style={{ marginTop: "50px" }}>
             <Text
@@ -267,6 +321,8 @@ function BattleGround() {
           h="17vh"
           style={{ border: "2px solid white", borderRadius: "20px" }}
           _active={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+          onClick={handleDefendClick}
+          className={`defend-button ${isDefendClickable ? '' : 'no-click'}`}
         >
           <Image src="/icons/shield.png" w="70%" h="50%" />
           <Text

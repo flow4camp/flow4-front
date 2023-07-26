@@ -30,6 +30,7 @@ const UserCharacter: React.FC<UserCharacterProps> = ({ usage, selectedHat, selec
             className={`character-container ${usage === "edit" ? 'edit' : ''} 
                 ${usage === "profile" ? 'profile' : ''}
                 ${usage === "attacked" ? 'attacked' : ''} 
+                ${usage === "defended" ? 'defended' : ''}
             `} 
         >
             <Image src={require('../assets/ghost-basic-0.png')} />

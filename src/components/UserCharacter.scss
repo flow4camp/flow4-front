@@ -29,6 +29,12 @@
 
     }
 
+    &.defended {
+
+        animation: dodge 0.5s linear 0s 3;
+
+    }
+
 }
 
 @keyframes motion {
@@ -63,3 +69,18 @@
       transform: rotate(-10deg);
     }
   }
+
+@keyframes dodge {
+    0% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-10px);
+      }
+      75% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+}
