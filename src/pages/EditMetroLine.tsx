@@ -76,9 +76,14 @@ function EditMetroLine() {
     }
     setIsLineModalOpen(false);
   };
+
+  useEffect(() => {
+    setFirstBorderColor(theme.colors[`line_${user.subwayNum1}_color`]);
+    setSecondBorderColor(theme.colors[`line_${user.subwayNum2}_color`]);
+  }, [user.subwayNum1, user.subwayNum2]);
+
   const handleStationSelection = async (station: string) => {
     if (stationNumber === 1) {
-      setFirstSelectedStation(station);
       try {
         // Make the API request to update the station1 value for the user
         const response = await axios.put(
@@ -89,19 +94,49 @@ function EditMetroLine() {
         );
         setUser((prevUser: User) => ({
           ...prevUser,
-          station: response.data.station1,
+          station1: response.data.station1,
         }));
-        setSecondSelectedStation(response.data.station1);
+        setFirstSelectedStation(response.data.station1);
+      } catch (error) {
+        console.error("Error updating station1:", error);
+      }
+    } else if (stationNumber === 2) {
+      setSecondSelectedStation(station);
+      try {
+        const response = await axios.put(
+          `${API_URL}/user/${user.id}/station2`,
+          {
+            station2: station,
+          }
+        );
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          station2: response.data.station2,
+        }));
+        setSecondSelectedStation(response.data.station2);
+      } catch (error) {
+        console.error("Error updating station2:", error);
+      }
+    } else if (stationNumber === 3) {
+      setThirdSelectedStation(station);
+      try {
+        const response = await axios.put(
+          `${API_URL}/user/${user.id}/station3`,
+          {
+            station3: station,
+          }
+        );
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          station3: response.data.station3,
+        }));
+        setThirdSelectedStation(response.data.station3);
 
         // If the API request is successful, the station1 value in the database is updated
       } catch (error) {
         console.error("Error updating station1:", error);
         // Handle error if the API request fails
       }
-    } else if (stationNumber === 2) {
-      setSecondSelectedStation(station);
-    } else if (stationNumber === 3) {
-      setThirdSelectedStation(station);
     }
     setIsStationModalOpen(false);
   };
@@ -234,7 +269,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleStationClick(1)}
           >
-            {firstSelectedStation}
+            {user.station1}
           </Text>
           <Text
             style={{
@@ -263,7 +298,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleLineClick(false)}
           >
-            {firstSelectedLine}
+            {user.subwayNum1} 호선
           </Text>
           <Box
             style={{
@@ -291,7 +326,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleStationClick(2)}
           >
-            {secondSelectedStation}
+            {user.station2}
           </Text>
           <Text
             style={{
@@ -320,7 +355,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleLineClick(true)}
           >
-            {secondSelectedLine}
+            {user.subwayNum2} 호선
           </Text>
           <Box
             style={{
@@ -348,7 +383,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleStationClick(3)}
           >
-            {thirdSelectedStation}
+            {user.station3}
           </Text>
           <Text
             style={{
