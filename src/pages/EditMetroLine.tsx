@@ -144,9 +144,9 @@ function EditMetroLine() {
     "9호선",
   ];
 
-  const [firstTime, setFirstTime] = useState("12:00");
-  const [secondTime, setSecondTime] = useState("12:10");
-  const [thirdTime, setThirdTime] = useState("12:20");
+  const [firstTime, setFirstTime] = useState("20:10");
+  const [secondTime, setSecondTime] = useState("20:20");
+  const [thirdTime, setThirdTime] = useState("21:30");
   const handleTimeClick = (stationNum: number) => {
     // Set the correct time for the stationNum
     const selectedTime = getTimeForStation(stationNum);

@@ -3,9 +3,9 @@ import { useToast } from "@chakra-ui/react";
 
 function useToastNotification() {
   const toast = useToast();
-  const [firstTime, setFirstTime] = useState("00:56");
-  const [secondTime, setSecondTime] = useState("00:10");
-  const [thirdTime, setThirdTime] = useState("02:19");
+  const [firstTime, setFirstTime] = useState("20:10");
+  const [secondTime, setSecondTime] = useState("20:20");
+  const [thirdTime, setThirdTime] = useState("21:30");
   useEffect(() => {
     const interval = setInterval(() => {
       // thirdTime과 현재 시간의 차이를 계산합니다.
@@ -41,7 +41,7 @@ function useToastNotification() {
         isClosable: true,
         position: "top",
       });
-    }, 1 * 60 * 1000); // 1분을 밀리초로 표현한 값
+    }, 10 * 60 * 1000); // 1분을 밀리초로 표현한 값
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시에 interval 정리
   }, [toast, firstTime, thirdTime]);
