@@ -138,16 +138,16 @@ function BattleGround() {
   }
 
   function handleExit() {
+    user.power -= 150;
+    user.lose += 1;
+    console.log('game over');
+    socket.disconnect();
     setIsExiting(true);
     onClose();
   }
 
   // 공격이 성공했을 시
   function attackSuccess() {
-    // // 공격 버튼 안 눌림
-    // setIsAttackClickable(false);
-    // // 방어 버튼 안 눌림
-    // setIsDefendClickable(false);
     // 우는 표정
     setCurrentEnemySelectedFace(storeFaceVariants[2]);
     // 우는 모션
@@ -157,8 +157,6 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      // setIsAttackClickable(true);
-      // setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyCriticalText(false);
@@ -169,10 +167,6 @@ function BattleGround() {
 
   // 공격이 실패했을 시
   function attackFail() {
-    // // 공격 버튼 안 눌림
-    // setIsAttackClickable(false);
-    // // 방어 버튼 안 눌림
-    // setIsDefendClickable(false);
     // 다행인 표정
     setCurrentEnemySelectedFace(storeFaceVariants[7]);
     // 피하는 모션
@@ -182,8 +176,6 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      // setIsAttackClickable(true);
-      // setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyMissText(false);
@@ -200,10 +192,6 @@ function BattleGround() {
 
   // 방어가 성공했을 시
   function defendSuccess() {
-    // // 방어 버튼 안 눌림
-    // setIsDefendClickable(false);
-    // // 공격 버튼 안 눌림
-    // setIsAttackClickable(false);
     // 메롱 표정
     setCurrentMySelectedFace(storeFaceVariants[6]);
     // 우는 모션
@@ -213,8 +201,6 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      // setIsDefendClickable(true);
-      // setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyMissText(false);
@@ -225,10 +211,6 @@ function BattleGround() {
 
   // 방어가 실패했을 시
   function defendFail() {
-    // // 방어 버튼 안 눌림
-    // setIsDefendClickable(false);
-    // // 공격 버튼 안 눌림
-    // setIsAttackClickable(false);
     // 아픈 표정
     setCurrentMySelectedFace(storeFaceVariants[5]);
     // 우는 모션
@@ -238,8 +220,6 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      // setIsDefendClickable(true);
-      // setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyCriticalText(false);
@@ -278,15 +258,6 @@ function BattleGround() {
         >
           나가기
         </Text>
-        <Text
-          w="fit-content"
-          p={3}
-          m={2}
-          fontSize="lg"
-          style={{ fontFamily: "Font-Title-Light", color: "white" }}
-        >
-          3:28
-        </Text>
       </Box>
       {/* 두 캐릭터들 */}
       <Flex direction='column' w='100%' h='550px' gap='5%' marginTop='15%' >
@@ -304,7 +275,6 @@ function BattleGround() {
                 </Text>
                 {/* 상대방이 선택한 카드 공개 */}
                 <Flex
-                  // className={`enemy-card ${}`}
                   position='absolute'
                   alignSelf='center'
                   top='-80px'
