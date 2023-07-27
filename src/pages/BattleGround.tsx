@@ -88,13 +88,12 @@ function BattleGround() {
   const [currentEnemySelectedFace, setCurrentEnemySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
   const [currentEnemyUsageProp, setCurrentEnemyUsageProp] = useState('');
-  // 공격 시 상대 Hp 바 변화
-  // const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
+  // 공격 혹은 방어 시 상대 Hp 바 변화
   const enemyHpRef = useRef<number | null>(null); // Initialize with null
   const updateEnemyHp = (newValue: number) => {
     enemyHpRef.current = newValue;
   }
-  const enemyHp = enemyHpRef.current ? enemyHpRef.current : 100;
+  const enemyHp = enemyHpRef.current ? enemyHpRef.current : 100;  // 지정된 값이 없어 null 이면 100 부여 (initial)
   // 공격 시 상대 critical 문구 visibility 변화
   const [enemyCriticalText, setEnemyCriticalText] = useState(false);
   // 공격 시 상대 miss 문구 visibility 변화
@@ -105,13 +104,12 @@ function BattleGround() {
   const [currentMySelectedFace, setCurrentMySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 내 animation 변화
   const [currentMyUsageProp, setCurrentMyUsageProp] = useState('');
-  // 공격 시 내 Hp 바 변화
-  // const [currentMyHP, setCurrentMyHP] = useState(100);
+  // 공격 혹은 방어 시 내 Hp 바 변화
   const myHpRef = useRef<number | null>(null); // Initialize with null
   const updateMyHp = (newValue: number) => {
     myHpRef.current = newValue;
   }
-  const myHp = myHpRef.current ? myHpRef.current : 100;
+  const myHp = myHpRef.current ? myHpRef.current : 100;   // 지정된 값이 없어 null 이면 100 부여 (initial)
   // 공격 시 내 critical 문구 visibility 변화
   const [myCriticalText, setMyCriticalText] = useState(false);
   // 방어 시 내 miss 문구 visibility 변화
@@ -121,6 +119,15 @@ function BattleGround() {
   const [isAttackClickable, setIsAttackClickable] = useState(true);
   // 방어 도중 방어 버튼 clickability
   const [isDefendClickable, setIsDefendClickable] = useState(true);
+  // 두 버튼 한번에 clickability 조정하기
+  function ableButtons() {
+    setIsAttackClickable(true);
+    setIsDefendClickable(true);
+  }
+  function disableButtons() {
+    setIsAttackClickable(false);
+    setIsDefendClickable(false);
+  }
 
   function handleExitButtonClick() {
     onOpen();
@@ -131,74 +138,35 @@ function BattleGround() {
   }
 
   function handleExit() {
+    user.power -= 150;
+    user.lose += 1;
+    console.log('game over');
+    socket.disconnect();
     setIsExiting(true);
     onClose();
   }
 
-  // function gameOver(win: boolean) {
-  //   navigate('/game-over', { state: { win } });
-  // }
-
-  // function handleEnemyHP(current: number) {
-
-  //   if (current === 20) {
-  //     // 10 hp 남음, 게임 오버
-  //     setCurrentEnemyHP(0);
-
-  //   } else {
-  //     // 10 hp 감소
-  //     setCurrentEnemyHP((current) => (current - 20));
-  //   }
-  //   console.log('enemy hp: ', current);
-
-  // }
-
-  // function handleMyHP(current: number) {
-
-  //   if (current === 20) {
-  //     // 10 hp 남음, 게임 오버
-  //     setCurrentMyHP(0);
-
-  //   } else {
-  //     // 10 hp 감소
-  //     setCurrentMyHP((current) => (current - 20));
-  //   }
-  //   console.log('my hp: ', current);
-
-  // }
-
   // 공격이 성공했을 시
   function attackSuccess() {
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
     // 우는 표정
     setCurrentEnemySelectedFace(storeFaceVariants[2]);
     // 우는 모션
     setCurrentEnemyUsageProp('attacked');
-    // HP 감소 혹은 game over
-    // handleEnemyHP(currentEnemyHP);
     // critical text
     setEnemyCriticalText(true);
 
     // 원상복구
     setTimeout(() => {
-      setIsAttackClickable(true);
-      setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyCriticalText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
   // 공격이 실패했을 시
   function attackFail() {
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
     // 다행인 표정
     setCurrentEnemySelectedFace(storeFaceVariants[7]);
     // 피하는 모션
@@ -208,26 +176,22 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      setIsAttackClickable(true);
-      setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyMissText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
   // 공격 버튼 누르기 이후 handle
   function handleAttackClick() {
+    disableButtons();
     socket.emit('game-select', location.state ? location.state.gameId : 0 , 1);
   }
 
   // 방어가 성공했을 시
   function defendSuccess() {
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
     // 메롱 표정
     setCurrentMySelectedFace(storeFaceVariants[6]);
     // 우는 모션
@@ -237,43 +201,36 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      setIsDefendClickable(true);
-      setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyMissText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
   // 방어가 실패했을 시
   function defendFail() {
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
     // 아픈 표정
     setCurrentMySelectedFace(storeFaceVariants[5]);
     // 우는 모션
     setCurrentMyUsageProp('attacked');
-    // HP 감소 혹은 game over
-    // handleMyHP(currentMyHP);
     // critical text
     setMyCriticalText(true);
 
     // 원상복구
     setTimeout(() => {
-      setIsDefendClickable(true);
-      setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyCriticalText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
-  // 방어 버튼 누르기 이후 handle
+  // 방어 (Down) 버튼 누르기 이후 handle
   function handleDefendClick() {
+    disableButtons();
     socket.emit('game-select', location.state ? location.state.gameId : 0 , 0);
   }
 
@@ -301,15 +258,6 @@ function BattleGround() {
         >
           나가기
         </Text>
-        <Text
-          w="fit-content"
-          p={3}
-          m={2}
-          fontSize="lg"
-          style={{ fontFamily: "Font-Title-Light", color: "white" }}
-        >
-          3:28
-        </Text>
       </Box>
       {/* 두 캐릭터들 */}
       <Flex direction='column' w='100%' h='550px' gap='5%' marginTop='15%' >
@@ -327,7 +275,6 @@ function BattleGround() {
                 </Text>
                 {/* 상대방이 선택한 카드 공개 */}
                 <Flex
-                  // className={`enemy-card ${}`}
                   position='absolute'
                   alignSelf='center'
                   top='-80px'
