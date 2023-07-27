@@ -40,12 +40,16 @@ function MyPage() {
     setGhostName(inputValueGhostName);
   };
 
+  const handleLogout = () => {
+    /// 나중에 !!
+  }
+
   const firstBorderColor = theme.colors.line_1_color;
   const secondBorderColor = theme.colors.line_2_color;
 
   return (
     <Layout>
-      <Box w="100%">
+      <Flex w="100%" direction='row' align='center' justify='space-between'>
         <Text
           w="fit-content"
           p={3}
@@ -55,7 +59,14 @@ function MyPage() {
         >
           마이페이지
         </Text>
-      </Box>
+        <Flex 
+          p={3} 
+          m={2}
+          onClick={() => handleLogout()}
+        >
+          <Text style={{ fontFamily: 'Font-Title-Light'}} fontSize='md' color='ziha_charcoal'>로그아웃</Text>
+        </Flex>
+      </Flex>
       {user &&
         <Flex
           direction="column"
