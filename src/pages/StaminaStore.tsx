@@ -26,19 +26,24 @@ function StaminaStore() {
       </Box>
       <Flex justify="center" align="center" paddingTop="50px">
         <Flex
+
           justify="center"
           align="center"
           w="350px"
           h="200px"
+
+
           style={{
             backgroundColor: theme.colors.ziha_charcoal,
             borderRadius: "30PX",
           }}
         >
+
           <Flex direction="column" m={3}>
             <Text
               w="fit-content"
               fontSize="lg"
+
               style={{ fontFamily: "Font-Title", color: "white" }}
             >
               직장인 패키지
@@ -46,7 +51,9 @@ function StaminaStore() {
             <Flex align="center">
               <Text
                 w="fit-content"
+
                 fontSize="lg"
+
                 style={{
                   fontFamily: "Font-Title-light",
                   color: "white",
@@ -57,7 +64,9 @@ function StaminaStore() {
               </Text>
               <Text
                 w="fit-content"
+
                 fontSize="lg"
+
                 marginLeft="10px"
                 style={{
                   fontFamily: "Font-Title-light",
@@ -67,6 +76,7 @@ function StaminaStore() {
                 → 9,990
               </Text>
             </Flex>
+
             <Text
               marginTop="20px"
               w="fit-content"
@@ -154,6 +164,7 @@ function StaminaStore() {
             h="120px"
             src={require("../assets/stamina_chest.png")}
           ></Image>
+
         </Flex>
       </Flex>
     </Layout>

@@ -43,6 +43,7 @@
   flex-direction: column;
   background-color: white;
   padding: 8px;
+  max-height: calc(100vh - 200px);
 }
 
 .grid-container {

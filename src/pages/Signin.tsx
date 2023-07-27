@@ -11,6 +11,7 @@ function Signin() {
   const [inputName, setInputName] = useState('');
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
+  const [inputGhostName, setInputGhostName] = useState('');
   const { user, setUser } = useUserContext();
   const navigate = useNavigate();
 
@@ -26,8 +27,12 @@ function Signin() {
     setInputPwd(e.target.value);
   };
 
+  const onChangeGhostName = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputGhostName(e.target.value);
+  };
+
   const handleSignIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    if (inputId === '' || inputPwd === '' || inputName === '') {
+    if (inputId === '' || inputPwd === '' || inputName === '' || inputGhostName === '') {
       alert('빈 칸을 채워주세요.');
       return;
     }
@@ -35,6 +40,7 @@ function Signin() {
       email: inputId,
       password: inputPwd,
       username: inputName,
+      ghostname: inputGhostName,
     };
 
     fetch(API_URL + '/user', {
@@ -99,7 +105,7 @@ function Signin() {
             <Center>
               <Input
                 variant="outline"
-                placeholder="Enter Name"
+                placeholder="Enter User Name"
                 size="md"
                 type='text'
                 value={inputName}
@@ -124,6 +130,16 @@ function Signin() {
                 type="password"
                 value={inputPwd}
                 onChange={onChangePwd}
+              />
+            </Center>
+            <Center>
+              <Input
+                variant="outline"
+                placeholder="Enter Ghost Name"
+                size="md"
+                type="text"
+                value={inputGhostName}
+                onChange={onChangeGhostName}
               />
             </Center>
           </Flex>
