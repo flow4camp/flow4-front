@@ -37,25 +37,41 @@ function BattleGround() {
   useEffect(() => {
     console.log(location.state);
     if (socket) {
-      socket.on('game-match-win', () => {
-        console.log('game-match-win');
+      socket.on('game-match-win', (data: any) => {
+        console.log('game-match-win: ', data);
         attackSuccess();
-        setMyTurnToAttack(!myTurnToAttack);
+        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
+        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        setCurrentEnemyCardIdx(data.select); // 카드 바꾸기
+        setMyTurnToAttack((turn: boolean) => (!turn));
+        console.log(myTurnToAttack);
       });
-      socket.on('game-match-lose', () => {
-        console.log('game-match-lose');
+      socket.on('game-match-lose', (data: any) => {
+        console.log('game-match-lose: ', data);
         defendFail();
-        setMyTurnToAttack(!myTurnToAttack);
+        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
+        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        setCurrentEnemyCardIdx(data.select);
+        setMyTurnToAttack((turn: boolean) => (!turn));
+        console.log(myTurnToAttack);
       });
-      socket.on('game-mismatch-win', () => {
-        console.log('game-mismatch-win');
+      socket.on('game-mismatch-win', (data: any) => {
+        console.log('game-mismatch-win: ', data);
         defendSuccess();
-        setMyTurnToAttack(!myTurnToAttack);
+        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
+        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        setCurrentEnemyCardIdx(data.select);
+        setMyTurnToAttack((turn: boolean) => (!turn));
+        console.log(myTurnToAttack);
       });
-      socket.on('game-mismatch-lose', () => {
-        console.log('game-mismatch-lose');
+      socket.on('game-mismatch-lose', (data: any) => {
+        console.log('game-mismatch-lose: ', data);
         attackFail();
-        setMyTurnToAttack(!myTurnToAttack);
+        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
+        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        setCurrentEnemyCardIdx(data.select);
+        setMyTurnToAttack((turn: boolean) => (!turn));
+        console.log(myTurnToAttack);
       });
     }
   }, [location.state]);
@@ -115,27 +131,29 @@ function BattleGround() {
 
   function handleEnemyHP(current: number) {
 
-    if (current === 10) {
+    if (current === 20) {
       // 10 hp 남음, 게임 오버
       setCurrentEnemyHP(0);
 
     } else {
       // 10 hp 감소
-      setCurrentEnemyHP((current) => (current - 10));
+      setCurrentEnemyHP((current) => (current - 20));
     }
+    console.log('enemy hp: ', current);
 
   }
 
   function handleMyHP(current: number) {
 
-    if (current === 10) {
+    if (current === 20) {
       // 10 hp 남음, 게임 오버
       setCurrentMyHP(0);
 
     } else {
       // 10 hp 감소
-      setCurrentMyHP((current) => (current - 10));
+      setCurrentMyHP((current) => (current - 20));
     }
+    console.log('my hp: ', current);
 
   }
 
@@ -150,7 +168,7 @@ function BattleGround() {
     // 우는 모션
     setCurrentEnemyUsageProp('attacked');
     // HP 감소 혹은 game over
-    handleEnemyHP(currentEnemyHP);
+    // handleEnemyHP(currentEnemyHP);
     // critical text
     setEnemyCriticalText(true);
 
@@ -161,6 +179,7 @@ function BattleGround() {
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyCriticalText(false);
+      setCurrentEnemyCardIdx(2);
     }, 2000);
   }
 
@@ -184,6 +203,7 @@ function BattleGround() {
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyMissText(false);
+      setCurrentEnemyCardIdx(2);
     }, 2000);
   }
 
@@ -212,6 +232,7 @@ function BattleGround() {
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyMissText(false);
+      setCurrentEnemyCardIdx(2);
     }, 2000);
   }
 
@@ -226,7 +247,7 @@ function BattleGround() {
     // 우는 모션
     setCurrentMyUsageProp('attacked');
     // HP 감소 혹은 game over
-    handleMyHP(currentMyHP);
+    // handleMyHP(currentMyHP);
     // critical text
     setMyCriticalText(true);
 
@@ -237,6 +258,7 @@ function BattleGround() {
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyCriticalText(false);
+      setCurrentEnemyCardIdx(2);
     }, 2000);
   }
 
