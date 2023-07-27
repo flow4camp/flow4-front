@@ -119,6 +119,15 @@ function BattleGround() {
   const [isAttackClickable, setIsAttackClickable] = useState(true);
   // 방어 도중 방어 버튼 clickability
   const [isDefendClickable, setIsDefendClickable] = useState(true);
+  // 두 버튼 한번에 clickability 조정하기
+  function ableButtons() {
+    setIsAttackClickable(true);
+    setIsDefendClickable(true);
+  }
+  function disableButtons() {
+    setIsAttackClickable(false);
+    setIsDefendClickable(false);
+  }
 
   function handleExitButtonClick() {
     onOpen();
@@ -135,10 +144,10 @@ function BattleGround() {
 
   // 공격이 성공했을 시
   function attackSuccess() {
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
+    // // 공격 버튼 안 눌림
+    // setIsAttackClickable(false);
+    // // 방어 버튼 안 눌림
+    // setIsDefendClickable(false);
     // 우는 표정
     setCurrentEnemySelectedFace(storeFaceVariants[2]);
     // 우는 모션
@@ -148,21 +157,22 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      setIsAttackClickable(true);
-      setIsDefendClickable(true);
+      // setIsAttackClickable(true);
+      // setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyCriticalText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
   // 공격이 실패했을 시
   function attackFail() {
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
+    // // 공격 버튼 안 눌림
+    // setIsAttackClickable(false);
+    // // 방어 버튼 안 눌림
+    // setIsDefendClickable(false);
     // 다행인 표정
     setCurrentEnemySelectedFace(storeFaceVariants[7]);
     // 피하는 모션
@@ -172,26 +182,28 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      setIsAttackClickable(true);
-      setIsDefendClickable(true);
+      // setIsAttackClickable(true);
+      // setIsDefendClickable(true);
       setCurrentEnemySelectedFace(storeFaceVariants[0]);
       setCurrentEnemyUsageProp('');
       setEnemyMissText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
   // 공격 버튼 누르기 이후 handle
   function handleAttackClick() {
+    disableButtons();
     socket.emit('game-select', location.state ? location.state.gameId : 0 , 1);
   }
 
   // 방어가 성공했을 시
   function defendSuccess() {
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
+    // // 방어 버튼 안 눌림
+    // setIsDefendClickable(false);
+    // // 공격 버튼 안 눌림
+    // setIsAttackClickable(false);
     // 메롱 표정
     setCurrentMySelectedFace(storeFaceVariants[6]);
     // 우는 모션
@@ -201,21 +213,22 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      setIsDefendClickable(true);
-      setIsAttackClickable(true);
+      // setIsDefendClickable(true);
+      // setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyMissText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
   // 방어가 실패했을 시
   function defendFail() {
-    // 방어 버튼 안 눌림
-    setIsDefendClickable(false);
-    // 공격 버튼 안 눌림
-    setIsAttackClickable(false);
+    // // 방어 버튼 안 눌림
+    // setIsDefendClickable(false);
+    // // 공격 버튼 안 눌림
+    // setIsAttackClickable(false);
     // 아픈 표정
     setCurrentMySelectedFace(storeFaceVariants[5]);
     // 우는 모션
@@ -225,17 +238,19 @@ function BattleGround() {
 
     // 원상복구
     setTimeout(() => {
-      setIsDefendClickable(true);
-      setIsAttackClickable(true);
+      // setIsDefendClickable(true);
+      // setIsAttackClickable(true);
       setCurrentMySelectedFace(storeFaceVariants[0]);
       setCurrentMyUsageProp('');
       setMyCriticalText(false);
       setCurrentEnemyCardIdx(2);
+      ableButtons();
     }, 2000);
   }
 
-  // 방어 버튼 누르기 이후 handle
+  // 방어 (Down) 버튼 누르기 이후 handle
   function handleDefendClick() {
+    disableButtons();
     socket.emit('game-select', location.state ? location.state.gameId : 0 , 0);
   }
 
