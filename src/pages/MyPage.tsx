@@ -10,7 +10,7 @@ import {
 import { useDisclosure } from "@chakra-ui/hooks";
 import React, { useState } from "react";
 import Layout from "../components/layout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserCharacter from "../components/UserCharacter";
 import { accVariants, clothesVariants, faceVariants, hatVariants, shoeVariants } from "../components/AssetVariants";
 import { useUserContext } from '../context/UserContext';
@@ -25,6 +25,7 @@ function MyPage() {
   const [isEditingGhostName, setIsEditingGhostName] = useState(false);
   const [inputValueGhostName, setInputValueGhostName] = useState("");
   const { user, setUser } = useUserContext();
+  const navigate = useNavigate();
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -41,7 +42,8 @@ function MyPage() {
   };
 
   const handleLogout = () => {
-    /// 나중에 !!
+    setUser(null);
+    navigate('/');
   }
 
   const firstBorderColor = theme.colors.line_1_color;
@@ -59,8 +61,8 @@ function MyPage() {
         >
           마이페이지
         </Text>
-        <Flex 
-          p={3} 
+        <Flex
+          p={3}
           m={2}
           onClick={() => handleLogout()}
         >

@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { accVariants, clothesVariants, faceVariants, hatVariants, shoeVariants } from "../components/AssetVariants";
 import { useUserContext } from '../context/UserContext';
+import { API_URL } from '../api';
 
 function Home() {
   const theme = useTheme();
@@ -34,11 +35,15 @@ function Home() {
     { id: 2, text: "1회 배틀하기", isActive: false, isComplete: false },
     { id: 3, text: "지하철에서 내리기", isActive: true, isComplete: false },
   ]);
-  const specialQuestNum: number = 5;
-  const specialQuestProgress: number = 5;
+  var specialQuestNum: number = 5;
+  var specialQuestProgress: number = 5;
   const specialQuest = `배틀 ${specialQuestNum}회 이기기`;
   const [isSpecialActive, setIsSpecialActive] = useState(true);
   const [isSpecialComplete, setIsSpecialComplete] = useState(false);
+
+  useEffect(() => {
+    specialQuestProgress = user.win;
+  }, []);
 
   useEffect(() => {
     setIsSpecialActive(specialQuestNum === specialQuestProgress);
@@ -213,12 +218,27 @@ function Home() {
                     if (quest.isActive && !quest.isComplete) {
                       toast({
                         title: "보상을 받았습니다.",
-                        description: "10 기력을 받았습니다!",
+                        description: "100 기력을 받았습니다!",
                         status: "success",
                         duration: 3000,
                         isClosable: true,
                         position: "top",
                       });
+                      fetch(API_URL + `/user/add-power/${user.id}`, {
+                        method: 'put',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({power: 100}),
+                      })
+                        .then(response => response.json())
+                        .then(data => {
+                          user.power = data.power;
+                          setUser(user);
+                        })
+                        .catch(error => {
+                          console.error('Error:', error);
+                        });
                       setDailyQuestList((prevQuests) =>
                         prevQuests.map((q) =>
                           q.id === quest.id ? { ...q, isComplete: true } : q
@@ -284,7 +304,7 @@ function Home() {
                     }}
                   >
                     <Box
-                      w={`${(specialQuestProgress / specialQuestNum) * 100}%`}
+                      w={`${(user.win / specialQuestNum) * 100}%`}
                       h="100%"
                       style={{ backgroundColor: theme.colors.ziha_green }}
                     ></Box>
@@ -292,7 +312,7 @@ function Home() {
                       fontSize="7px"
                       style={{ transform: "translateY(-70%)" }}
                     >
-                      {specialQuestProgress}/{specialQuestNum}
+                      {user.win}/{specialQuestNum}
                     </Text>
                   </Box>
                 </Flex>
@@ -315,12 +335,27 @@ function Home() {
                   if (isSpecialActive && !isSpecialComplete) {
                     toast({
                       title: "보상을 받았습니다.",
-                      description: "10 기력을 받았습니다!",
+                      description: "300 기력을 받았습니다!",
                       status: "success",
                       duration: 3000,
                       isClosable: true,
                       position: "top",
                     });
+                    fetch(API_URL + `/user/add-power/${user.id}`, {
+                      method: 'put',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({power: 300}),
+                    })
+                      .then(response => response.json())
+                      .then(data => {
+                        user.power = data.power;
+                        setUser(user);
+                      })
+                      .catch(error => {
+                        console.error('Error:', error);
+                      });
                     setIsSpecialComplete(true);
                   }
                 }}
