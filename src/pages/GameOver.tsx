@@ -42,7 +42,7 @@ const GameOverWin = () => {
                 </Flex>
                 <Flex direction='row' align='center' justify='center'>
                     <Image src={require('../assets/coin.png')} w={10} h={10} />
-                    <Text style={{ fontFamily: 'Font-Title'}} fontSize='2xl' >+ 30</Text>
+                    <Text style={{ fontFamily: 'Font-Title'}} fontSize='2xl' >+ 300</Text>
                 </Flex>
                 <Flex justify='center' paddingTop={10}>
                     <Button 
@@ -99,7 +99,7 @@ const GameOverLose = () => {
                 </Flex>
                 <Flex direction='row' align='center' justify='center'>
                     <Image src={require('../assets/coin.png')} w={10} h={10} />
-                    <Text style={{ fontFamily: 'Font-Title'}} fontSize='2xl' >- 15</Text>
+                    <Text style={{ fontFamily: 'Font-Title'}} fontSize='2xl' >- 150</Text>
                 </Flex>
                 <Flex justify='center' paddingTop={10}>
                     <Button 

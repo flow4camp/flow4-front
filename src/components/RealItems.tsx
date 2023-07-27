@@ -36,7 +36,7 @@ export const RealItemCoffee = () => {
 
     const toast = useToast();
     const { user, setUser } = useUserContext();
-    const price = 400;      // 가격
+    const price = 3000;      // 가격
 
     const buySelectedItem = (price: number) => {
         if (user.power < price) {
@@ -128,7 +128,7 @@ export const RealItemBacchus = () => {
 
     const toast = useToast();
     const { user, setUser } = useUserContext();
-    const price = 100;      // 가격
+    const price = 1000;      // 가격
 
     const buySelectedItem = (price: number) => {
         if (user.power < price) {
@@ -220,7 +220,7 @@ export const RealItemLemona = () => {
 
     const toast = useToast();
     const { user, setUser } = useUserContext();
-    const price = 300;      // 가격
+    const price = 2000;      // 가격
 
     const buySelectedItem = (price: number) => {
         if (user.power < price) {
