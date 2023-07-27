@@ -88,13 +88,12 @@ function BattleGround() {
   const [currentEnemySelectedFace, setCurrentEnemySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 상대 animation 변화
   const [currentEnemyUsageProp, setCurrentEnemyUsageProp] = useState('');
-  // 공격 시 상대 Hp 바 변화
-  // const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
+  // 공격 혹은 방어 시 상대 Hp 바 변화
   const enemyHpRef = useRef<number | null>(null); // Initialize with null
   const updateEnemyHp = (newValue: number) => {
     enemyHpRef.current = newValue;
   }
-  const enemyHp = enemyHpRef.current ? enemyHpRef.current : 100;
+  const enemyHp = enemyHpRef.current ? enemyHpRef.current : 100;  // 지정된 값이 없어 null 이면 100 부여 (initial)
   // 공격 시 상대 critical 문구 visibility 변화
   const [enemyCriticalText, setEnemyCriticalText] = useState(false);
   // 공격 시 상대 miss 문구 visibility 변화
@@ -105,13 +104,12 @@ function BattleGround() {
   const [currentMySelectedFace, setCurrentMySelectedFace] = useState(storeFaceVariants[0]);
   // 공격 혹은 방어 시 내 animation 변화
   const [currentMyUsageProp, setCurrentMyUsageProp] = useState('');
-  // 공격 시 내 Hp 바 변화
-  // const [currentMyHP, setCurrentMyHP] = useState(100);
+  // 공격 혹은 방어 시 내 Hp 바 변화
   const myHpRef = useRef<number | null>(null); // Initialize with null
   const updateMyHp = (newValue: number) => {
     myHpRef.current = newValue;
   }
-  const myHp = myHpRef.current ? myHpRef.current : 100;
+  const myHp = myHpRef.current ? myHpRef.current : 100;   // 지정된 값이 없어 null 이면 100 부여 (initial)
   // 공격 시 내 critical 문구 visibility 변화
   const [myCriticalText, setMyCriticalText] = useState(false);
   // 방어 시 내 miss 문구 visibility 변화
@@ -135,38 +133,6 @@ function BattleGround() {
     onClose();
   }
 
-  // function gameOver(win: boolean) {
-  //   navigate('/game-over', { state: { win } });
-  // }
-
-  // function handleEnemyHP(current: number) {
-
-  //   if (current === 20) {
-  //     // 10 hp 남음, 게임 오버
-  //     setCurrentEnemyHP(0);
-
-  //   } else {
-  //     // 10 hp 감소
-  //     setCurrentEnemyHP((current) => (current - 20));
-  //   }
-  //   console.log('enemy hp: ', current);
-
-  // }
-
-  // function handleMyHP(current: number) {
-
-  //   if (current === 20) {
-  //     // 10 hp 남음, 게임 오버
-  //     setCurrentMyHP(0);
-
-  //   } else {
-  //     // 10 hp 감소
-  //     setCurrentMyHP((current) => (current - 20));
-  //   }
-  //   console.log('my hp: ', current);
-
-  // }
-
   // 공격이 성공했을 시
   function attackSuccess() {
     // 공격 버튼 안 눌림
@@ -177,8 +143,6 @@ function BattleGround() {
     setCurrentEnemySelectedFace(storeFaceVariants[2]);
     // 우는 모션
     setCurrentEnemyUsageProp('attacked');
-    // HP 감소 혹은 game over
-    // handleEnemyHP(currentEnemyHP);
     // critical text
     setEnemyCriticalText(true);
 
@@ -256,8 +220,6 @@ function BattleGround() {
     setCurrentMySelectedFace(storeFaceVariants[5]);
     // 우는 모션
     setCurrentMyUsageProp('attacked');
-    // HP 감소 혹은 game over
-    // handleMyHP(currentMyHP);
     // critical text
     setMyCriticalText(true);
 
