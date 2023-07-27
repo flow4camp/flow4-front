@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import UserCharacter from "../components/UserCharacter";
 import { storeFaceVariants } from "../components/StoreVariants";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import './BattleGround.scss';
 import { accVariants, clothesVariants, hatVariants, shoeVariants } from '../components/AssetVariants';
@@ -40,8 +40,8 @@ function BattleGround() {
       socket.on('game-match-win', (data: any) => {
         console.log('game-match-win: ', data);
         attackSuccess();
-        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
-        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        updateEnemyHp(data.oppHp);  // hp 바꾸기
+        updateMyHp(data.myHp);      // hp 바꾸기
         setCurrentEnemyCardIdx(data.select); // 카드 바꾸기
         setMyTurnToAttack((turn: boolean) => (!turn));
         console.log(myTurnToAttack);
@@ -49,8 +49,8 @@ function BattleGround() {
       socket.on('game-match-lose', (data: any) => {
         console.log('game-match-lose: ', data);
         defendFail();
-        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
-        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        updateEnemyHp(data.oppHp);  // hp 바꾸기
+        updateMyHp(data.myHp);      // hp 바꾸기
         setCurrentEnemyCardIdx(data.select);
         setMyTurnToAttack((turn: boolean) => (!turn));
         console.log(myTurnToAttack);
@@ -58,8 +58,8 @@ function BattleGround() {
       socket.on('game-mismatch-win', (data: any) => {
         console.log('game-mismatch-win: ', data);
         defendSuccess();
-        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
-        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        updateEnemyHp(data.oppHp);  // hp 바꾸기
+        updateMyHp(data.myHp);      // hp 바꾸기
         setCurrentEnemyCardIdx(data.select);
         setMyTurnToAttack((turn: boolean) => (!turn));
         console.log(myTurnToAttack);
@@ -67,8 +67,8 @@ function BattleGround() {
       socket.on('game-mismatch-lose', (data: any) => {
         console.log('game-mismatch-lose: ', data);
         attackFail();
-        setCurrentEnemyHP(data.oppHp);  // hp 바꾸기
-        setCurrentMyHP(data.myHp);      // hp 바꾸기
+        updateEnemyHp(data.oppHp);  // hp 바꾸기
+        updateMyHp(data.myHp);      // hp 바꾸기
         setCurrentEnemyCardIdx(data.select);
         setMyTurnToAttack((turn: boolean) => (!turn));
         console.log(myTurnToAttack);
@@ -89,7 +89,12 @@ function BattleGround() {
   // 공격 혹은 방어 시 상대 animation 변화
   const [currentEnemyUsageProp, setCurrentEnemyUsageProp] = useState('');
   // 공격 시 상대 Hp 바 변화
-  const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
+  // const [currentEnemyHP, setCurrentEnemyHP] = useState(100);
+  const enemyHpRef = useRef<number | null>(null); // Initialize with null
+  const updateEnemyHp = (newValue: number) => {
+    enemyHpRef.current = newValue;
+  }
+  const enemyHp = enemyHpRef.current ? enemyHpRef.current : 100;
   // 공격 시 상대 critical 문구 visibility 변화
   const [enemyCriticalText, setEnemyCriticalText] = useState(false);
   // 공격 시 상대 miss 문구 visibility 변화
@@ -101,7 +106,12 @@ function BattleGround() {
   // 공격 혹은 방어 시 내 animation 변화
   const [currentMyUsageProp, setCurrentMyUsageProp] = useState('');
   // 공격 시 내 Hp 바 변화
-  const [currentMyHP, setCurrentMyHP] = useState(100);
+  // const [currentMyHP, setCurrentMyHP] = useState(100);
+  const myHpRef = useRef<number | null>(null); // Initialize with null
+  const updateMyHp = (newValue: number) => {
+    myHpRef.current = newValue;
+  }
+  const myHp = myHpRef.current ? myHpRef.current : 100;
   // 공격 시 내 critical 문구 visibility 변화
   const [myCriticalText, setMyCriticalText] = useState(false);
   // 방어 시 내 miss 문구 visibility 변화
@@ -125,37 +135,37 @@ function BattleGround() {
     onClose();
   }
 
-  function gameOver(win: boolean) {
-    navigate('/game-over', { state: { win } });
-  }
+  // function gameOver(win: boolean) {
+  //   navigate('/game-over', { state: { win } });
+  // }
 
-  function handleEnemyHP(current: number) {
+  // function handleEnemyHP(current: number) {
 
-    if (current === 20) {
-      // 10 hp 남음, 게임 오버
-      setCurrentEnemyHP(0);
+  //   if (current === 20) {
+  //     // 10 hp 남음, 게임 오버
+  //     setCurrentEnemyHP(0);
 
-    } else {
-      // 10 hp 감소
-      setCurrentEnemyHP((current) => (current - 20));
-    }
-    console.log('enemy hp: ', current);
+  //   } else {
+  //     // 10 hp 감소
+  //     setCurrentEnemyHP((current) => (current - 20));
+  //   }
+  //   console.log('enemy hp: ', current);
 
-  }
+  // }
 
-  function handleMyHP(current: number) {
+  // function handleMyHP(current: number) {
 
-    if (current === 20) {
-      // 10 hp 남음, 게임 오버
-      setCurrentMyHP(0);
+  //   if (current === 20) {
+  //     // 10 hp 남음, 게임 오버
+  //     setCurrentMyHP(0);
 
-    } else {
-      // 10 hp 감소
-      setCurrentMyHP((current) => (current - 20));
-    }
-    console.log('my hp: ', current);
+  //   } else {
+  //     // 10 hp 감소
+  //     setCurrentMyHP((current) => (current - 20));
+  //   }
+  //   console.log('my hp: ', current);
 
-  }
+  // }
 
   // 공격이 성공했을 시
   function attackSuccess() {
@@ -394,7 +404,7 @@ function BattleGround() {
                 style={{ border: "2px solid white", borderRadius: "10px" }}
               >
                 <Flex
-                  w={`${currentEnemyHP}%`}
+                  w={`${enemyHp}%`}
                   h="100%"
                   style={{ backgroundColor: theme.colors.ziha_green }}
                 ></Flex>
@@ -533,7 +543,7 @@ function BattleGround() {
                 style={{ border: "2px solid white", borderRadius: "10px" }}
               >
                 <Flex
-                  w={currentMyHP}
+                  w={`${myHp}%`}
                   h="100%"
                   style={{ backgroundColor: theme.colors.ziha_green }}
                 ></Flex>
