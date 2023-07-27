@@ -23,6 +23,15 @@
 
     }
 
+    &.profile-big {
+
+      width: 120px;
+      height: 146px;
+
+      animation: small-motion 0.5s linear 0s infinite alternate;;
+
+  }
+
     &.attacked {
 
         animation: shake-dizzy 0.1s linear 0s 4;

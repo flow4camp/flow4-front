@@ -29,6 +29,7 @@ const UserCharacter: React.FC<UserCharacterProps> = ({ usage, selectedHat, selec
         <Box position='relative' m={3} 
             className={`character-container ${usage === "edit" ? 'edit' : ''} 
                 ${usage === "profile" ? 'profile' : ''}
+                ${usage === "profile-big" ? 'profile-big' : ''}
                 ${usage === "attacked" ? 'attacked' : ''} 
                 ${usage === "defended" ? 'defended' : ''}
             `} 

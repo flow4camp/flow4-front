@@ -76,7 +76,7 @@ function MyPage() {
               }}
             >
               <UserCharacter
-                usage={"profile"}
+                usage={"profile-big"}
                 selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
                 selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
                 selectedFace={user.faceVariants !== -1 ? faceVariants[user.faceVariants] : faceVariants[0]}
