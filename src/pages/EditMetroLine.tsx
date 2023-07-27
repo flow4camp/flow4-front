@@ -19,10 +19,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { API_URL } from "../api";
+import axios from "axios";
+import { useUserContext, User } from "../context/UserContext";
 
 function EditMetroLine() {
   const navigate = useNavigate(); // navigator
   const theme = useTheme();
+  const { user, setUser } = useUserContext();
 
   const [firstSelectedLine, setFirstSelectedLine] = useState("1호선");
   const [secondSelectedLine, setSecondSelectedLine] = useState("2호선");
@@ -72,9 +76,28 @@ function EditMetroLine() {
     }
     setIsLineModalOpen(false);
   };
-  const handleStationSelection = (station: string) => {
+  const handleStationSelection = async (station: string) => {
     if (stationNumber === 1) {
       setFirstSelectedStation(station);
+      try {
+        // Make the API request to update the station1 value for the user
+        const response = await axios.put(
+          `${API_URL}/user/${user.id}/station1`,
+          {
+            station1: station,
+          }
+        );
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          station: response.data.station1,
+        }));
+        setSecondSelectedStation(response.data.station1);
+
+        // If the API request is successful, the station1 value in the database is updated
+      } catch (error) {
+        console.error("Error updating station1:", error);
+        // Handle error if the API request fails
+      }
     } else if (stationNumber === 2) {
       setSecondSelectedStation(station);
     } else if (stationNumber === 3) {
