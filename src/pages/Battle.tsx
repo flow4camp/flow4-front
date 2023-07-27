@@ -89,7 +89,7 @@ function Battle() {
           clothes: oppUser?.clothesVariants,
           shoe: oppUser?.shoeVariants,
           username: oppUser?.username,
-          name: '상대 유령이',
+          name: oppUser?.ghostname,
           isMyTurn: waiting,
         }
       }), 3000);
