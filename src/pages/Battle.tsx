@@ -63,11 +63,15 @@ function Battle() {
       console.log('game waiting');
     });
     (newSocket as Socket).on('game-over', () => {
+      user.power -= 150;
+      user.lose += 1;
       console.log('game over');
       socketDisconnect();
       navigate("/game-over", {state: {win: false}});
     });
     (newSocket as Socket).on('game-win', () => {
+      user.power += 300;
+      user.win += 1;
       console.log('game win');
       socketDisconnect();
       navigate("/game-over", {state: {win: true}});
