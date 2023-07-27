@@ -66,13 +66,36 @@ function EditMetroLine() {
   const handleCloseTimeModal = () => {
     setIsTimeModalOpen(false);
   };
-  const handleLineSelection = (line: string) => {
+  const handleLineSelection = async (line: string) => {
+    const subwayNum = parseInt(line[0]);
     if (isSecondLine) {
       setSecondSelectedLine(line);
       setSecondBorderColor(getLineColor(line));
+      try {
+        const response = await axios.put(`${API_URL}/user/${user.id}/line2`, {
+          subwayNum2: subwayNum,
+        });
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          subwayNum2: response.data.subwayNum2,
+        }));
+      } catch (error) {
+        console.error("Error updating 노선", error);
+      }
     } else {
       setFirstSelectedLine(line);
       setFirstBorderColor(getLineColor(line));
+      try {
+        const response = await axios.put(`${API_URL}/user/${user.id}/line1`, {
+          subwayNum1: subwayNum,
+        });
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          subwayNum1: response.data.subwayNum1,
+        }));
+      } catch (error) {
+        console.error("Error updating 노선", error);
+      }
     }
     setIsLineModalOpen(false);
   };
