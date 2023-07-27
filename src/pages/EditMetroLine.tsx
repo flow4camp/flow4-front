@@ -189,7 +189,19 @@ function EditMetroLine() {
     }
   };
 
-  const stationOptions = ["대전역", "춘천역", "유성온천역"];
+  const stationOptions = [
+    "서울역",
+    "합정역",
+    "청량리역",
+    "노량진역",
+    "신도림역",
+    "왕십리역",
+    "혜화역",
+    "구로역",
+    "봉천역",
+    "용산역",
+    "동대문",
+  ];
   const metroLineOptions = [
     "1호선",
     "2호선",
