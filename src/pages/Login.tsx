@@ -76,7 +76,7 @@ function Login() {
             align='center'
             justify='center'
           >
-            <Image src='/logo_x0.5.png' w='60px' h='60px' m={3} />
+            <Image src='/logo192.png' w='80px' h='80px' m={3} />
             <Text
               fontSize='3xl'
               fontWeight='bold'
