@@ -124,8 +124,8 @@ function MyPage() {
                 </Button>
               )}
             </Flex>
-            <Flex style={{ marginTop: "15px" }} direction="column">
-              <Flex>
+            <Flex style={{ marginTop: "15px" }} direction="column" justify='center'>
+              <Flex >
                 <Image
                   src={require("../assets/fight.png")}
                   w="20px"
@@ -134,12 +134,12 @@ function MyPage() {
                 />
                 <Text style={{ fontFamily: "Font-content" }}>{`전적 ${user.win}승 ${user.lose}패`}</Text>
               </Flex>
-              <Flex>
+              <Flex >
                 <Image
                   src={require("../assets/coin.png")}
                   w="25px"
                   h="25px"
-                  style={{ marginRight: "5px" }}
+                  style={{ marginRight: "9px", marginLeft: "-4px" }}
                 />
                 <Text style={{ fontFamily: "Font-content" }}>{`기력 ${user.power}`}</Text>
               </Flex>
