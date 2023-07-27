@@ -83,13 +83,18 @@ const Store = () => {
             fontSize='2xl'
             style={{ fontFamily: 'Font-Title' }}
         >스토어</Text>
-        <Text
+        <Flex direction='row' align='center' justify='center' >
+          <Image src={require('../assets/coin.png')} w={8} h={8} />
+          <Text
             w='fit-content'
             p={3}
             m={2}
-            fontSize='lg'
+            paddingLeft={0}
+            marginLeft={0}
+            fontSize='xl'
             style={{ fontFamily: 'Font-Title' }}
-        >{`기력 : ${user.power}`}</Text>
+          >{`${user.power}`}</Text>
+        </Flex>
         </Flex>
         {/* 탭 메뉴 */}
         <div className='tab-menu'>
