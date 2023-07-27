@@ -282,6 +282,7 @@ function BattleGround() {
                   <Flex
                     p={2}
                     borderRadius='1em' bg='ziha_charcoal_gray'
+                    minW={16}
                   >
                     <Image src={enemyCards[currentEnemyCardIdx]} w={14} h={14} />
                   </Flex>
@@ -424,7 +425,7 @@ function BattleGround() {
                 fontSize="2xl"
                 style={{ fontFamily: "Font-Title", color: "white" }}
               >
-              유령이
+              {user.ghostname}
               </Text>
               <Flex direction='column' position='relative'>
                 {/* 공격자 포지션 */}

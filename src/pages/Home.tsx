@@ -95,7 +95,7 @@ function Home() {
             </NavLink>
           </div>
           <div style={styles.userinfoText}>
-            <div style={styles.userName}>{nickName}</div>
+            <div style={styles.userName}>{user.ghostname}</div>
             <Text
               style={{ fontFamily: "Font-Content" }}
               p={3}

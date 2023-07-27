@@ -27,13 +27,13 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function MyPage() {
   const theme = useTheme();
-  const [name, setName] = useState("User1");
+  const { user, setUser } = useUserContext();
+  const [name, setName] = useState(user.username);
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [ghostName, setGhostName] = useState("유령이");
+  const [ghostName, setGhostName] = useState(user.ghostname);
   const [isEditingGhostName, setIsEditingGhostName] = useState(false);
   const [inputValueGhostName, setInputValueGhostName] = useState("");
-  const { user, setUser } = useUserContext();
   const navigate = useNavigate();
 
   const handleEditClick = () => {
