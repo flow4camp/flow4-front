@@ -40,12 +40,16 @@ function MyPage() {
     setGhostName(inputValueGhostName);
   };
 
+  const handleLogout = () => {
+    /// 나중에 !!
+  }
+
   const firstBorderColor = theme.colors.line_1_color;
   const secondBorderColor = theme.colors.line_2_color;
 
   return (
     <Layout>
-      <Box w="100%">
+      <Flex w="100%" direction='row' align='center' justify='space-between'>
         <Text
           w="fit-content"
           p={3}
@@ -55,7 +59,14 @@ function MyPage() {
         >
           마이페이지
         </Text>
-      </Box>
+        <Flex 
+          p={3} 
+          m={2}
+          onClick={() => handleLogout()}
+        >
+          <Text style={{ fontFamily: 'Font-Title-Light'}} fontSize='md' color='ziha_charcoal'>로그아웃</Text>
+        </Flex>
+      </Flex>
       {user &&
         <Flex
           direction="column"
@@ -76,7 +87,7 @@ function MyPage() {
               }}
             >
               <UserCharacter
-                usage={"profile"}
+                usage={"profile-big"}
                 selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
                 selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
                 selectedFace={user.faceVariants !== -1 ? faceVariants[user.faceVariants] : faceVariants[0]}
@@ -124,8 +135,8 @@ function MyPage() {
                 </Button>
               )}
             </Flex>
-            <Flex style={{ marginTop: "15px" }} direction="column">
-              <Flex>
+            <Flex style={{ marginTop: "15px" }} direction="column" justify='center'>
+              <Flex >
                 <Image
                   src={require("../assets/fight.png")}
                   w="20px"
@@ -134,12 +145,12 @@ function MyPage() {
                 />
                 <Text style={{ fontFamily: "Font-content" }}>{`전적 ${user.win}승 ${user.lose}패`}</Text>
               </Flex>
-              <Flex>
+              <Flex >
                 <Image
                   src={require("../assets/coin.png")}
                   w="25px"
                   h="25px"
-                  style={{ marginRight: "5px" }}
+                  style={{ marginRight: "9px", marginLeft: "-4px" }}
                 />
                 <Text style={{ fontFamily: "Font-content" }}>{`기력 ${user.power}`}</Text>
               </Flex>

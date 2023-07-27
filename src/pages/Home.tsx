@@ -110,8 +110,9 @@ function Home() {
           borderRadius="1.3em"
           marginTop={4}
           bg="#e5e5e5"
+          // bg='ziha_green_gray'
           onClick={() => navigate("/battle")} // 매칭 modal 바로 열리게 하기??
-          boxShadow="0px 2px 6px rgba(0, 0, 0, 0.1)"
+          boxShadow="0px 2px 6px rgba(0, 0, 0, 0.2)"
         >
           <Center w="100%" h="100%" position="relative">
             <Box position="absolute" w="100%" h="4px" bg={lineNumColor}></Box>
@@ -139,6 +140,7 @@ function Home() {
               gap={2}
               p={2}
               bg="#e5e5e5"
+              // bg='ziha_green_gray'
             >
               <Image src="/icons/dice-alt.svg" w={6} h={6} />
               <Text
