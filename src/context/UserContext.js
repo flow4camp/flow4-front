@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-interface User {
+export interface User {
     id: number;
     username: string;
     email: string;
@@ -13,7 +13,7 @@ interface User {
     accVariants: number;
     faceVariants: number;
     clothesVariants: number;
-    shoesVariants: number;
+    shoeVariants: number;
 }
 
 const initialUserState: User = {
@@ -29,7 +29,7 @@ const initialUserState: User = {
     accVariants: -1,
     faceVariants: -1,
     clothesVariants: 0,
-    shoesVariants: -1,
+    shoeVariants: -1,
 };
 
 const UserContext = createContext();

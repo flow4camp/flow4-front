@@ -14,11 +14,13 @@ import GameOver from "./pages/GameOver";
 
 import "./App.css";
 import { UserProvider } from './context/UserContext';
+import { SocketProvider } from './context/SocketContext';
 
 function App() {
   return (
     <div className="App">
       <UserProvider>
+        <SocketProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -33,7 +35,8 @@ function App() {
           <Route path="/battle-ground" element={<BattleGround />} />
           <Route path="/game-over" element={<GameOver />} />
         </Routes>
-        </BrowserRouter>
+      </BrowserRouter>
+      </SocketProvider>
       </UserProvider>
     </div>
   );

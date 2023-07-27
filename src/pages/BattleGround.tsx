@@ -17,25 +17,56 @@ import {
 } from "@chakra-ui/react";
 import UserCharacter from "../components/UserCharacter";
 import { storeFaceVariants } from "../components/StoreVariants";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import './BattleGround.scss';
+import { accVariants, clothesVariants, hatVariants, shoeVariants } from '../components/AssetVariants';
+import { useUserContext } from '../context/UserContext';
+import { useSocketContext } from '../context/SocketContext';
 
 function BattleGround() {
-
+  const location = useLocation();
   const theme = useTheme();
   const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isExiting, setIsExiting] = useState(false);
+  const { user, setUser } = useUserContext();
+  const { socket, setSocket } = useSocketContext();
+
+  useEffect(() => {
+    console.log(location.state);
+    if (socket) {
+      socket.on('game-match-win', () => {
+        console.log('game-match-win');
+        attackSuccess();
+        setMyTurnToAttack(!myTurnToAttack);
+      });
+      socket.on('game-match-lose', () => {
+        console.log('game-match-lose');
+        defendFail();
+        setMyTurnToAttack(!myTurnToAttack);
+      });
+      socket.on('game-mismatch-win', () => {
+        console.log('game-mismatch-win');
+        defendSuccess();
+        setMyTurnToAttack(!myTurnToAttack);
+      });
+      socket.on('game-mismatch-lose', () => {
+        console.log('game-mismatch-lose');
+        attackFail();
+        setMyTurnToAttack(!myTurnToAttack);
+      });
+    }
+  }, [location.state]);
 
   // 상대 카드 이미지 src : 0 이면 보라다운, 1 이면 초록업
-  const enemyCards = ['/icons/purple_down.png', '/icons/green_up.png', '/icons/question.png']; 
+  const enemyCards = ['/icons/purple_down.png', '/icons/green_up.png', '/icons/question.png'];
   const [currentEnemyCardIdx, setCurrentEnemyCardIdx] = useState(2);
 
   // 상대 state 관리
   // 공격자 수비자 포지션
-  const [myTurnToAttack, setMyTurnToAttack] = useState(true);
+  const [myTurnToAttack, setMyTurnToAttack] = useState(location.state ? location.state.isMyTurn : false);
 
   // 공격 혹은 방어 시 상대 face 변화
   const [currentEnemySelectedFace, setCurrentEnemySelectedFace] = useState(storeFaceVariants[0]);
@@ -59,7 +90,7 @@ function BattleGround() {
   const [myCriticalText, setMyCriticalText] = useState(false);
   // 방어 시 내 miss 문구 visibility 변화
   const [myMissText, setMyMissText] = useState(false);
-  
+
   // 공격 도중 공격 버튼 clickability
   const [isAttackClickable, setIsAttackClickable] = useState(true);
   // 방어 도중 방어 버튼 clickability
@@ -87,7 +118,6 @@ function BattleGround() {
     if (current === 10) {
       // 10 hp 남음, 게임 오버
       setCurrentEnemyHP(0);
-      gameOver(true);
 
     } else {
       // 10 hp 감소
@@ -101,7 +131,6 @@ function BattleGround() {
     if (current === 10) {
       // 10 hp 남음, 게임 오버
       setCurrentMyHP(0);
-      gameOver(false);
 
     } else {
       // 10 hp 감소
@@ -110,7 +139,7 @@ function BattleGround() {
 
   }
 
-  // 공격이 성공했을 시 
+  // 공격이 성공했을 시
   function attackSuccess() {
     // 공격 버튼 안 눌림
     setIsAttackClickable(false);
@@ -160,11 +189,7 @@ function BattleGround() {
 
   // 공격 버튼 누르기 이후 handle
   function handleAttackClick() {
-    if (Math.random() > 0.6) {
-      attackSuccess();
-    } else {
-      attackFail();
-    }
+    socket.emit('game-select', location.state ? location.state.gameId : 0 , 1);
   }
 
   // 방어가 성공했을 시
@@ -217,11 +242,7 @@ function BattleGround() {
 
   // 방어 버튼 누르기 이후 handle
   function handleDefendClick() {
-    if (Math.random() > 0.6) {
-      defendSuccess();
-    } else {
-      defendFail();
-    }
+    socket.emit('game-select', location.state ? location.state.gameId : 0 , 0);
   }
 
   return (
@@ -270,7 +291,7 @@ function BattleGround() {
                   fontSize="2xl"
                   style={{ fontFamily: "Font-Title", color: "white" }}
                 >
-                  귀신이
+                  { location.state ? location.state.name : 'User2' }
                 </Text>
                 {/* 상대방이 선택한 카드 공개 */}
                 <Flex
@@ -279,9 +300,9 @@ function BattleGround() {
                   alignSelf='center'
                   top='-80px'
                 >
-                  <Flex 
-                    p={2} 
-                    borderRadius='1em' bg='ziha_charcoal_gray' 
+                  <Flex
+                    p={2}
+                    borderRadius='1em' bg='ziha_charcoal_gray'
                   >
                     <Image src={enemyCards[currentEnemyCardIdx]} w={14} h={14} />
                   </Flex>
@@ -289,14 +310,14 @@ function BattleGround() {
               </Flex>
               <Flex direction='column' position='relative' >
                 {/* 공격자 포지션 */}
-                <Flex 
+                <Flex
                   className={`attack-position ${myTurnToAttack ? 'false' : 'true'}`}
                   position='absolute'
                   alignSelf='center'
-                  align='center' 
-                  justify='center' 
+                  align='center'
+                  justify='center'
                   border={`1px solid ${theme.colors.ziha_purple_sharp}`}
-                  borderRadius='0.8em' 
+                  borderRadius='0.8em'
                   w='fit-content'
                   p={1}
                   paddingLeft={2}
@@ -312,14 +333,14 @@ function BattleGround() {
                   >ATTACK</Text>
                 </Flex>
                 {/* 수비자 포지션 */}
-                <Flex 
+                <Flex
                   className={`defend-position ${myTurnToAttack ? 'true' : 'false'}`}
                   position='absolute'
                   alignSelf='center'
-                  align='center' 
-                  justify='center' 
+                  align='center'
+                  justify='center'
                   border={`1px solid ${theme.colors.ziha_green}`}
-                  borderRadius='0.8em' 
+                  borderRadius='0.8em'
                   w='fit-content'
                   p={1}
                   paddingLeft={2}
@@ -336,7 +357,7 @@ function BattleGround() {
                 </Flex>
                 <Spacer />
                 <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-                  User2
+                { location.state ? location.state.username : 'User2' }
                 </Text>
               </Flex>
             </Flex>
@@ -361,25 +382,25 @@ function BattleGround() {
           <Flex justify="center" align="center" position='relative'>
             <UserCharacter
               usage={currentEnemyUsageProp}
-              selectedHat={null}
-              selectedAcc={null}
               selectedFace={currentEnemySelectedFace}
-              selectedClothes={null}
-              selectedShoe={null}
+              selectedHat={ (location.state && location.state.hat !== -1) ? hatVariants[location.state.hat] : null}
+              selectedAcc={(location.state && location.state.acc !== -1) ? accVariants[location.state.acc] : null}
+              selectedClothes={(location.state && location.state.clothes !== -1) ? clothesVariants[location.state.clothes] : null}
+              selectedShoe={(location.state && location.state.shoe !== -1) ? shoeVariants[location.state.shoe] : null}
             />
-            <Box 
-              position='absolute' 
+            <Box
+              position='absolute'
               className={`critical-text ${enemyCriticalText ? 'visible' : ''} `}
-              p={2} 
+              p={2}
               top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_purple_sharp'
               >CRITICAL</Text>
             </Box>
-            <Box 
-              position='absolute' 
+            <Box
+              position='absolute'
               className={`miss-text ${enemyMissText ? 'visible' : ''} `}
-              p={2} 
+              p={2}
               top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
@@ -392,25 +413,25 @@ function BattleGround() {
           <Flex justify="center" align="center" position='relative' >
             <UserCharacter
               usage={currentMyUsageProp}
-              selectedHat={null}
-              selectedAcc={null}
               selectedFace={currentMySelectedFace}
-              selectedClothes={null}
-              selectedShoe={null}
+              selectedHat={user.hatVariants !== -1 ? hatVariants[user.hatVariants] : null}
+              selectedAcc={user.accVariants !== -1 ? accVariants[user.accVariants] : null}
+              selectedClothes={user.clothesVariants !== -1 ? clothesVariants[user.clothesVariants] : null}
+              selectedShoe={user.shoeVariants !== -1 ?  shoeVariants[user.shoeVariants] : null}
             />
-            <Box 
-              position='absolute' 
+            <Box
+              position='absolute'
               className={`critical-text ${myCriticalText ? 'visible' : ''} `}
-              p={2} 
+              p={2}
               top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_purple_sharp'
               >CRITICAL</Text>
             </Box>
-            <Box 
-              position='absolute' 
+            <Box
+              position='absolute'
               className={`miss-text ${myMissText ? 'visible' : ''} `}
-              p={2} 
+              p={2}
               top={-3}
             >
               <Text fontSize='sm' style={{ fontFamily: 'Font-Title'}} color='ziha_green'
@@ -424,18 +445,18 @@ function BattleGround() {
                 fontSize="2xl"
                 style={{ fontFamily: "Font-Title", color: "white" }}
               >
-                유령이
+              유령이
               </Text>
               <Flex direction='column' position='relative'>
                 {/* 공격자 포지션 */}
-                <Flex 
+                <Flex
                   className={`attack-position ${myTurnToAttack ? 'true' : 'false'}`}
                   position='absolute'
                   alignSelf='center'
-                  align='center' 
-                  justify='center' 
+                  align='center'
+                  justify='center'
                   border={`1px solid ${theme.colors.ziha_purple_sharp}`}
-                  borderRadius='0.8em' 
+                  borderRadius='0.8em'
                   w='fit-content'
                   p={1}
                   paddingLeft={2}
@@ -451,14 +472,14 @@ function BattleGround() {
                   >ATTACK</Text>
                 </Flex>
                 {/* 수비자 포지션 */}
-                <Flex 
+                <Flex
                   className={`defend-position ${myTurnToAttack ? 'false' : 'true'}`}
                   position='absolute'
                   alignSelf='center'
-                  align='center' 
-                  justify='center' 
+                  align='center'
+                  justify='center'
                   border={`1px solid ${theme.colors.ziha_green}`}
-                  borderRadius='0.8em' 
+                  borderRadius='0.8em'
                   w='fit-content'
                   p={1}
                   paddingLeft={2}
@@ -475,7 +496,7 @@ function BattleGround() {
                 </Flex>
                 <Spacer />
                 <Text style={{ fontFamily: "Font-Title-light", color: "white" }}>
-                  User2
+                  { user.username }
                 </Text>
               </Flex>
             </Flex>
