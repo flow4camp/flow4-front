@@ -230,6 +230,54 @@ function EditMetroLine() {
     return `${hour}:${minute}`;
   };
 
+  const handleTimeSelection = async () => {
+    let updatedTime = "00:00";
+    if (stationNumber === 1) {
+      updatedTime = firstTime;
+    } else if (stationNumber === 2) {
+      updatedTime = secondTime;
+    } else if (stationNumber === 3) {
+      updatedTime = thirdTime;
+    }
+
+    try {
+      // Update the corresponding state based on the server response
+      if (stationNumber === 1) {
+        const response = await axios.put(`${API_URL}/user/${user.id}/time1`, {
+          firsttime: updatedTime,
+        });
+
+        setFirstTime(response.data.firsttime);
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          firsttime: response.data.firsttime,
+        }));
+      } else if (stationNumber === 2) {
+        const response = await axios.put(`${API_URL}/user/${user.id}/time2`, {
+          secondtime: updatedTime,
+        });
+        setSecondTime(response.data.time);
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          secondtime: response.data.secondtime,
+        }));
+      } else if (stationNumber === 3) {
+        const response = await axios.put(`${API_URL}/user/${user.id}/time3`, {
+          thirdtime: updatedTime,
+        });
+        setThirdTime(response.data.time);
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          thirdtime: response.data.thirdtime,
+        }));
+      }
+    } catch (error) {
+      console.error("Error updating time:", error);
+    }
+
+    setIsTimeModalOpen(false);
+  };
+
   return (
     <Flex
       direction="column"
@@ -302,7 +350,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleTimeClick(1)}
           >
-            {firstTime}
+            {user.firsttime}
           </Text>
           {/* 첫번째 노선 */}
           <Box
@@ -359,7 +407,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleTimeClick(2)}
           >
-            {secondTime}
+            {user.secondtime}
           </Text>
           {/* 두번쨰 노선 */}
           <Box
@@ -416,7 +464,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleTimeClick(3)}
           >
-            {thirdTime}
+            {user.thirdtime}
           </Text>
         </Flex>
       </Flex>
@@ -492,7 +540,7 @@ function EditMetroLine() {
                   }
                 }}
               />
-              <Button onClick={handleCloseTimeModal}>확인</Button>
+              <Button onClick={handleTimeSelection}>확인</Button>
             </Flex>
           </ModalBody>
           <ModalFooter></ModalFooter>
