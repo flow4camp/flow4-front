@@ -20,8 +20,9 @@ export interface User {
   station1: String;
   station2: String;
   station3: String;
-  firsttime: Date;
-  thirdtime: Date;
+  firsttime: String;
+  secondtime: String;
+  thirdtime: String;
 }
 
 const initialUserState: User = {
@@ -44,6 +45,9 @@ const initialUserState: User = {
   station1: "서울역",
   station2: "노량진역",
   station3: "합정역",
+  firsttime: "00:00",
+  secondtime: "00:00",
+  thirdtime: "00:00",
 };
 
 const UserContext = createContext();

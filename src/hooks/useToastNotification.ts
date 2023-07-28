@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
+import { useUserContext, User } from "../context/UserContext";
 
 function useToastNotification() {
   const toast = useToast();
-  const [firstTime, setFirstTime] = useState("20:10");
-  const [secondTime, setSecondTime] = useState("20:20");
-  const [thirdTime, setThirdTime] = useState("21:30");
+  const { user, setUser } = useUserContext();
+
+  const firstTime = user.firsttime;
+  const secondTime = user.secondtime;
+  const thirdTime = user.thirdtime;
+
   useEffect(() => {
     const interval = setInterval(() => {
       // thirdTime과 현재 시간의 차이를 계산합니다.
@@ -26,7 +30,6 @@ function useToastNotification() {
         return;
       }
 
-      // console.log(firstTimeData);
       console.log(currentTime);
 
       const timeDifference =
@@ -41,7 +44,7 @@ function useToastNotification() {
         isClosable: true,
         position: "top",
       });
-    }, 10 * 60 * 1000); // 1분을 밀리초로 표현한 값
+    }, 1 * 60 * 1000); // 1분을 밀리초로 표현한 값
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시에 interval 정리
   }, [toast, firstTime, thirdTime]);

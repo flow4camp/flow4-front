@@ -66,19 +66,47 @@ function EditMetroLine() {
   const handleCloseTimeModal = () => {
     setIsTimeModalOpen(false);
   };
-  const handleLineSelection = (line: string) => {
+  const handleLineSelection = async (line: string) => {
+    const subwayNum = parseInt(line[0]);
     if (isSecondLine) {
       setSecondSelectedLine(line);
       setSecondBorderColor(getLineColor(line));
+      try {
+        const response = await axios.put(`${API_URL}/user/${user.id}/line2`, {
+          subwayNum2: subwayNum,
+        });
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          subwayNum2: response.data.subwayNum2,
+        }));
+      } catch (error) {
+        console.error("Error updating 노선", error);
+      }
     } else {
       setFirstSelectedLine(line);
       setFirstBorderColor(getLineColor(line));
+      try {
+        const response = await axios.put(`${API_URL}/user/${user.id}/line1`, {
+          subwayNum1: subwayNum,
+        });
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          subwayNum1: response.data.subwayNum1,
+        }));
+      } catch (error) {
+        console.error("Error updating 노선", error);
+      }
     }
     setIsLineModalOpen(false);
   };
+
+  useEffect(() => {
+    setFirstBorderColor(theme.colors[`line_${user.subwayNum1}_color`]);
+    setSecondBorderColor(theme.colors[`line_${user.subwayNum2}_color`]);
+  }, [user.subwayNum1, user.subwayNum2]);
+
   const handleStationSelection = async (station: string) => {
     if (stationNumber === 1) {
-      setFirstSelectedStation(station);
       try {
         // Make the API request to update the station1 value for the user
         const response = await axios.put(
@@ -89,19 +117,49 @@ function EditMetroLine() {
         );
         setUser((prevUser: User) => ({
           ...prevUser,
-          station: response.data.station1,
+          station1: response.data.station1,
         }));
-        setSecondSelectedStation(response.data.station1);
+        setFirstSelectedStation(response.data.station1);
+      } catch (error) {
+        console.error("Error updating station1:", error);
+      }
+    } else if (stationNumber === 2) {
+      setSecondSelectedStation(station);
+      try {
+        const response = await axios.put(
+          `${API_URL}/user/${user.id}/station2`,
+          {
+            station2: station,
+          }
+        );
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          station2: response.data.station2,
+        }));
+        setSecondSelectedStation(response.data.station2);
+      } catch (error) {
+        console.error("Error updating station2:", error);
+      }
+    } else if (stationNumber === 3) {
+      setThirdSelectedStation(station);
+      try {
+        const response = await axios.put(
+          `${API_URL}/user/${user.id}/station3`,
+          {
+            station3: station,
+          }
+        );
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          station3: response.data.station3,
+        }));
+        setThirdSelectedStation(response.data.station3);
 
         // If the API request is successful, the station1 value in the database is updated
       } catch (error) {
         console.error("Error updating station1:", error);
         // Handle error if the API request fails
       }
-    } else if (stationNumber === 2) {
-      setSecondSelectedStation(station);
-    } else if (stationNumber === 3) {
-      setThirdSelectedStation(station);
     }
     setIsStationModalOpen(false);
   };
@@ -131,7 +189,19 @@ function EditMetroLine() {
     }
   };
 
-  const stationOptions = ["대전역", "춘천역", "유성온천역"];
+  const stationOptions = [
+    "서울역",
+    "합정역",
+    "청량리역",
+    "노량진역",
+    "신도림역",
+    "왕십리역",
+    "혜화역",
+    "구로역",
+    "봉천역",
+    "용산역",
+    "동대문",
+  ];
   const metroLineOptions = [
     "1호선",
     "2호선",
@@ -170,6 +240,54 @@ function EditMetroLine() {
     const hour = String(currentTime.getHours()).padStart(2, "0");
     const minute = String(currentTime.getMinutes()).padStart(2, "0");
     return `${hour}:${minute}`;
+  };
+
+  const handleTimeSelection = async () => {
+    let updatedTime = "00:00";
+    if (stationNumber === 1) {
+      updatedTime = firstTime;
+    } else if (stationNumber === 2) {
+      updatedTime = secondTime;
+    } else if (stationNumber === 3) {
+      updatedTime = thirdTime;
+    }
+
+    try {
+      // Update the corresponding state based on the server response
+      if (stationNumber === 1) {
+        const response = await axios.put(`${API_URL}/user/${user.id}/time1`, {
+          firsttime: updatedTime,
+        });
+
+        setFirstTime(response.data.firsttime);
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          firsttime: response.data.firsttime,
+        }));
+      } else if (stationNumber === 2) {
+        const response = await axios.put(`${API_URL}/user/${user.id}/time2`, {
+          secondtime: updatedTime,
+        });
+        setSecondTime(response.data.time);
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          secondtime: response.data.secondtime,
+        }));
+      } else if (stationNumber === 3) {
+        const response = await axios.put(`${API_URL}/user/${user.id}/time3`, {
+          thirdtime: updatedTime,
+        });
+        setThirdTime(response.data.time);
+        setUser((prevUser: User) => ({
+          ...prevUser,
+          thirdtime: response.data.thirdtime,
+        }));
+      }
+    } catch (error) {
+      console.error("Error updating time:", error);
+    }
+
+    setIsTimeModalOpen(false);
   };
 
   return (
@@ -234,7 +352,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleStationClick(1)}
           >
-            {firstSelectedStation}
+            {user.station1}
           </Text>
           <Text
             style={{
@@ -244,7 +362,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleTimeClick(1)}
           >
-            {firstTime}
+            {user.firsttime}
           </Text>
           {/* 첫번째 노선 */}
           <Box
@@ -263,7 +381,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleLineClick(false)}
           >
-            {firstSelectedLine}
+            {user.subwayNum1} 호선
           </Text>
           <Box
             style={{
@@ -291,7 +409,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleStationClick(2)}
           >
-            {secondSelectedStation}
+            {user.station2}
           </Text>
           <Text
             style={{
@@ -301,7 +419,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleTimeClick(2)}
           >
-            {secondTime}
+            {user.secondtime}
           </Text>
           {/* 두번쨰 노선 */}
           <Box
@@ -320,7 +438,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleLineClick(true)}
           >
-            {secondSelectedLine}
+            {user.subwayNum2} 호선
           </Text>
           <Box
             style={{
@@ -348,7 +466,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleStationClick(3)}
           >
-            {thirdSelectedStation}
+            {user.station3}
           </Text>
           <Text
             style={{
@@ -358,7 +476,7 @@ function EditMetroLine() {
             }}
             onClick={() => handleTimeClick(3)}
           >
-            {thirdTime}
+            {user.thirdtime}
           </Text>
         </Flex>
       </Flex>
@@ -434,7 +552,7 @@ function EditMetroLine() {
                   }
                 }}
               />
-              <Button onClick={handleCloseTimeModal}>확인</Button>
+              <Button onClick={handleTimeSelection}>확인</Button>
             </Flex>
           </ModalBody>
           <ModalFooter></ModalFooter>
